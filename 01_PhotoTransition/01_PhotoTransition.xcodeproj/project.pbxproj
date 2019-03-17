@@ -79,7 +79,8 @@
 		30E1C811223DE85200F469AC /* 01_PhotoTransition */ = {
 			isa = PBXGroup;
 			children = (
-				30E1C832223DE9F500F469AC /* Home */,
+				30E1C835223DFCE100F469AC /* Transition */,
+				30E1C836223DFD1700F469AC /* Scene */,
 				30E1C812223DE85200F469AC /* AppDelegate.swift */,
 				30E1C819223DE85900F469AC /* Assets.xcassets */,
 				30E1C81B223DE85900F469AC /* LaunchScreen.storyboard */,
@@ -105,6 +106,21 @@
 				30E1C833223DEA2800F469AC /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		30E1C835223DFCE100F469AC /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		30E1C836223DFD1700F469AC /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				30E1C832223DE9F500F469AC /* Home */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
