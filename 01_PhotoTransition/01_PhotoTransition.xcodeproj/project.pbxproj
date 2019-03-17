@@ -17,6 +17,7 @@
 		30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C837223DFFE000F469AC /* TransitionAnimator.swift */; };
 		30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */; };
 		30E1C83D223E387800F469AC /* SmoothTransitionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C83B223E387800F469AC /* SmoothTransitionViewController.xib */; };
+		30E1C83F223E4D6E00F469AC /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C83E223E4D6E00F469AC /* TransitionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		30E1C837223DFFE000F469AC /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionViewController.swift; sourceTree = "<group>"; };
 		30E1C83B223E387800F469AC /* SmoothTransitionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SmoothTransitionViewController.xib; sourceTree = "<group>"; };
+		30E1C83E223E4D6E00F469AC /* TransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				30E1C837223DFFE000F469AC /* TransitionAnimator.swift */,
+				30E1C83E223E4D6E00F469AC /* TransitionController.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E1C83F223E4D6E00F469AC /* TransitionController.swift in Sources */,
 				30E1C815223DE85200F469AC /* HomeViewController.swift in Sources */,
 				30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */,
 				30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */,
