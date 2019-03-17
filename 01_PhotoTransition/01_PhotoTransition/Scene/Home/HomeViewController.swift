@@ -17,7 +17,9 @@ class HomeViewController: UIViewController {
         tableView.dataSource = viewModle
         tableView.delegate = self
         setupUI()
-        viewModle.show = {[weak self] viewController in
+
+        // Binding
+        viewModle.outputs.show = {[weak self] viewController in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.navigationController?.show(viewController, sender: nil)
@@ -33,7 +35,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewModle.didSelectRow(at: indexPath)
+        viewModle.inputs.didSelectRow(at: indexPath)
     }
 }
 

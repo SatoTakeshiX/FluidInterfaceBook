@@ -12,8 +12,8 @@ protocol HomeViewModelInputs {
     func didSelectRow(at indexPath: IndexPath)
 }
 
-protocol HomeViewModelOutputs {
-    var show: ((UIViewController) -> ())? { get }
+protocol HomeViewModelOutputs: AnyObject {
+    var show: ((UIViewController) -> ())? { get set }
 }
 
 protocol HomeViewModelType {
@@ -23,11 +23,12 @@ protocol HomeViewModelType {
 }
 
 final class HomeViewModel: NSObject, HomeViewModelInputs, HomeViewModelOutputs, HomeViewModelType {
-
     private let identifier = "cell"
     let source: [CellType] = [.smoothTransition, .fluidTransition]
+
     var inputs: HomeViewModelInputs { return self }
     var outputs: HomeViewModelOutputs { return self }
+
     var show: ((UIViewController) -> ())?
 
     override init() {}
@@ -63,7 +64,7 @@ extension HomeViewModel: UITableViewDataSource {
     }
 }
 
-enum CellType: String, CaseIterable {
+enum CellType: String {
     case smoothTransition = "Smooth Transition"
     case fluidTransition = "Fluid Transition"
 }

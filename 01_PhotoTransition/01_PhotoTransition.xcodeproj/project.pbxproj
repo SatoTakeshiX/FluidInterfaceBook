@@ -14,6 +14,9 @@
 		30E1C81D223DE85900F469AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C81B223DE85900F469AC /* LaunchScreen.storyboard */; };
 		30E1C828223DE85900F469AC /* _1_PhotoTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C827223DE85900F469AC /* _1_PhotoTransitionTests.swift */; };
 		30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C833223DEA2800F469AC /* HomeViewModel.swift */; };
+		30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C837223DFFE000F469AC /* TransitionAnimator.swift */; };
+		30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */; };
+		30E1C83D223E387800F469AC /* SmoothTransitionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C83B223E387800F469AC /* SmoothTransitionViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		30E1C827223DE85900F469AC /* _1_PhotoTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _1_PhotoTransitionTests.swift; sourceTree = "<group>"; };
 		30E1C829223DE85900F469AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30E1C833223DEA2800F469AC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		30E1C837223DFFE000F469AC /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
+		30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionViewController.swift; sourceTree = "<group>"; };
+		30E1C83B223E387800F469AC /* SmoothTransitionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SmoothTransitionViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,7 @@
 		30E1C835223DFCE100F469AC /* Transition */ = {
 			isa = PBXGroup;
 			children = (
+				30E1C837223DFFE000F469AC /* TransitionAnimator.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -118,9 +125,19 @@
 		30E1C836223DFD1700F469AC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				30E1C839223E384900F469AC /* SmoothTransition */,
 				30E1C832223DE9F500F469AC /* Home */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		30E1C839223E384900F469AC /* SmoothTransition */ = {
+			isa = PBXGroup;
+			children = (
+				30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */,
+				30E1C83B223E387800F469AC /* SmoothTransitionViewController.xib */,
+			);
+			path = SmoothTransition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +224,7 @@
 				30E1C81D223DE85900F469AC /* LaunchScreen.storyboard in Resources */,
 				30E1C81A223DE85900F469AC /* Assets.xcassets in Resources */,
 				30E1C818223DE85200F469AC /* Main.storyboard in Resources */,
+				30E1C83D223E387800F469AC /* SmoothTransitionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +243,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				30E1C815223DE85200F469AC /* HomeViewController.swift in Sources */,
+				30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */,
 				30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */,
+				30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */,
 				30E1C813223DE85200F469AC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
