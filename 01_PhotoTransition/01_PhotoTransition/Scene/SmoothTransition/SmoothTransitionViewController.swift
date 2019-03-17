@@ -11,23 +11,32 @@ import UIKit
 class SmoothTransitionViewController: UIViewController {
 
     private let viewModel = SmoothTransitionViewModel()
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        binds()
         setupUI()
     }
 
-    
-    init() {
-        super.init(nibName: "SmoothTransitionViewController", bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     private func setupUI() {
-        
+        collectionView.dataSource = viewModel
+        collectionView.delegate = self
+    }
+
+    private func binds() {
+        viewModel.show = {[weak self] viewController in
+            guard let self = self else { return }
+            self.show(viewController, sender: nil)
+        }
+    }
+}
+
+extension SmoothTransitionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        viewModel.inputs.didSelectCell(at: indexPath)
+
     }
 }

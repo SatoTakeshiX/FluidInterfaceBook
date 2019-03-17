@@ -42,9 +42,8 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
     // MARK: Inputs
     func didSelectCell(at indexPath: IndexPath) {
         let image = imageList[indexPath.row]
-        // ditale view conへ行く
-        
-
+        let nextVC = SmoothTransitionDetailViewController(image: image)
+        show?(nextVC)
     }
 
     // MARK: Outputs

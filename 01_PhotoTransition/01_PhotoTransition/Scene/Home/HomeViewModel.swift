@@ -37,7 +37,7 @@ final class HomeViewModel: NSObject, HomeViewModelInputs, HomeViewModelOutputs, 
         let type = source[indexPath.row]
         switch type {
         case .smoothTransition:
-            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home")
+            guard let viewController = UIStoryboard(name: "SmoothTransitionViewController", bundle: nil).instantiateInitialViewController() as? SmoothTransitionViewController else { return }//SmoothTransitionViewController()
             show?(viewController)
         case .fluidTransition:
             show?(UIViewController())

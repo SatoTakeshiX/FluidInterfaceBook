@@ -1,5 +1,5 @@
 //
-//  SmoothTransitionDetailViewController.swift
+//  SmoothTransitionDetailDetailViewController.swift
 //  01_PhotoTransition
 //
 //  Created by satoutakeshi on 2019/03/18.
@@ -9,22 +9,27 @@
 import UIKit
 
 class SmoothTransitionDetailViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var imageView: UIImageView!
+
+    let viewModel: SmoothTransitionDetailViewModel
+
+    init(image: UIImage) {
+        self.viewModel = SmoothTransitionDetailViewModel(image: image)
+        super.init(nibName: "SmoothTransitionDetailViewController", bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupUI()
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupUI() {
+        imageView.image = viewModel.image
     }
-    */
 
 }

@@ -28,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Xhh-Oe-zAA" customClass="SmoothTrasitionCollectionViewCell" customModule="_1_PhotoTransition" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Xhh-Oe-zAA" customClass="SmoothTrasitionCollectionViewCell" customModule="_1_PhotoTransition" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="92" height="87"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -62,6 +62,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Fe-4Q-1hq"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="yhv-iF-3wP" id="wdT-6n-HgC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AeS-bh-SsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
