@@ -9,10 +9,9 @@
 import UIKit
 
 class SmoothTransitionViewController: UIViewController {
-    @IBOutlet weak var scrollView: UIScrollView!
 
-    @IBOutlet weak var imageView: UIImageView!
-    let image: UIImage
+    private let viewModel = SmoothTransitionViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,8 +19,7 @@ class SmoothTransitionViewController: UIViewController {
     }
 
     
-    init(image: UIImage) {
-        self.image = image
+    init() {
         super.init(nibName: "SmoothTransitionViewController", bundle: nil)
     }
 
@@ -30,6 +28,6 @@ class SmoothTransitionViewController: UIViewController {
     }
 
     private func setupUI() {
-        imageView.image = image
+        
     }
 }

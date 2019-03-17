@@ -19,7 +19,6 @@ protocol HomeViewModelOutputs: AnyObject {
 protocol HomeViewModelType {
     var inputs: HomeViewModelInputs { get }
     var outputs: HomeViewModelOutputs { get }
-
 }
 
 final class HomeViewModel: NSObject, HomeViewModelInputs, HomeViewModelOutputs, HomeViewModelType {

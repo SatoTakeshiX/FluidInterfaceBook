@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YBl-00-p8e">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Smooth Transition View Controller-->
+        <scene sceneID="pYk-x9-Tjy">
+            <objects>
+                <viewController id="YBl-00-p8e" customClass="SmoothTransitionViewController" customModule="_1_PhotoTransition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lFY-Vh-3ro">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yhv-iF-3wP">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uDJ-sJ-dpw">
+                                    <size key="itemSize" width="92" height="87"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Xhh-Oe-zAA" customClass="SmoothTrasitionCollectionViewCell" customModule="_1_PhotoTransition" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="92" height="87"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="92" height="87"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="cell" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="jWa-R4-Afm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="87"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="jWa-R4-Afm" firstAttribute="top" secondItem="Xhh-Oe-zAA" secondAttribute="top" id="FnT-cV-zIv"/>
+                                            <constraint firstItem="jWa-R4-Afm" firstAttribute="leading" secondItem="Xhh-Oe-zAA" secondAttribute="leading" id="UmA-Ub-Qka"/>
+                                            <constraint firstAttribute="bottom" secondItem="jWa-R4-Afm" secondAttribute="bottom" id="Vpz-IO-cbN"/>
+                                            <constraint firstAttribute="trailing" secondItem="jWa-R4-Afm" secondAttribute="trailing" id="gR1-jp-5ZW"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="jWa-R4-Afm" id="WPe-7i-aiF"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yhv-iF-3wP" firstAttribute="top" secondItem="2Fe-4Q-1hq" secondAttribute="top" id="7Rf-5l-5Ns"/>
+                            <constraint firstItem="2Fe-4Q-1hq" firstAttribute="bottom" secondItem="yhv-iF-3wP" secondAttribute="bottom" id="MVu-Wl-Hi9"/>
+                            <constraint firstItem="yhv-iF-3wP" firstAttribute="leading" secondItem="2Fe-4Q-1hq" secondAttribute="leading" id="crU-yS-7VI"/>
+                            <constraint firstItem="2Fe-4Q-1hq" firstAttribute="trailing" secondItem="yhv-iF-3wP" secondAttribute="trailing" id="fbP-VJ-8tC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2Fe-4Q-1hq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AeS-bh-SsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-39.200000000000003" y="79.610194902548727"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="1" width="512" height="512"/>
+    </resources>
+</document>

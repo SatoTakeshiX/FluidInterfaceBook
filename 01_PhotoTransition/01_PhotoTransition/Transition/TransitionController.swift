@@ -34,7 +34,7 @@ extension TransitionController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         //self.animator.isPresenting = false
         let tmp = fromDelegate
-        animator.fromDelegate = self.toDelegate
+        animator.fromDelegate = toDelegate
         animator.toDelegate = tmp
         return animator
     }
@@ -59,8 +59,8 @@ extension TransitionController: UINavigationControllerDelegate {
             animator.toDelegate = toDelegate
         case .none, .pop:
             animator.dismiss()
-            let tmp = self.fromDelegate
-            animator.fromDelegate = self.toDelegate
+            let tmp = fromDelegate
+            animator.fromDelegate = toDelegate
             animator.toDelegate = tmp
         }
         return self.animator
