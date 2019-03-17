@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmoothTransitionViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmoothTransitionViewController" customModule="_1_PhotoTransition" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="teq-hy-Euq" id="3wS-2M-jT2"/>
+                <outlet property="scrollView" destination="1dI-OE-V6x" id="zu0-Qg-yn8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,8 +21,47 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dI-OE-V6x">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="teq-hy-Euq">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="128" id="5aJ-ke-pog"/>
+                                <constraint firstAttribute="width" constant="240" id="zyB-1u-wD4"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="5aJ-ke-pog"/>
+                                    <exclude reference="zyB-1u-wD4"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="teq-hy-Euq" firstAttribute="top" secondItem="1dI-OE-V6x" secondAttribute="top" id="WHo-OB-zOr"/>
+                        <constraint firstAttribute="trailing" secondItem="teq-hy-Euq" secondAttribute="trailing" id="coS-Zj-3XI"/>
+                        <constraint firstItem="teq-hy-Euq" firstAttribute="leading" secondItem="1dI-OE-V6x" secondAttribute="leading" id="gX1-9r-dge"/>
+                        <constraint firstItem="teq-hy-Euq" firstAttribute="height" secondItem="1dI-OE-V6x" secondAttribute="height" id="vqy-dX-imF"/>
+                        <constraint firstAttribute="bottom" secondItem="teq-hy-Euq" secondAttribute="bottom" id="xwN-8k-zeZ"/>
+                        <constraint firstItem="teq-hy-Euq" firstAttribute="width" secondItem="1dI-OE-V6x" secondAttribute="width" id="zCs-uP-bnY"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1dI-OE-V6x" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1cV-g2-nMn"/>
+                <constraint firstItem="1dI-OE-V6x" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="L6P-9P-qY0"/>
+                <constraint firstItem="1dI-OE-V6x" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Qla-mv-hX1"/>
+                <constraint firstItem="1dI-OE-V6x" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="naG-EQ-aSh"/>
+                <constraint firstItem="1dI-OE-V6x" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zeY-36-UfW"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="139.880059970015"/>
         </view>
     </objects>
+    <resources>
+        <image name="1" width="512" height="512"/>
+    </resources>
 </document>
