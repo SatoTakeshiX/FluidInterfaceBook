@@ -30,7 +30,6 @@ class SmoothTransitionDetailViewController: UIViewController {
 
     private func setupUI() {
         imageView.image = viewModel.image
-        scrollView.contentInsetAdjustmentBehavior = .never
     }
 
 }
