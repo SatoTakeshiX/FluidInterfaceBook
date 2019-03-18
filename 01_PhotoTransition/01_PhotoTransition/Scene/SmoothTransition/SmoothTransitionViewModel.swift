@@ -10,10 +10,15 @@ import UIKit
 
 protocol SmoothTransitionViewModelInputs {
     func didSelectCell(at indexPath: IndexPath)
+    var transitionController: TransitionController { get }
 }
 
 protocol SmoothTransitionViewModelOutputs: AnyObject {
-    var show: ((UIViewController) -> ())? { get set }
+    var show: ((SmoothTransitionDetailViewController) -> ())? { get set }
+    var transitionController: TransitionController { get }
+    var selectedIndexPath: IndexPath? { get }
+    func imageViewOfTransitioning(collectionView: UICollectionView) -> UIImageView?
+    func imageViewFrameOfTransitioning(collectionView: UICollectionView) -> CGRect?
 }
 
 protocol SmoothTransitionViewModelType {
@@ -27,8 +32,25 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
     var inputs: SmoothTransitionViewModelInputs { return self }
     var outputs: SmoothTransitionViewModelOutputs { return self }
 
-    let imageList: [UIImage] = [
+    private let imageList: [UIImage] = [
         #imageLiteral(resourceName: "1"),
+        #imageLiteral(resourceName: "2"),
+        #imageLiteral(resourceName: "3"),
+        #imageLiteral(resourceName: "7"),
+        #imageLiteral(resourceName: "8"),
+        #imageLiteral(resourceName: "5"),
+        #imageLiteral(resourceName: "6"),
+        #imageLiteral(resourceName: "4"),
+        #imageLiteral(resourceName: "9"),
+        #imageLiteral(resourceName: "1"),
+        #imageLiteral(resourceName: "2"),
+        #imageLiteral(resourceName: "3"),
+        #imageLiteral(resourceName: "7"),
+        #imageLiteral(resourceName: "8"),
+        #imageLiteral(resourceName: "5"),
+        #imageLiteral(resourceName: "6"),
+        #imageLiteral(resourceName: "4"),
+        #imageLiteral(resourceName: "9"),
         #imageLiteral(resourceName: "2"),
         #imageLiteral(resourceName: "3"),
         #imageLiteral(resourceName: "7"),
@@ -39,18 +61,39 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
         #imageLiteral(resourceName: "9")
     ]
 
+    // MARK: Inputs and Outputs
+    let transitionController = TransitionController()
+
     // MARK: Inputs
+    private(set) var selectedIndexPath: IndexPath?
+
     func didSelectCell(at indexPath: IndexPath) {
         let image = imageList[indexPath.row]
         let nextVC = SmoothTransitionDetailViewController(image: image)
+        selectedIndexPath = indexPath
         show?(nextVC)
     }
 
     // MARK: Outputs
-    var show: ((UIViewController) -> ())?
+    var show: ((SmoothTransitionDetailViewController) -> ())?
+
+    func imageViewOfTransitioning(collectionView: UICollectionView) -> UIImageView? {
+        return getSelectedCell(for: collectionView)?.imageView
+    }
+
+    func imageViewFrameOfTransitioning(collectionView: UICollectionView) -> CGRect? {
+        return getSelectedCell(for: collectionView)?.frame
+    }
+
+    private func getSelectedCell(for collectionView: UICollectionView) -> SmoothTrasitionCollectionViewCell? {
+        guard let indexPath = selectedIndexPath else { return nil }
+        //選択したcellを取り出す
+        guard let selectedCell = collectionView.cellForItem(at: indexPath) as? SmoothTrasitionCollectionViewCell else {
+            return nil
+        }
+        return selectedCell
+    }
 }
-
-
 
 extension SmoothTransitionViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

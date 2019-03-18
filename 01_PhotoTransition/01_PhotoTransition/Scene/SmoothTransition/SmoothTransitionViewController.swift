@@ -27,6 +27,10 @@ class SmoothTransitionViewController: UIViewController {
     private func binds() {
         viewModel.show = {[weak self] viewController in
             guard let self = self else { return }
+            // TODO: Animatorを入れる
+            self.navigationController?.delegate = self.viewModel.outputs.transitionController
+            self.viewModel.inputs.transitionController.fromDelegate = self
+            self.viewModel.inputs.transitionController.toDelegate = viewController
             self.show(viewController, sender: nil)
         }
     }
@@ -34,9 +38,40 @@ class SmoothTransitionViewController: UIViewController {
 
 extension SmoothTransitionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
 
+        collectionView.deselectItem(at: indexPath, animated: true)
         viewModel.inputs.didSelectCell(at: indexPath)
+    }
+}
+
+extension SmoothTransitionViewController: TransitionAnimatorDelegate {
+    func transitionWillStart(in zoomAnimator: TransitionAnimator) {
 
     }
+
+    func transitionDidEnd(in zoomAnimator: TransitionAnimator) {
+
+        // 選択したcellフレーム
+        let cellFrame = collectionView.convert(viewModel.outputs.imageViewFrameOfTransitioning(collectionView: collectionView!)!, to: self.view)
+
+        // セルがコレクションビューの下だったら
+        if cellFrame.minY < self.collectionView.contentInset.top {
+            // collectionViewをスクロールして上に上げる
+            self.collectionView.scrollToItem(at: viewModel.outputs.selectedIndexPath!, at: .top, animated: false)
+
+        } else if cellFrame.maxY > self.view.frame.height - self.collectionView.contentInset.bottom {
+            // cellの下の点がviewよりも下だったらcollectionを下までスクロール
+            self.collectionView.scrollToItem(at: viewModel.outputs.selectedIndexPath!, at: .bottom, animated: false)
+        }
+    }
+
+    func imageViewOfTransitioning(in zoomAnimator: TransitionAnimator) -> UIImageView? {
+        return viewModel.outputs.imageViewOfTransitioning(collectionView: collectionView)
+    }
+
+    func imageViewFrameOfTransitioning(in zoomAnimator: TransitionAnimator) -> CGRect? {
+        return viewModel.outputs.imageViewFrameOfTransitioning(collectionView: collectionView)
+    }
+
+
 }

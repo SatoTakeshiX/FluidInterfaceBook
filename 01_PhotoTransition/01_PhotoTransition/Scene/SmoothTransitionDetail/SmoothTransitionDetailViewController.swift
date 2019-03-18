@@ -33,3 +33,23 @@ class SmoothTransitionDetailViewController: UIViewController {
     }
 
 }
+
+extension SmoothTransitionDetailViewController: TransitionAnimatorDelegate {
+    func transitionWillStart(in zoomAnimator: TransitionAnimator) {
+
+    }
+
+    func transitionDidEnd(in zoomAnimator: TransitionAnimator) {
+
+    }
+
+    func imageViewOfTransitioning(in zoomAnimator: TransitionAnimator) -> UIImageView? {
+        return imageView
+    }
+
+    func imageViewFrameOfTransitioning(in zoomAnimator: TransitionAnimator) -> CGRect? {
+        return scrollView.convert(imageView.frame, to: view)
+    }
+
+
+}

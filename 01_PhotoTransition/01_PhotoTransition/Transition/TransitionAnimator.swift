@@ -116,7 +116,7 @@ final class TransitionAnimator: NSObject {
                         guard let self = self else { return }
                         fromVC.view.alpha = 0
                         self.transitionImageView?.frame = finalTransitionSize
-                        toVC.tabBarController?.tabBar.alpha = 1
+                        //toVC.tabBarController?.tabBar.alpha = 1
         }, completion: {[weak self] completed in
             guard let self = self else { return }
             self.finishTransition(transitionContext: transitionContext, to: toReferenceImageView, fromImageView: fromImageView)

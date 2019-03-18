@@ -68,9 +68,9 @@ extension TransitionController: UINavigationControllerDelegate {
 
 //    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 //
-//        if !self.isInteractive {
-//            return nil
-//        }
+////        if !self.isInteractive {
+////            return nil
+////        }
 //
 //        self.interactionController.animator = animator
 //        return self.interactionController
