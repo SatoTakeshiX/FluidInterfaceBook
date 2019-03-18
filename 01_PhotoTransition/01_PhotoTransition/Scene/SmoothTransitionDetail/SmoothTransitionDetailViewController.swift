@@ -48,7 +48,16 @@ extension SmoothTransitionDetailViewController: TransitionAnimatorDelegate {
     }
 
     func imageViewFrameOfTransitioning(in zoomAnimator: TransitionAnimator) -> CGRect? {
-        return scrollView.convert(imageView.frame, to: view)
+
+        // imageViewのframeではなくて、imageの表示rectが必要。
+        // imageは中心に表示している前提。
+        // あ、zoomするときどうなんだ？
+        // いいや、今は
+        let imageSize = imageView.image!.size
+        let fromRect = CGRect(origin: CGPoint(x: imageView.frame.maxY/2, y: imageView.frame.maxY/2), size: imageSize)
+        let xpoint: CGFloat = 0.0
+        let ypoint = (imageView.bounds.maxY - imageSize.height) / 2
+        return CGRect(x: xpoint, y: ypoint, width: imageSize.width, height: imageSize.height)
     }
 
 

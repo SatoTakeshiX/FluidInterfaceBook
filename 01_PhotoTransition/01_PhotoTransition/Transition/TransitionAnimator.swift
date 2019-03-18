@@ -41,8 +41,8 @@ final class TransitionAnimator: NSObject {
 
         let containerView = transitionContext.containerView
 
-        guard let toVC = transitionContext.viewController(forKey: .to),
-            let fromVC = transitionContext.viewController(forKey: .from),
+        guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
+            //let fromVC = transitionContext.viewController(forKey: .from),
             let fromImageView = fromDelegate?.imageViewOfTransitioning(in: self),
             let toImageView = toDelegate?.imageViewOfTransitioning(in: self),
             let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(in: self)
@@ -58,11 +58,12 @@ final class TransitionAnimator: NSObject {
         containerView.addSubview(toVC.view)
 
         transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: fromReferenceImageViewFrame)
+        containerView.addSubview(transitionImageView!)
 
         fromImageView.isHidden = true
 
         // TODO: !を使ったので後でアンラップする
-        let finishImageRect = makeZoomInFrame(image: fromImageView.image!, forView: toVC.view)
+        let finishImageRect = makeZoomInFrame(image: fromImageView.image!, forView: toVC.scrollView)
 
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
@@ -74,7 +75,7 @@ final class TransitionAnimator: NSObject {
                         guard let self = self else { return }
                         self.transitionImageView?.frame = finishImageRect
                         toVC.view.alpha = 1.0
-                        fromVC.tabBarController?.tabBar.alpha = 0
+                        //fromVC.tabBarController?.tabBar.alpha = 0
         }, completion: {[weak self] completed in
             guard let self = self else { return }
             self.finishTransition(transitionContext: transitionContext, to: toImageView, fromImageView: fromImageView)
@@ -90,9 +91,9 @@ final class TransitionAnimator: NSObject {
         guard let toVC = transitionContext.viewController(forKey: .to),
             let fromVC = transitionContext.viewController(forKey: .from),
             let fromImageView = self.fromDelegate?.imageViewOfTransitioning(in: self),
-            let toReferenceImageView = self.toDelegate?.imageViewOfTransitioning(in: self),
+            let toImageView = self.toDelegate?.imageViewOfTransitioning(in: self),
             let fromImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(in: self),
-            let toReferenceImageViewFrame = self.toDelegate?.imageViewFrameOfTransitioning(in: self)
+            let toImageViewFrame = self.toDelegate?.imageViewFrameOfTransitioning(in: self)
             else {
                 return
         }
@@ -100,14 +101,15 @@ final class TransitionAnimator: NSObject {
         fromDelegate?.transitionWillStart(in: self)
         toDelegate?.transitionWillStart(in: self)
 
-        toReferenceImageView.isHidden = true
+        toImageView.isHidden = true
 
         transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: fromImageViewFrame)
+        containerView.addSubview(transitionImageView!)
 
         containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
         fromImageView.isHidden = true
 
-        let finalTransitionSize = toReferenceImageViewFrame
+        let finalTransitionSize = toImageViewFrame // 酒井さんアドバイス。遷移するときにframeを保持して次のVCにわたす。戻るときにそのフレームを使う。
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -119,7 +121,12 @@ final class TransitionAnimator: NSObject {
                         //toVC.tabBarController?.tabBar.alpha = 1
         }, completion: {[weak self] completed in
             guard let self = self else { return }
-            self.finishTransition(transitionContext: transitionContext, to: toReferenceImageView, fromImageView: fromImageView)
+            self.transitionImageView!.removeFromSuperview()
+            toImageView.isHidden = false
+            fromImageView.isHidden = false
+            self.finishTransition(transitionContext: transitionContext, to: toImageView, fromImageView: fromImageView)
+            self.toDelegate?.transitionDidEnd(in: self)
+            self.fromDelegate?.transitionDidEnd(in: self)
         })
     }
 
@@ -156,7 +163,7 @@ final class TransitionAnimator: NSObject {
         if touchesSides {
             let height = view.frame.width / imageRatio
             let yPoint = view.frame.minY + (view.frame.height - height) / 2
-            return CGRect(x: 0, y: yPoint, width: view.frame.width, height: height)
+            return CGRect(x: 0, y: yPoint + 22, width: view.frame.width, height: height)
         } else {
             let width = view.frame.height * imageRatio
             let xPoint = view.frame.minX + (view.frame.width - width) / 2

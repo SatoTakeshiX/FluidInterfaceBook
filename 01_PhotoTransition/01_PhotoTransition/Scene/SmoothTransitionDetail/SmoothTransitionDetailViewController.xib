@@ -41,7 +41,6 @@
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="FRk-ID-XgW" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="9Ao-Yb-LXh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="XNl-g7-w8r" secondAttribute="top" id="ACe-1P-79l"/>
                 <constraint firstItem="XNl-g7-w8r" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Oic-gT-Dni"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XNl-g7-w8r" secondAttribute="trailing" id="Zif-ID-Wow"/>
