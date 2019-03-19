@@ -28,9 +28,9 @@ class SmoothTransitionViewController: UIViewController {
         viewModel.show = {[weak self] viewController in
             guard let self = self else { return }
             // TODO: Animatorを入れる
-//            self.navigationController?.delegate = self.viewModel.outputs.transitionController
-//            self.viewModel.inputs.transitionController.fromDelegate = self
-//            self.viewModel.inputs.transitionController.toDelegate = viewController
+            self.navigationController?.delegate = self.viewModel.outputs.transitionController
+            self.viewModel.inputs.transitionController.fromDelegate = self
+            self.viewModel.inputs.transitionController.toDelegate = viewController
             self.show(viewController, sender: nil)
         }
     }
