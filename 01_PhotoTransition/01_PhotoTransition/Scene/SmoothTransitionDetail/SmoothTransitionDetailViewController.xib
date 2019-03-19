@@ -30,22 +30,21 @@
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="FRk-ID-XgW" firstAttribute="top" secondItem="XNl-g7-w8r" secondAttribute="top" id="0yG-J8-bvp"/>
-                        <constraint firstAttribute="bottom" secondItem="FRk-ID-XgW" secondAttribute="bottom" id="HYZ-Rf-6JT"/>
-                        <constraint firstAttribute="trailing" secondItem="FRk-ID-XgW" secondAttribute="trailing" id="ZrM-3V-Q2Y"/>
-                        <constraint firstItem="FRk-ID-XgW" firstAttribute="width" secondItem="XNl-g7-w8r" secondAttribute="width" id="kMN-d2-yO1"/>
-                        <constraint firstItem="FRk-ID-XgW" firstAttribute="leading" secondItem="XNl-g7-w8r" secondAttribute="leading" id="nXX-VW-bDZ"/>
-                        <constraint firstItem="FRk-ID-XgW" firstAttribute="height" secondItem="XNl-g7-w8r" secondAttribute="height" id="oTX-Md-gLO"/>
+                        <constraint firstItem="FRk-ID-XgW" firstAttribute="leading" secondItem="XNl-g7-w8r" secondAttribute="leading" id="0FK-uk-RUw"/>
+                        <constraint firstItem="FRk-ID-XgW" firstAttribute="height" secondItem="XNl-g7-w8r" secondAttribute="height" id="6Sc-Hk-jYi"/>
+                        <constraint firstItem="FRk-ID-XgW" firstAttribute="top" secondItem="XNl-g7-w8r" secondAttribute="top" id="CWX-O3-mRC"/>
+                        <constraint firstAttribute="trailing" secondItem="FRk-ID-XgW" secondAttribute="trailing" id="Ed9-iL-cDr"/>
+                        <constraint firstItem="FRk-ID-XgW" firstAttribute="width" secondItem="XNl-g7-w8r" secondAttribute="width" id="HgC-Ii-cHh"/>
+                        <constraint firstAttribute="bottom" secondItem="FRk-ID-XgW" secondAttribute="bottom" id="zcu-gB-B8Y"/>
                     </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="XNl-g7-w8r" secondAttribute="top" id="ACe-1P-79l"/>
-                <constraint firstItem="XNl-g7-w8r" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Oic-gT-Dni"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XNl-g7-w8r" secondAttribute="trailing" id="Zif-ID-Wow"/>
-                <constraint firstItem="XNl-g7-w8r" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="hAF-hp-6kd"/>
-                <constraint firstAttribute="bottom" secondItem="XNl-g7-w8r" secondAttribute="bottom" id="sqN-LN-ixa"/>
+                <constraint firstItem="XNl-g7-w8r" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4Y1-3h-tOn"/>
+                <constraint firstItem="XNl-g7-w8r" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="HfR-Hf-ZY6"/>
+                <constraint firstItem="XNl-g7-w8r" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Lb0-ga-WxF"/>
+                <constraint firstItem="XNl-g7-w8r" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="vFC-RT-MVd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
