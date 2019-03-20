@@ -105,6 +105,7 @@ final class TransitionAnimator: NSObject {
 
         transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: fromImageViewFrame)
         containerView.addSubview(transitionImageView!)
+        transitionImageView?.contentMode = .scaleAspectFit
 
         containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
         fromImageView.isHidden = true
