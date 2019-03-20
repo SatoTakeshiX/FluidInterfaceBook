@@ -82,6 +82,8 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
     }
 
     func imageViewFrameOfTransitioning(collectionView: UICollectionView) -> CGRect? {
+        guard let cell = getSelectedCell(for: collectionView) else { return nil }
+        let rect = collectionView.convert(collectionView.frame, to: cell)
         return getSelectedCell(for: collectionView)?.frame
     }
 

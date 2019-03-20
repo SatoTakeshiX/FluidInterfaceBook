@@ -109,7 +109,7 @@ final class TransitionAnimator: NSObject {
         containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
         fromImageView.isHidden = true
 
-        let finalTransitionSize = toImageViewFrame // 酒井さんアドバイス。遷移するときにframeを保持して次のVCにわたす。戻るときにそのフレームを使う。
+        let finalTransitionSize = makeDissmissToImageRect(to: toVC, from: fromVC, toImageFrame: toImageViewFrame)// toImageViewFrame // 酒井さんアドバイス。遷移するときにframeを保持して次のVCにわたす。戻るときにそのフレームを使う。
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -128,6 +128,17 @@ final class TransitionAnimator: NSObject {
             self.toDelegate?.transitionDidEnd(in: self)
             self.fromDelegate?.transitionDidEnd(in: self)
         })
+    }
+
+    private func makeDissmissToImageRect(to toViewController: UIViewController, from fromViewController: UIViewController, toImageFrame: CGRect) -> CGRect {
+        guard let subView = toViewController.view.subviews.first else {
+            return CGRect()
+
+        }
+
+        let rect = fromViewController.view.convert(toImageFrame, from: subView)
+
+        return rect
     }
 
     private func makeImageViewIfNeeded(origin imageView: UIImageView?, image: UIImage?, frame: CGRect) -> UIImageView {
