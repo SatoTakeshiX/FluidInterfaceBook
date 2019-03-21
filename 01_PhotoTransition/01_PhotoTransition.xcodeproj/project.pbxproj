@@ -23,6 +23,7 @@
 		30E1C84B223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */; };
 		30E1C84C223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C84A223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib */; };
 		30E1C84F223ED20000F469AC /* SmoothTransitionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C84E223ED20000F469AC /* SmoothTransitionDetailViewModel.swift */; };
+		30EB186322430595006AD70F /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB186222430595006AD70F /* InteractiveTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SmoothTransitionDetailViewController.swift; path = 01_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		30E1C84A223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SmoothTransitionDetailViewController.xib; path = 01_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.xib; sourceTree = SOURCE_ROOT; };
 		30E1C84E223ED20000F469AC /* SmoothTransitionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionDetailViewModel.swift; sourceTree = "<group>"; };
+		30EB186222430595006AD70F /* InteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			children = (
 				30E1C837223DFFE000F469AC /* TransitionAnimator.swift */,
 				30E1C83E223E4D6E00F469AC /* TransitionController.swift */,
+				30EB186222430595006AD70F /* InteractiveTransition.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */,
 				30E1C84B223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift in Sources */,
 				30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */,
+				30EB186322430595006AD70F /* InteractiveTransition.swift in Sources */,
 				30E1C843223E8EC500F469AC /* SmoothTransitionViewModel.swift in Sources */,
 				30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */,
 				30E1C813223DE85200F469AC /* AppDelegate.swift in Sources */,

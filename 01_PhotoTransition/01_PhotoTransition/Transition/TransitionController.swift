@@ -76,4 +76,13 @@ extension TransitionController: UINavigationControllerDelegate {
 //        return self.interactionController
 //    }
 
+
+}
+
+// これをどこに実装するのか。
+// コメントアウトでinteractivieがオフになるのが理想。そうするとデリゲートもここで実装するのがいいかな？
+extension TransitionController: UIViewControllerInteractiveTransitioning {
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        //startInteractiveTransition?(transitionContext)
+    }
 }
