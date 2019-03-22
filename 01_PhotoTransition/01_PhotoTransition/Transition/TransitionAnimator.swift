@@ -11,8 +11,8 @@ import UIKit
 protocol TransitionAnimatorDelegate: AnyObject {
     func transitionWillStart(in zoomAnimator: TransitionAnimator)
     func transitionDidEnd(in zoomAnimator: TransitionAnimator)
-    func imageViewOfTransitioning(in zoomAnimator: TransitionAnimator) -> UIImageView?
-    func imageViewFrameOfTransitioning(in zoomAnimator: TransitionAnimator) -> CGRect?
+    func imageViewOfTransitioning() -> UIImageView?
+    func imageViewFrameOfTransitioning() -> CGRect?
 }
 
 final class TransitionAnimator: NSObject {
@@ -43,9 +43,9 @@ final class TransitionAnimator: NSObject {
 
         guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
             //let fromVC = transitionContext.viewController(forKey: .from),
-            let fromImageView = fromDelegate?.imageViewOfTransitioning(in: self),
-            let toImageView = toDelegate?.imageViewOfTransitioning(in: self),
-            let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(in: self)
+            let fromImageView = fromDelegate?.imageViewOfTransitioning(),
+            let toImageView = toDelegate?.imageViewOfTransitioning(),
+            let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning()
             else {
                 return
         }
@@ -90,10 +90,10 @@ final class TransitionAnimator: NSObject {
 
         guard let toVC = transitionContext.viewController(forKey: .to),
             let fromVC = transitionContext.viewController(forKey: .from),
-            let fromImageView = self.fromDelegate?.imageViewOfTransitioning(in: self),
-            let toImageView = self.toDelegate?.imageViewOfTransitioning(in: self),
-            let fromImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(in: self),
-            let toImageViewFrame = self.toDelegate?.imageViewFrameOfTransitioning(in: self)
+            let fromImageView = self.fromDelegate?.imageViewOfTransitioning(),
+            let toImageView = self.toDelegate?.imageViewOfTransitioning(),
+            let fromImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(),
+            let toImageViewFrame = self.toDelegate?.imageViewFrameOfTransitioning()
             else {
                 return
         }

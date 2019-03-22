@@ -73,11 +73,11 @@ extension SmoothTransitionDetailViewController: TransitionAnimatorDelegate {
 
     }
 
-    func imageViewOfTransitioning(in zoomAnimator: TransitionAnimator) -> UIImageView? {
+    func imageViewOfTransitioning() -> UIImageView? {
         return imageView
     }
 
-    func imageViewFrameOfTransitioning(in zoomAnimator: TransitionAnimator) -> CGRect? {
+    func imageViewFrameOfTransitioning() -> CGRect? {
         return viewModel.outputs.imageViewFrameOfTransitioning(in: view, naviBar: navigationController?.navigationBar)
     }
 }
