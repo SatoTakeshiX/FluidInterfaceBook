@@ -12,6 +12,8 @@ final class TransitionController: NSObject {
     let animator: TransitionAnimator
 //    let interactionController: ZoomDismissalInteractionController
 //    var isInteractive: Bool = false
+    // contexを保持する
+    var transitionContext: UIViewControllerContextTransitioning?
 
     weak var fromDelegate: TransitionAnimatorDelegate?
     weak var toDelegate: TransitionAnimatorDelegate?
@@ -66,15 +68,10 @@ extension TransitionController: UINavigationControllerDelegate {
         return self.animator
     }
 
-//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//
-////        if !self.isInteractive {
-////            return nil
-////        }
-//
-//        self.interactionController.animator = animator
-//        return self.interactionController
-//    }
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+
+        return self
+    }
 
 
 }
@@ -84,5 +81,39 @@ extension TransitionController: UINavigationControllerDelegate {
 extension TransitionController: UIViewControllerInteractiveTransitioning {
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         //startInteractiveTransition?(transitionContext)
+
+        // contextを保持する　transition controller にバインディングして通知する
+        self.transitionContext = transitionContext
+        // コンテナviewを作る
+        let containerView = transitionContext.containerView
+
+        guard let data = TransitionDatasource(context: transitionContext, animator: animator) else {
+            return
+        }
+//        guard let animator = self.animator as? ZoomAnimator,
+//            let fromVC = transitionContext.viewController(forKey: .from),
+//            let toVC = transitionContext.viewController(forKey: .to),
+//            let fromReferenceImageViewFrame = animator.fromDelegate?.referenceImageViewFrameInTransitioningView(for: animator),
+//            let toReferenceImageViewFrame = animator.toDelegate?.referenceImageViewFrameInTransitioningView(for: animator),
+//            let fromReferenceImageView = animator.fromDelegate?.referenceImageView(for: animator)
+//            else {
+//                return
+//        }
+
+        // animatorに通知
+        animator.fromDelegate?.transitionWillStart(in: animator)
+        animator.toDelegate?.transitionWillStart(in: animator)
+        // refarenceを更新。
+
+        containerView.insertSubview(data.toViewController.view, belowSubview: data.fromViewController.view)
+
+        if animator.transitionImageView == nil {
+            let transitionImageView = UIImageView(image: data.fromImageView.image)
+            transitionImageView.contentMode = .scaleAspectFill
+            transitionImageView.clipsToBounds = true
+            transitionImageView.frame = data.fromImageViewFrame
+            animator.transitionImageView = transitionImageView
+            containerView.addSubview(transitionImageView)
+        }
     }
 }
