@@ -15,6 +15,7 @@ protocol SmoothTransitionDetailViewModelInputs {
 
 protocol SmoothTransitionDetailViewModelOutputs: AnyObject {
     func imageViewFrameOfTransitioning(in view: UIView, naviBar: UINavigationBar?) -> CGRect
+    var beganGesture: (() -> ())? { get }
 }
 
 protocol SmoothTransitionDetailViewModelType {
@@ -26,11 +27,44 @@ final class SmoothTransitionDetailViewModel: NSObject,
     SmoothTransitionDetailViewModelInputs,
     SmoothTransitionDetailViewModelOutputs,
 SmoothTransitionDetailViewModelType {
+
     let transitionController: TransitionController
 
     // TODO: 実装する
     func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
 
+        switch gestureRecognizer.state {
+        case .began:
+            //スクロールをとめる
+            //scrollView.isScrollEnabled = false
+            // navigationControllerで元の画面に戻る指定をしてしまう
+            //let _ = navigationController?.popViewController(animated: true)
+            transitionController.gestureManager.allowInteraction = true
+            beganGesture?()
+
+            transitionController
+                .gestureManager
+                .didPanGesture(with: gestureRecognizer,
+                               contextTransitioning: transitionController.transitionContext,
+                               animator: transitionController.animator)
+        case .ended:
+            //scrollView.isScrollEnabled = true
+            //viewModel.inputs.didPan(with: gestureRecognizer)
+            transitionController.gestureManager.allowInteraction = false
+            transitionController
+                .gestureManager
+                .didPanGesture(with: gestureRecognizer,
+                               contextTransitioning: transitionController.transitionContext,
+                               animator: transitionController.animator)
+        case .cancelled, .changed, .failed, .possible:
+            //viewModel.inputs.didPan(with: gestureRecognizer)
+            transitionController
+                .gestureManager
+                .didPanGesture(with: gestureRecognizer,
+                               contextTransitioning: transitionController.transitionContext,
+                               animator: transitionController.animator)
+            break
+        }
     }
 
     func imageViewFrameOfTransitioning(in view: UIView, naviBar: UINavigationBar?) -> CGRect {
@@ -58,4 +92,7 @@ SmoothTransitionDetailViewModelType {
         self.image = image
         self.transitionController = transitionController
     }
+
+    // outputs
+    var beganGesture: (() -> ())?
 }

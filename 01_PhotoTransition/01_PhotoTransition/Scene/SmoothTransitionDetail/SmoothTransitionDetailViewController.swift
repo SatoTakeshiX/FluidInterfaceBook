@@ -39,19 +39,8 @@ class SmoothTransitionDetailViewController: UIViewController {
     }
 
     @objc private func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
-        switch gestureRecognizer.state {
-        case .began:
-            //スクロールをとめる
-            scrollView.isScrollEnabled = false
-            // navigationControllerで元の画面に戻る指定をしてしまう
-            let _ = navigationController?.popViewController(animated: true)
-        case .ended:
-            scrollView.isScrollEnabled = true
-            viewModel.inputs.didPan(with: gestureRecognizer)
 
-        default:
-            viewModel.inputs.didPan(with: gestureRecognizer)
-        }
+        viewModel.inputs.didPan(with: gestureRecognizer)
     }
 
     func setupGesture() {

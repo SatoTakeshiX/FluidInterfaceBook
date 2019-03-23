@@ -20,8 +20,9 @@ final class GestureManager: NSObject {
     override init() {}
 
     func didPanGesture(with panGesture: UIPanGestureRecognizer,
-                       contextTransitioning: UIViewControllerContextTransitioning,
+                       contextTransitioning: UIViewControllerContextTransitioning?,
                        animator: TransitionAnimator) {
+        guard let contextTransitioning = contextTransitioning else { return }
 
         // いろいろ取り出す
         guard let data =  TransitionDatasource(context: contextTransitioning, animator: animator) else {
