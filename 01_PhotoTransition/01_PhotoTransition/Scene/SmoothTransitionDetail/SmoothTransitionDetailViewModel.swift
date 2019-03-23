@@ -9,6 +9,8 @@
 import UIKit
 
 protocol SmoothTransitionDetailViewModelInputs {
+    func didPan(with gestureRecognizer: UIPanGestureRecognizer)
+    var transitionController: TransitionController { get }
 }
 
 protocol SmoothTransitionDetailViewModelOutputs: AnyObject {
@@ -21,9 +23,15 @@ protocol SmoothTransitionDetailViewModelType {
 }
 
 final class SmoothTransitionDetailViewModel: NSObject,
-SmoothTransitionDetailViewModelInputs,
-SmoothTransitionDetailViewModelOutputs,
+    SmoothTransitionDetailViewModelInputs,
+    SmoothTransitionDetailViewModelOutputs,
 SmoothTransitionDetailViewModelType {
+    let transitionController: TransitionController
+
+    // TODO: 実装する
+    func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
+
+    }
 
     func imageViewFrameOfTransitioning(in view: UIView, naviBar: UINavigationBar?) -> CGRect {
         //
@@ -46,7 +54,8 @@ SmoothTransitionDetailViewModelType {
     var inputs: SmoothTransitionDetailViewModelInputs { return self }
     var outputs: SmoothTransitionDetailViewModelOutputs { return self }
 
-    init(image: UIImage) {
+    init(image: UIImage, transitionController: TransitionController) {
         self.image = image
+        self.transitionController = transitionController
     }
 }

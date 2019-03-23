@@ -13,8 +13,9 @@ import UIKit
 // pangestureを扱うもので良さそう。
 // deleateをtransitioncONTROLLERに任せよう。ここはpangesutyreを呼ぶだけ
 final class GestureManager: NSObject {
-//    var transitionContext: UIViewControllerContextTransitioning?
-    //let animator: TransitionAnimator
+    var transitionContext: UIViewControllerContextTransitioning?
+    var animator: TransitionAnimator?
+    var allowInteraction: Bool = false
 
     override init() {}
 
@@ -98,7 +99,8 @@ final class GestureManager: NSObject {
                         data.transitioningImageView.frame = data.fromImageViewFrame
                         data.fromViewController.view.alpha = 1.0
                 },
-                    completion: { completed in
+                    completion: {[weak self] completed in
+                        guard let self = self else { return }
                         // toを
                         data.toImageView.isHidden = false
                         data.fromImageView.isHidden = false
@@ -109,7 +111,7 @@ final class GestureManager: NSObject {
                         contextTransitioning.completeTransition(!contextTransitioning.transitionWasCancelled)
                         animator.toDelegate?.transitionDidEnd(in: animator)
                         animator.fromDelegate?.transitionDidEnd(in: animator)
-                        //self.transitionContext = nil// transitionContextをクリアしている
+                        self.transitionContext = nil// transitionContextをクリアしている
                 })
                 return
             }
@@ -123,8 +125,8 @@ final class GestureManager: NSObject {
                            animations: {
                             data.fromViewController.view.alpha = 0
                             data.transitioningImageView.frame = finalTransitionSize
-            }, completion: { completed in
-
+            }, completion: {[weak self] completed in
+                guard let self = self else { return }
                 data.transitioningImageView.removeFromSuperview()
                 data.toImageView.isHidden = false
                 data.fromImageView.isHidden = false
@@ -137,19 +139,11 @@ final class GestureManager: NSObject {
 
                 animator.toDelegate?.transitionDidEnd(in: animator)
                 animator.fromDelegate?.transitionDidEnd(in: animator)
-//                self.transitionContext = nil
+                self.transitionContext = nil
             })
-
-
-
         default:
             break
         }
-
-
-
-
-
     }
 
     func backgroundAlphaFor(view: UIView, withPanningVerticalDelta verticalDelta: CGFloat) -> CGFloat {
@@ -172,6 +166,36 @@ final class GestureManager: NSObject {
         let deltaAsPercentageOfMaximun = min(abs(verticalDelta) / maximumDelta, 1.0)
 
         return startingScale - (deltaAsPercentageOfMaximun * totalAvailableScale)
+    }
+}
+
+extension GestureManager: UIViewControllerInteractiveTransitioning {
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        // contextを保持する　transition controller にバインディングして通知する
+        self.transitionContext = transitionContext
+        // コンテナviewを作る
+        let containerView = transitionContext.containerView
+
+        guard let animator = animator else { return }
+        guard let data = TransitionDatasource(context: transitionContext, animator: animator) else {
+            return
+        }
+
+        // animatorに通知
+        animator.fromDelegate?.transitionWillStart(in: animator)
+        animator.toDelegate?.transitionWillStart(in: animator)
+        // refarenceを更新。
+
+        containerView.insertSubview(data.toViewController.view, belowSubview: data.fromViewController.view)
+
+        if animator.transitionImageView == nil {
+            let transitionImageView = UIImageView(image: data.fromImageView.image)
+            transitionImageView.contentMode = .scaleAspectFill
+            transitionImageView.clipsToBounds = true
+            transitionImageView.frame = data.fromImageViewFrame
+            animator.transitionImageView = transitionImageView
+            containerView.addSubview(transitionImageView)
+        }
     }
 }
 

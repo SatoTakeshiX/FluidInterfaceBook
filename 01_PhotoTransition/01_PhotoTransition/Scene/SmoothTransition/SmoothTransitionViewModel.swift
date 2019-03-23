@@ -69,7 +69,7 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
 
     func didSelectCell(at indexPath: IndexPath) {
         let image = imageList[indexPath.row]
-        let nextVC = SmoothTransitionDetailViewController(image: image)
+        let nextVC = SmoothTransitionDetailViewController(image: image, transitionController: TransitionController())
         selectedIndexPath = indexPath
         show?(nextVC)
     }
@@ -82,8 +82,8 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
     }
 
     func imageViewFrameOfTransitioning(collectionView: UICollectionView) -> CGRect? {
-        guard let cell = getSelectedCell(for: collectionView) else { return nil }
-        let rect = collectionView.convert(collectionView.frame, to: cell)
+        //guard let cell = getSelectedCell(for: collectionView) else { return nil }
+        //let rect = collectionView.convert(collectionView.frame, to: cell)
         return getSelectedCell(for: collectionView)?.frame
     }
 

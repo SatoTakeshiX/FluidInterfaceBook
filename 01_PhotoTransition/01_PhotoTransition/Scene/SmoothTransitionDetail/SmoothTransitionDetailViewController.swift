@@ -20,8 +20,11 @@ class SmoothTransitionDetailViewController: UIViewController {
 
     let viewModel: SmoothTransitionDetailViewModel
 
-    init(image: UIImage) {
-        self.viewModel = SmoothTransitionDetailViewModel(image: image)
+    // 長押しのジェスチャー
+    var panGestureRecognizer: UIPanGestureRecognizer?
+
+    init(image: UIImage, transitionController: TransitionController) {
+        self.viewModel = SmoothTransitionDetailViewModel(image: image, transitionController: transitionController)
         super.init(nibName: "SmoothTransitionDetailViewController", bundle: nil)
     }
 
@@ -32,13 +35,33 @@ class SmoothTransitionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupGesture()
+    }
+
+    @objc private func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            //スクロールをとめる
+            scrollView.isScrollEnabled = false
+            // navigationControllerで元の画面に戻る指定をしてしまう
+            let _ = navigationController?.popViewController(animated: true)
+        case .ended:
+            scrollView.isScrollEnabled = true
+            viewModel.inputs.didPan(with: gestureRecognizer)
+
+        default:
+            viewModel.inputs.didPan(with: gestureRecognizer)
+        }
+    }
+
+    func setupGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(SmoothTransitionDetailViewController.didPan(with:)))
+        panGesture.delegate = self
+        view.addGestureRecognizer(panGesture)
     }
 
     private func setupUI() {
         imageView.image = viewModel.image
-//        scrollView.delegate = self
-//        scrollView.minimumZoomScale = 1.0
-//        scrollView.maximumZoomScale = 4.0
     }
 
     private func updateScrollInset() {
@@ -79,5 +102,38 @@ extension SmoothTransitionDetailViewController: TransitionAnimatorDelegate {
 
     func imageViewFrameOfTransitioning() -> CGRect? {
         return viewModel.outputs.imageViewFrameOfTransitioning(in: view, naviBar: navigationController?.navigationBar)
+    }
+}
+
+extension SmoothTransitionDetailViewController: UIGestureRecognizerDelegate {
+    // ジェスチャーを始めるかどうか
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            let velocity = gestureRecognizer.velocity(in: self.view)
+
+            var velocityCheck : Bool = false
+
+            if UIDevice.current.orientation.isLandscape {
+                velocityCheck = velocity.x < 0
+            }
+            else {
+                velocityCheck = velocity.y < 0
+            }
+            if velocityCheck {
+                return false
+            }
+        }
+        return true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        if otherGestureRecognizer == scrollView.panGestureRecognizer {
+            if scrollView.contentOffset.y == 0 {
+                return true
+            }
+        }
+        return false
     }
 }
