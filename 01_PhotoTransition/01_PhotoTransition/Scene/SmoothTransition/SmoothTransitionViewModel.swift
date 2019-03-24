@@ -69,7 +69,7 @@ final class SmoothTransitionViewModel: NSObject, SmoothTransitionViewModelInputs
 
     func didSelectCell(at indexPath: IndexPath) {
         let image = imageList[indexPath.row]
-        let nextVC = SmoothTransitionDetailViewController(image: image, transitionController: TransitionController())
+        let nextVC = SmoothTransitionDetailViewController(image: image, transitionController: transitionController)
         selectedIndexPath = indexPath
         show?(nextVC)
     }
