@@ -54,13 +54,11 @@ SmoothTransitionDetailViewModelType {
             transitionController
                 .gestureManager
                 .didPanGesture(with: gestureRecognizer,
-                               contextTransitioning: transitionController.transitionContext,
                                animator: transitionController.animator)
         case .cancelled, .changed, .failed, .possible:
             transitionController
                 .gestureManager
                 .didPanGesture(with: gestureRecognizer,
-                               contextTransitioning: transitionController.transitionContext,
                                animator: transitionController.animator)
             break
         }
