@@ -35,21 +35,10 @@ SmoothTransitionDetailViewModelType {
 
         switch gestureRecognizer.state {
         case .began:
-            //スクロールをとめる
-            //scrollView.isScrollEnabled = false
             // navigationControllerで元の画面に戻る指定をしてしまう
-            //let _ =  navigationController?.popViewController(animated: true)
             transitionController.gestureManager.allowInteraction = true
             beganGesture?()
-
-            transitionController
-                .gestureManager
-                .didPanGesture(with: gestureRecognizer,
-                               contextTransitioning: transitionController.transitionContext,
-                               animator: transitionController.animator)
         case .ended:
-            //scrollView.isScrollEnabled = true
-            //viewModel.inputs.didPan(with: gestureRecognizer)
             transitionController.gestureManager.allowInteraction = false
             transitionController
                 .gestureManager
