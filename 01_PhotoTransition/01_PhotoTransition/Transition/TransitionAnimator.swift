@@ -186,6 +186,7 @@ final class TransitionAnimator: NSObject {
 
 extension TransitionAnimator: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        // TODO: contextがとれる。gestureに更新する？
         switch transitionType {
         case .present:
             return 0.5

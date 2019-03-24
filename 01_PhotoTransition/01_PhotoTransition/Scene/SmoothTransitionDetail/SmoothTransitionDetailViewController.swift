@@ -34,12 +34,19 @@ class SmoothTransitionDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindings()
         setupUI()
         setupGesture()
     }
 
-    @objc private func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
+    private func bindings() {
+        viewModel.outputs.beganGesture = {[weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 
+    @objc private func didPan(with gestureRecognizer: UIPanGestureRecognizer) {
         viewModel.inputs.didPan(with: gestureRecognizer)
     }
 
@@ -118,11 +125,11 @@ extension SmoothTransitionDetailViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 
-        if otherGestureRecognizer == scrollView.panGestureRecognizer {
+       // if otherGestureRecognizer == scrollView.panGestureRecognizer {
             if scrollView.contentOffset.y == 0 {
                 return true
             }
-        }
+      //  }
         return false
     }
 }

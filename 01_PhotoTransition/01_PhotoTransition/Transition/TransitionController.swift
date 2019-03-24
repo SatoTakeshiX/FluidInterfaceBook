@@ -9,7 +9,7 @@
 import UIKit
 
 final class TransitionController: NSObject {
-    let animator: TransitionAnimator
+    var animator: TransitionAnimator
     let gestureManager: GestureManager
 
     // contexを保持する
@@ -26,28 +26,28 @@ final class TransitionController: NSObject {
 
 extension TransitionController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        //self.animator.isPresenting = true
         animator.fromDelegate = fromDelegate
         animator.toDelegate = toDelegate
         return animator
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        //self.animator.isPresenting = false
         let tmp = fromDelegate
         animator.fromDelegate = toDelegate
         animator.toDelegate = tmp
         return animator
     }
 
-//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        if !self.isInteractive {
-//            return nil
-//        }
-//
-//        self.interactionController.animator = animator
-//        return self.interactionController
-//    }
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+
+        guard let animator = animator as? TransitionAnimator else { return nil }
+        if !gestureManager.allowInteraction {
+            return nil
+        }
+
+        self.animator = animator
+        return gestureManager
+    }
 }
 
 extension TransitionController: UINavigationControllerDelegate {
@@ -83,46 +83,34 @@ extension TransitionController: UINavigationControllerDelegate {
 // これをどこに実装するのか。
 // コメントアウトでinteractivieがオフになるのが理想。そうするとデリゲートもここで実装するのがいいかな？
 
-//// uidelegatetransitionと一緒に適応するとこっちが優先される
-//extension TransitionController: UIViewControllerInteractiveTransitioning {
-//    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-//        //startInteractiveTransition?(transitionContext)
-//
-//        // contextを保持する　transition controller にバインディングして通知する
-//        self.transitionContext = transitionContext
-//        // コンテナviewを作る
-//        let containerView = transitionContext.containerView
-//
-//        guard let data = TransitionDatasource(context: transitionContext, animator: animator) else {
-//            return
-//        }
-////        guard let animator = self.animator as? ZoomAnimator,
-////            let fromVC = transitionContext.viewController(forKey: .from),
-////            let toVC = transitionContext.viewController(forKey: .to),
-////            let fromReferenceImageViewFrame = animator.fromDelegate?.referenceImageViewFrameInTransitioningView(for: animator),
-////            let toReferenceImageViewFrame = animator.toDelegate?.referenceImageViewFrameInTransitioningView(for: animator),
-////            let fromReferenceImageView = animator.fromDelegate?.referenceImageView(for: animator)
-////            else {
-////                return
-////        }
-//
-//        // animatorに通知
-//        animator.fromDelegate?.transitionWillStart(in: animator)
-//        animator.toDelegate?.transitionWillStart(in: animator)
-//        // refarenceを更新。
-//
-//        containerView.insertSubview(data.toViewController.view, belowSubview: data.fromViewController.view)
-//
-//        if animator.transitionImageView == nil {
-//            let transitionImageView = UIImageView(image: data.fromImageView.image)
-//            transitionImageView.contentMode = .scaleAspectFill
-//            transitionImageView.clipsToBounds = true
-//            transitionImageView.frame = data.fromImageViewFrame
-//            animator.transitionImageView = transitionImageView
-//            containerView.addSubview(transitionImageView)
-//        }
-//
-//
-//   }
-//}
+// uidelegatetransitionと一緒に適応するとこっちが優先される
+extension TransitionController: UIViewControllerInteractiveTransitioning {
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+
+        // contextを保持する　transition controller にバインディングして通知する
+        self.transitionContext = transitionContext
+        // コンテナviewを作る
+        let containerView = transitionContext.containerView
+
+        guard let data = TransitionDatasource(context: transitionContext, animator: animator) else {
+            return
+        }
+
+        // animatorに通知
+        animator.fromDelegate?.transitionWillStart(in: animator)
+        animator.toDelegate?.transitionWillStart(in: animator)
+        // refarenceを更新。
+
+        containerView.insertSubview(data.toViewController.view, belowSubview: data.fromViewController.view)
+
+        if animator.transitionImageView == nil {
+            let transitionImageView = UIImageView(image: data.fromImageView.image)
+            transitionImageView.contentMode = .scaleAspectFill
+            transitionImageView.clipsToBounds = true
+            transitionImageView.frame = data.fromImageViewFrame
+            animator.transitionImageView = transitionImageView
+            containerView.addSubview(transitionImageView)
+        }
+   }
+}
 

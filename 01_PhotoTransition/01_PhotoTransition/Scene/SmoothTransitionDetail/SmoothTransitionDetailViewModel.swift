@@ -15,7 +15,7 @@ protocol SmoothTransitionDetailViewModelInputs {
 
 protocol SmoothTransitionDetailViewModelOutputs: AnyObject {
     func imageViewFrameOfTransitioning(in view: UIView, naviBar: UINavigationBar?) -> CGRect
-    var beganGesture: (() -> ())? { get }
+    var beganGesture: (() -> ())? { get set }
 }
 
 protocol SmoothTransitionDetailViewModelType {
@@ -38,7 +38,7 @@ SmoothTransitionDetailViewModelType {
             //スクロールをとめる
             //scrollView.isScrollEnabled = false
             // navigationControllerで元の画面に戻る指定をしてしまう
-            //let _ = navigationController?.popViewController(animated: true)
+            //let _ =  navigationController?.popViewController(animated: true)
             transitionController.gestureManager.allowInteraction = true
             beganGesture?()
 
@@ -57,7 +57,6 @@ SmoothTransitionDetailViewModelType {
                                contextTransitioning: transitionController.transitionContext,
                                animator: transitionController.animator)
         case .cancelled, .changed, .failed, .possible:
-            //viewModel.inputs.didPan(with: gestureRecognizer)
             transitionController
                 .gestureManager
                 .didPanGesture(with: gestureRecognizer,
