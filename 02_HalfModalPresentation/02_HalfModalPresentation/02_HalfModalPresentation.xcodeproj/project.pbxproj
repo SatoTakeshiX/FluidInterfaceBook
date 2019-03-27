@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3038FC0D2249B1FC00AFA145 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */; };
-		3038FC0F2249B1FC00AFA145 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038FC0E2249B1FC00AFA145 /* ViewController.swift */; };
-		3038FC122249B1FC00AFA145 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3038FC102249B1FC00AFA145 /* Main.storyboard */; };
+		3038FC122249B1FC00AFA145 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3038FC102249B1FC00AFA145 /* Map.storyboard */; };
 		3038FC142249B1FF00AFA145 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3038FC132249B1FF00AFA145 /* Assets.xcassets */; };
 		3038FC172249B1FF00AFA145 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3038FC152249B1FF00AFA145 /* LaunchScreen.storyboard */; };
 		3038FC222249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038FC212249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift */; };
+		304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9E0224B085B00C535D8 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +28,14 @@
 /* Begin PBXFileReference section */
 		3038FC092249B1FC00AFA145 /* 02_HalfModalPresentation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 02_HalfModalPresentation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3038FC0E2249B1FC00AFA145 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3038FC112249B1FC00AFA145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3038FC112249B1FC00AFA145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		3038FC132249B1FF00AFA145 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3038FC162249B1FF00AFA145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3038FC182249B1FF00AFA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3038FC1D2249B1FF00AFA145 /* 02_HalfModalPresentationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 02_HalfModalPresentationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3038FC212249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _2_HalfModalPresentationTests.swift; sourceTree = "<group>"; };
 		3038FC232249B1FF00AFA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		304FD9E0224B085B00C535D8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */,
-				3038FC0E2249B1FC00AFA145 /* ViewController.swift */,
-				3038FC102249B1FC00AFA145 /* Main.storyboard */,
+				304FD9E0224B085B00C535D8 /* MapViewController.swift */,
+				3038FC102249B1FC00AFA145 /* Map.storyboard */,
 				3038FC132249B1FF00AFA145 /* Assets.xcassets */,
 				3038FC152249B1FF00AFA145 /* LaunchScreen.storyboard */,
 				3038FC182249B1FF00AFA145 /* Info.plist */,
@@ -149,6 +149,7 @@
 					};
 					3038FC1C2249B1FF00AFA145 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 3038FC082249B1FC00AFA145;
 					};
 				};
@@ -179,7 +180,7 @@
 			files = (
 				3038FC172249B1FF00AFA145 /* LaunchScreen.storyboard in Resources */,
 				3038FC142249B1FF00AFA145 /* Assets.xcassets in Resources */,
-				3038FC122249B1FC00AFA145 /* Main.storyboard in Resources */,
+				3038FC122249B1FC00AFA145 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3038FC0F2249B1FC00AFA145 /* ViewController.swift in Sources */,
+				304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */,
 				3038FC0D2249B1FC00AFA145 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,12 +222,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3038FC102249B1FC00AFA145 /* Main.storyboard */ = {
+		3038FC102249B1FC00AFA145 /* Map.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3038FC112249B1FC00AFA145 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Map.storyboard;
 			sourceTree = "<group>";
 		};
 		3038FC152249B1FF00AFA145 /* LaunchScreen.storyboard */ = {
@@ -369,7 +370,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-HalfModalPresentation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -387,7 +388,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-HalfModalPresentation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -407,7 +408,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-HalfModalPresentationTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/02_HalfModalPresentation.app/02_HalfModalPresentation";
 			};
@@ -428,7 +429,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-HalfModalPresentationTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/02_HalfModalPresentation.app/02_HalfModalPresentation";
 			};
