@@ -13,6 +13,12 @@
 		3038FC172249B1FF00AFA145 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3038FC152249B1FF00AFA145 /* LaunchScreen.storyboard */; };
 		3038FC222249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038FC212249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift */; };
 		304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9E0224B085B00C535D8 /* MapViewController.swift */; };
+		304FD9EC224C541900C535D8 /* DrawerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9EB224C541900C535D8 /* DrawerLayout.swift */; };
+		304FD9EE224C54DC00C535D8 /* DrawerBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9ED224C54DC00C535D8 /* DrawerBehavior.swift */; };
+		304FD9F0224C5F4200C535D8 /* DrawerSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9EF224C5F4200C535D8 /* DrawerSurfaceView.swift */; };
+		304FD9F2224CFCC000C535D8 /* GrabberHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */; };
+		304FD9F4224D067F00C535D8 /* DrawerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */; };
+		3086AEC1224F0BB500F50AF4 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AEC0224F0BB500F50AF4 /* DrawerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,12 @@
 		3038FC212249B1FF00AFA145 /* _2_HalfModalPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _2_HalfModalPresentationTests.swift; sourceTree = "<group>"; };
 		3038FC232249B1FF00AFA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		304FD9E0224B085B00C535D8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		304FD9EB224C541900C535D8 /* DrawerLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerLayout.swift; sourceTree = "<group>"; };
+		304FD9ED224C54DC00C535D8 /* DrawerBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerBehavior.swift; sourceTree = "<group>"; };
+		304FD9EF224C5F4200C535D8 /* DrawerSurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerSurfaceView.swift; sourceTree = "<group>"; };
+		304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabberHandleView.swift; sourceTree = "<group>"; };
+		304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerContainerViewController.swift; sourceTree = "<group>"; };
+		3086AEC0224F0BB500F50AF4 /* DrawerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +89,7 @@
 		3038FC0B2249B1FC00AFA145 /* 02_HalfModalPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				304FD9E2224C015800C535D8 /* HarfModal */,
 				3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */,
 				304FD9E0224B085B00C535D8 /* MapViewController.swift */,
 				3038FC102249B1FC00AFA145 /* Map.storyboard */,
@@ -94,6 +107,19 @@
 				3038FC232249B1FF00AFA145 /* Info.plist */,
 			);
 			path = 02_HalfModalPresentationTests;
+			sourceTree = "<group>";
+		};
+		304FD9E2224C015800C535D8 /* HarfModal */ = {
+			isa = PBXGroup;
+			children = (
+				304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */,
+				304FD9ED224C54DC00C535D8 /* DrawerBehavior.swift */,
+				304FD9EB224C541900C535D8 /* DrawerLayout.swift */,
+				3086AEC0224F0BB500F50AF4 /* DrawerView.swift */,
+				304FD9EF224C5F4200C535D8 /* DrawerSurfaceView.swift */,
+				304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */,
+			);
+			path = HarfModal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +225,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */,
+				304FD9EC224C541900C535D8 /* DrawerLayout.swift in Sources */,
 				3038FC0D2249B1FC00AFA145 /* AppDelegate.swift in Sources */,
+				3086AEC1224F0BB500F50AF4 /* DrawerView.swift in Sources */,
+				304FD9EE224C54DC00C535D8 /* DrawerBehavior.swift in Sources */,
+				304FD9F4224D067F00C535D8 /* DrawerContainerViewController.swift in Sources */,
+				304FD9F0224C5F4200C535D8 /* DrawerSurfaceView.swift in Sources */,
+				304FD9F2224CFCC000C535D8 /* GrabberHandleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +396,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WNEUDLL4LF;
 				INFOPLIST_FILE = 02_HalfModalPresentation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,6 +415,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WNEUDLL4LF;
 				INFOPLIST_FILE = 02_HalfModalPresentation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
