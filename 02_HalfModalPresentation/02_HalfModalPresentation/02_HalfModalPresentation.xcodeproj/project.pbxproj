@@ -89,7 +89,7 @@
 		3038FC0B2249B1FC00AFA145 /* 02_HalfModalPresentation */ = {
 			isa = PBXGroup;
 			children = (
-				304FD9E2224C015800C535D8 /* HarfModal */,
+				304FD9E2224C015800C535D8 /* Drawer */,
 				3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */,
 				304FD9E0224B085B00C535D8 /* MapViewController.swift */,
 				3038FC102249B1FC00AFA145 /* Map.storyboard */,
@@ -109,7 +109,7 @@
 			path = 02_HalfModalPresentationTests;
 			sourceTree = "<group>";
 		};
-		304FD9E2224C015800C535D8 /* HarfModal */ = {
+		304FD9E2224C015800C535D8 /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
 				304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */,
@@ -119,7 +119,7 @@
 				304FD9EF224C5F4200C535D8 /* DrawerSurfaceView.swift */,
 				304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */,
 			);
-			path = HarfModal;
+			path = Drawer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
