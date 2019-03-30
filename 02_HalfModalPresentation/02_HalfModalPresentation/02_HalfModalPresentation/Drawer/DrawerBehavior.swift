@@ -76,7 +76,6 @@ final class DrawerBehavior {
             return 1.0
         }
     }
-
 }
 
 
