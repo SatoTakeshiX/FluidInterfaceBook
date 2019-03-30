@@ -59,8 +59,14 @@ extension MapViewController: DrawerContainerViewControllerDelegate {
     }
 
     func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType) {
-
     }
+}
 
-
+extension MapViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton  = false
+        searchVC.hideHeader()
+        drawerContainerVC.move(to: .half, animated: true)
+    }
 }

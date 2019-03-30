@@ -140,4 +140,14 @@ final class DrawerContainerViewController: UIViewController {
         }
     }
 
+    /// Moves the position to the specified position.
+    /// - Parameters:
+    ///     - to: Pass a FloatingPanelPosition value to move the surface view to the position.
+    ///     - animated: Pass true to animate the presentation; otherwise, pass false.
+    ///     - completion: The block to execute after the view controller has finished moving. This block has no return value and takes no parameters. You may specify nil for this parameter.
+    /// 外からdrawerViewを直接さわらない。drawerContainerVCを必ず通す
+    public func move(to: DrawerPositionType, animated: Bool, completion: (() -> Void)? = nil) {
+        print("move")
+        drawerView.move(to: to, animated: animated, completion: completion)
+    }
 }

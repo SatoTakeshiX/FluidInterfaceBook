@@ -80,10 +80,152 @@ final class DrawerView: NSObject {
 
     }
 
+    // MARK: - Layout update
+
+    private func updateLayout(to target: DrawerPositionType) {
+        layoutAdapter.activateLayout(of: target)
+    }
+
+    private func getBackdropAlpha(with translation: CGPoint) -> CGFloat {
+        let currentY = surfaceView.frame.minY
+
+        let next = directionalPosition(at: currentY, with: translation)
+        let pre = redirectionalPosition(at: currentY, with: translation)
+        let nextY = layoutAdapter.positionY(for: next)
+        let preY = layoutAdapter.positionY(for: pre)
+
+        let nextAlpha = layoutAdapter.layout.backdropAlphaFor(position: next)
+        let preAlpha = layoutAdapter.layout.backdropAlphaFor(position: pre)
+
+        if preY == nextY {
+            return preAlpha
+        } else {
+            return preAlpha + max(min(1.0, 1.0 - (nextY - currentY) / (nextY - preY) ), 0.0) * (nextAlpha - preAlpha)
+        }
+    }
+
     // MARK: - Gesture handling
     @objc func handle(panGesture: UIPanGestureRecognizer) {
         // TODO: 実装する
     }
+
+    func move(to: DrawerPositionType, animated: Bool, completion: (() -> Void)? = nil) {
+        move(from: state, to: to, animated: animated, completion: completion)
+    }
+
+    private func move(from: DrawerPositionType, to: DrawerPositionType, animated: Bool, completion: (() -> Void)? = nil) {
+        if to != .full {
+            lockScrollView()// full以外はスクロールをさせない
+        }
+        tearDownActiveInteraction()
+
+        if animated {
+            let animator: UIViewPropertyAnimator
+            switch (from, to) {
+            case (.hidden, let to):
+                animator = behavior.addAnimator()
+            case (let from, .hidden):
+                animator = behavior.removeAnimator()
+            case (let from, let to):
+                animator = behavior.moveAnimator()
+            }
+
+            animator.addAnimations { [weak self] in
+                guard let `self` = self else { return }
+
+                self.state = to
+                self.updateLayout(to: to)
+            }
+            animator.addCompletion { [weak self] _ in
+                guard let `self` = self else { return }
+                self.animator = nil
+                completion?()
+            }
+            self.animator = animator
+            animator.startAnimation()
+        } else {
+            self.state = to
+            self.updateLayout(to: to)
+            completion?()
+        }
+    }
+
+    private func tearDownActiveInteraction() {
+        // Cancel the pan gesture so that panningEnd(with:velocity:) is called
+        panGestureRecognizer.isEnabled = false
+        panGestureRecognizer.isEnabled = true
+    }
+
+
+    // MARK: - ScrollView handling
+
+    private func lockScrollView() {
+        guard let scrollView = scrollView else { return }
+
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.bounces = false
+        scrollView.showsVerticalScrollIndicator = false
+    }
+
+    private func unlockScrollView() {
+        guard let scrollView = scrollView else { return }
+
+        scrollView.isDirectionalLockEnabled = false
+        scrollView.bounces = scrollBouncable
+        scrollView.showsVerticalScrollIndicator = scrollIndictorVisible
+    }
+
+    private func fitToBounds(scrollView: UIScrollView) {
+
+        surfaceView.frame.origin.y = layoutAdapter.topY - scrollView.contentOffset.y
+        scrollView.transform = CGAffineTransform.identity.translatedBy(x: 0.0,
+                                                                       y: scrollView.contentOffset.y)
+        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: -scrollView.contentOffset.y,
+                                                        left: 0.0,
+                                                        bottom: 0.0,
+                                                        right: 0.0)
+    }
+
+    private func settle(scrollView: UIScrollView) {
+
+        surfaceView.transform = .identity
+        scrollView.transform = .identity
+        scrollView.frame = initialScrollFrame
+        scrollView.contentOffset = CGPoint(x: 0.0, y: 0.0 - scrollView.contentInset.top)
+        scrollView.scrollIndicatorInsets = .zero
+    }
+
+    private func directionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
+        return getPosition(at: currentY, with: translation, directional: true)
+    }
+
+    private func redirectionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
+        return getPosition(at: currentY, with: translation, directional: false)
+    }
+
+    private func getPosition(at currentY: CGFloat, with translation: CGPoint, directional: Bool) -> DrawerPositionType {
+        let supportedPositions: Set = layoutAdapter.supportedPositions
+        if supportedPositions.count == 1 {
+            return state
+        }
+        let isForwardYAxis = (translation.y >= 0)
+        switch supportedPositions {
+        case [.full, .half]:
+            return (isForwardYAxis == directional) ? .half : .full
+        case [.half, .tip]:
+            return (isForwardYAxis == directional) ? .tip : .half
+        case [.full, .tip]:
+            return (isForwardYAxis == directional) ? .tip : .full
+        default:
+            let middleY = layoutAdapter.middleY
+            if currentY > middleY {
+                return (isForwardYAxis == directional) ? .tip : .half
+            } else {
+                return (isForwardYAxis == directional) ? .half : .full
+            }
+        }
+    }
+
 }
 
 extension DrawerView: UIGestureRecognizerDelegate {

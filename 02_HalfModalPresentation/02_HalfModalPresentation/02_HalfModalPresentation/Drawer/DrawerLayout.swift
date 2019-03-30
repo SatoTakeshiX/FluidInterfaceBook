@@ -98,13 +98,21 @@ final class DrawerLayoutAdapter {
     weak var vc: UIViewController!
     private weak var surfaceView: DrawerSurfaceView!
     private weak var backgroundView: UIView!
-    var layout: DrawerLayout {
-        didSet {
-            // checkLayoutConsistance
-        }
-    }
+    var layout: DrawerLayout
 
     var safeAreaInsets: UIEdgeInsets = .zero
+
+    private var initialConst: CGFloat = 0.0
+
+    // 各状態によって制約をためている
+    private var fixedConstraints: [NSLayoutConstraint] = []
+    private var fullConstraints: [NSLayoutConstraint] = []
+    private var halfConstraints: [NSLayoutConstraint] = []
+    private var tipConstraints: [NSLayoutConstraint] = []
+    private var offConstraints: [NSLayoutConstraint] = []
+    private var interactiveTopConstraint: NSLayoutConstraint?
+
+    private var heightConstraint: NSLayoutConstraint?
 
     private var fullInset: CGFloat {
         return layout.insetFor(position: .full) ?? 0.0
@@ -118,6 +126,8 @@ final class DrawerLayoutAdapter {
     private var hiddenInset: CGFloat {
         return layout.insetFor(position: .hidden) ?? 0.0
     }
+
+
 
     init(surfaceView: DrawerSurfaceView,
          backgroundView: UIView,
@@ -156,5 +166,60 @@ final class DrawerLayoutAdapter {
 
     var hiddenY: CGFloat {
         return surfaceView.superview!.bounds.height
+    }
+
+    func positionY(for pos: DrawerPositionType) -> CGFloat {
+        switch pos {
+        case .full:
+            return topY
+        case .half:
+            return middleY
+        case .tip:
+            return bottomY
+        case .hidden:
+            return hiddenY
+        }
+    }
+
+    // layout 更新　autolayoutでやってるみたいだな
+    func activateLayout(of state: DrawerPositionType) {
+        defer {
+            surfaceView.superview!.layoutIfNeeded()
+        }
+
+        var state = state
+
+        setBackdropAlpha(of: state)
+
+        // Must deactivate `interactiveTopConstraint` here
+        if let interactiveTopConstraint = interactiveTopConstraint {
+            NSLayoutConstraint.deactivate([interactiveTopConstraint])
+            self.interactiveTopConstraint = nil
+        }
+        NSLayoutConstraint.activate(fixedConstraints)
+
+        if supportedPositions.union([.hidden]).contains(state) == false {
+            state = layout.initialPosition
+        }
+
+        NSLayoutConstraint.deactivate(fullConstraints + halfConstraints + tipConstraints + offConstraints)
+        switch state {
+        case .full:
+            NSLayoutConstraint.activate(fullConstraints)
+        case .half:
+            NSLayoutConstraint.activate(halfConstraints)
+        case .tip:
+            NSLayoutConstraint.activate(tipConstraints)
+        case .hidden:
+            NSLayoutConstraint.activate(offConstraints)
+        }
+    }
+
+    private func setBackdropAlpha(of target: DrawerPositionType) {
+        if target == .hidden {
+            backgroundView.alpha = 0.0
+        } else {
+            backgroundView.alpha = layout.backdropAlphaFor(position: target)
+        }
     }
 }
