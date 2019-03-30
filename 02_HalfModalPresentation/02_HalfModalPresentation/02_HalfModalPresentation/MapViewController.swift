@@ -12,9 +12,13 @@ import MapKit
 final class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
+    private var drawerContainerVC: DrawerContainerViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMap()
+
+        drawerContainerVC = DrawerContainerViewController()
+
         
     }
 
@@ -32,6 +36,27 @@ final class MapViewController: UIViewController {
 //    private func clearMap() {
 //        mapView.delegate = nil
 //    }
+
+
+}
+
+extension MapViewController: DrawerContainerViewControllerDelegate {
+    func DrawerDidMove(_ drawerVC: DrawerContainerViewController) {
+        let y = drawerVC.drawerView.surfaceView.frame.origin.y
+        let tipY = drawerVC.originYOfSurface(for: .tip)
+        if y > tipY - 44.0 {
+            let proÇgress = max(0.0, min((tipY  - y) / 44.0, 1.0))
+            //self.searchVC.tableView.alpha = progress
+        }
+    }
+
+    func DrawerWillBeginDragging(_ vc: DrawerContainerViewController) {
+
+    }
+
+    func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType) {
+
+    }
 
 
 }

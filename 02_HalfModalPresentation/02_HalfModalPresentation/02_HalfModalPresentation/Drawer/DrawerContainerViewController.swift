@@ -49,16 +49,13 @@ final class DrawerContainerViewController: UIViewController {
 
     /// The current position of the floating panel controller's contents.
     var position: DrawerPositionType {
-        return userInterface.state
+        return drawerView.state
     }
 
-    // drawerだけでいいかな？userinterfaceってわかりにくいかな？
-    private var userInterface: DrawerView!
-
     // ジェスチャー操作を管理するインスタンスｓ
-    private var drawerView: DrawerView!
+    private(set) var drawerView: DrawerView!
 
-    init(delegate: DrawerContainerViewControllerDelegate) {
+    init(delegate: DrawerContainerViewControllerDelegate? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.delegate = delegate
         drawerView = DrawerView(self,
@@ -75,6 +72,20 @@ final class DrawerContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    /// Returns the y-coordinate of the point at the origin of the surface view
+    public func originYOfSurface(for positionType: DrawerPositionType) -> CGFloat {
+        switch positionType {
+        case .full:
+            return drawerView.layoutAdapter.topY
+        case .half:
+            return drawerView.layoutAdapter.middleY
+        case .tip:
+            return drawerView.layoutAdapter.bottomY
+        case .hidden:
+            return drawerView.layoutAdapter.hiddenY
+        }
     }
 
 

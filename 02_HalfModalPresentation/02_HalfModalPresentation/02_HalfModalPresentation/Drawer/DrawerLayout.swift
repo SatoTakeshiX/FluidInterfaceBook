@@ -121,11 +121,57 @@ final class DrawerLayoutAdapter {
         }
     }
 
+    var safeAreaInsets: UIEdgeInsets = .zero
+
+    private var fullInset: CGFloat {
+        return layout.insetFor(position: .full) ?? 0.0
+    }
+    private var halfInset: CGFloat {
+        return layout.insetFor(position: .half) ?? 0.0
+    }
+    private var tipInset: CGFloat {
+        return layout.insetFor(position: .tip) ?? 0.0
+    }
+    private var hiddenInset: CGFloat {
+        return layout.insetFor(position: .hidden) ?? 0.0
+    }
+
     init(surfaceView: DrawerSurfaceView,
          backgroundView: UIView,
          layout: DrawerLayout) {
         self.layout = layout
         self.surfaceView = surfaceView
         self.backgroundView = backgroundView
+    }
+
+    var supportedPositions: Set<DrawerPositionType> {
+        var supportedPositions = layout.supportedPositions
+        supportedPositions.remove(.hidden)
+        return supportedPositions
+    }
+
+    // Y position
+    var topY: CGFloat {
+        if supportedPositions.contains(.full) {
+            return safeAreaInsets.top + fullInset
+        } else {
+            return middleY
+        }
+    }
+
+    var middleY: CGFloat {
+        return surfaceView.superview!.bounds.height - (safeAreaInsets.bottom + halfInset)
+    }
+
+    var bottomY: CGFloat {
+        if supportedPositions.contains(.tip) {
+            return surfaceView.superview!.bounds.height - (safeAreaInsets.bottom + tipInset)
+        } else {
+            return middleY
+        }
+    }
+
+    var hiddenY: CGFloat {
+        return surfaceView.superview!.bounds.height
     }
 }
