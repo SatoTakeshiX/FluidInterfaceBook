@@ -10,7 +10,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var visualEffectView: UIVisualEffectView!
 

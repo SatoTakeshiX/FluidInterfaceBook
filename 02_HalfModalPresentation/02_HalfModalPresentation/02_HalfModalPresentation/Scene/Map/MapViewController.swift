@@ -10,20 +10,31 @@ import UIKit
 import MapKit
 
 final class MapViewController: UIViewController {
+    private var drawerContainerVC: DrawerContainerViewController!
+    private var searchVC: SearchViewController!
 
     @IBOutlet weak var mapView: MKMapView!
-    private var drawerContainerVC: DrawerContainerViewController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMap()
 
         drawerContainerVC = DrawerContainerViewController()
-        
+
+        guard let searchViewController = UIStoryboard.init(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
+            return
+        }
+
+        searchVC = searchViewController
+
+        drawerContainerVC.set(contentViewController: searchVC)
+        drawerContainerVC.track(scrollView: searchVC.tableView)
+
     }
 
     private func setupMap() {
-        let center = CLLocationCoordinate2D(latitude: 37.623198015869235,
-                                            longitude: -122.43066818432008)
+        let center = CLLocationCoordinate2D(latitude: 35.6585805,
+                                            longitude: 139.7454329)
         let span = MKCoordinateSpan(latitudeDelta: 0.4425100023575723,
                                     longitudeDelta: 0.28543697435880233)
         let region = MKCoordinateRegion(center: center, span: span)
@@ -31,12 +42,6 @@ final class MapViewController: UIViewController {
         mapView.showsCompass = true
         mapView.showsUserLocation = true
     }
-
-//    private func clearMap() {
-//        mapView.delegate = nil
-//    }
-
-
 }
 
 extension MapViewController: DrawerContainerViewControllerDelegate {
@@ -44,8 +49,8 @@ extension MapViewController: DrawerContainerViewControllerDelegate {
         let y = drawerVC.drawerView.surfaceView.frame.origin.y
         let tipY = drawerVC.originYOfSurface(for: .tip)
         if y > tipY - 44.0 {
-            let proÇgress = max(0.0, min((tipY  - y) / 44.0, 1.0))
-            //self.searchVC.tableView.alpha = progress
+            let progress = max(0.0, min((tipY  - y) / 44.0, 1.0))
+            self.searchVC?.tableView.alpha = progress
         }
     }
 

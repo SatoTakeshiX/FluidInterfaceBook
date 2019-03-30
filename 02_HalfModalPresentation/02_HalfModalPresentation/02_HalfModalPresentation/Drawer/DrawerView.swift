@@ -15,7 +15,33 @@ final class DrawerView: NSObject {
     let backgroundView: UIView
     var layoutAdapter: DrawerLayoutAdapter
     var behavior: DrawerBehavior
+
+    weak var scrollView: UIScrollView? {
+        didSet {
+            guard let scrollView = scrollView else { return }
+            scrollView.panGestureRecognizer.addTarget(self, action: #selector(handle(panGesture:)))
+            scrollBouncable = scrollView.bounces
+            scrollIndictorVisible = scrollView.showsVerticalScrollIndicator
+        }
+    }
+    weak var userScrollViewDelegate: UIScrollViewDelegate?
+
+    private(set) var state: DrawerPositionType = .hidden
+
+    private var isBottomState: Bool {
+        let remains = layoutAdapter.supportedPositions.filter { $0.rawValue > state.rawValue }
+        return remains.count == 0
+    }
+
     let panGestureRecognizer: DrawerPanGestureRecognizer
+    var isRemovalInteractionEnabled: Bool = false
+
+    fileprivate var animator: UIViewPropertyAnimator?
+    private var initialFrame: CGRect = .zero
+    private var initialTranslationY: CGFloat = 0
+    private var initialLocation: CGPoint = CGPoint(x: CGFloat.nan,
+                                                   y: CGFloat.nan)
+
 
     var interactionInProgress: Bool = false
     var isDecelerating: Bool = false
@@ -27,9 +53,7 @@ final class DrawerView: NSObject {
     private var scrollBouncable = false
     private var scrollIndictorVisible = false
 
-    private(set) var state: DrawerPositionType = .hidden //{
-//        didSet { // viewcontroller.delegate?.floatingPanelDidChangePosition(viewcontroller) }
-//    }
+
 
     //let panGestureRecognizer: Drawer
 
