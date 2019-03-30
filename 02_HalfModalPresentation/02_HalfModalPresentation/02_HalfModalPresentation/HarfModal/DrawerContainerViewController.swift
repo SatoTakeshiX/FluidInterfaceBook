@@ -56,25 +56,26 @@ final class DrawerContainerViewController: UIViewController {
     private var userInterface: DrawerView!
 
     // ジェスチャー操作を管理するインスタンスｓ
-    private var drawerGesture: DrawerView!
+    private var drawerView: DrawerView!
 
     init(delegate: DrawerContainerViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
         self.delegate = delegate
-        setup()
+        drawerView = DrawerView(self,
+                                layout: DrawerLayout(),
+                                behavior: DrawerBehavior())
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        drawerView = DrawerView(self,
+                                layout: DrawerLayout(),
+                                behavior: DrawerBehavior())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
     }
 
-    private func setup() {
 
-    }
 }
