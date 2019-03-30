@@ -58,10 +58,47 @@ final class DrawerContainerViewController: UIViewController {
         return drawerView.state
     }
 
+    /// Returns the surface view managed by the controller object. It's the same as `self.view`.
+    var surfaceView: DrawerSurfaceView! {
+        return drawerView.surfaceView
+    }
+
+    /// Returns the backdrop view managed by the controller object.
+    var backgroundView: UIView! {
+        return drawerView.backgroundView
+    }
+
+    /// Returns the scroll view that the controller tracks.
+    weak var scrollView: UIScrollView? {
+        return drawerView.scrollView
+    }
+
+    // The underlying gesture recognizer for pan gestures
+    var panGestureRecognizer: UIPanGestureRecognizer {
+        return drawerView.panGestureRecognizer
+    }
+
+    /// The layout object managed by the controller
+    var layout: DrawerLayout {
+        return drawerView.layoutAdapter.layout
+    }
+
+    /// The behavior object managed by the controller
+    var behavior: DrawerBehavior {
+        return drawerView.behavior
+    }
+
+    /// The content insets of the tracking scroll view derived from this safe area
+    var adjustedContentInsets: UIEdgeInsets {
+        return drawerView.layoutAdapter.adjustedContentInsets
+    }
+
     // ジェスチャー操作を管理するインスタンス
     private(set) var drawerView: DrawerView!
 
     private(set) var contentViewController: UIViewController?
+
+    private var safeAreaInsetsObservation: NSKeyValueObservation?
 
     /// The behavior for determining the adjusted content offsets.
     ///
@@ -81,6 +118,22 @@ final class DrawerContainerViewController: UIViewController {
         drawerView = DrawerView(self,
                                 layout: DrawerLayout(),
                                 behavior: DrawerBehavior())
+    }
+
+    /// Creates the view that the controller manages.
+    override public func loadView() {
+        assert(self.storyboard == nil, "Storyboard isn't supported")
+
+        let view = UIView()//DrawerPassThroughView()
+        view.backgroundColor = .clear
+
+        backgroundView.frame = view.bounds
+        view.addSubview(backgroundView)
+
+        surfaceView.frame = view.bounds
+        view.addSubview(surfaceView)
+
+        self.view = view as UIView
     }
 
     override func viewDidLoad() {
@@ -110,6 +163,11 @@ final class DrawerContainerViewController: UIViewController {
         surfaceView.add(contentView: contentViewController.view)
         contentViewController.didMove(toParent: self)
         self.contentViewController = contentViewController
+    }
+
+    private func reloadLayout(for traitCollection: UITraitCollection) {
+        //drawerView.layoutAdapter.layout = fetchLayout(for: traitCollection)
+        drawerView.layoutAdapter.prepareLayout(in: self)
     }
 
     // MARK: - Scroll view tracking
@@ -146,8 +204,114 @@ final class DrawerContainerViewController: UIViewController {
     ///     - animated: Pass true to animate the presentation; otherwise, pass false.
     ///     - completion: The block to execute after the view controller has finished moving. This block has no return value and takes no parameters. You may specify nil for this parameter.
     /// 外からdrawerViewを直接さわらない。drawerContainerVCを必ず通す
-    public func move(to: DrawerPositionType, animated: Bool, completion: (() -> Void)? = nil) {
+    func move(to: DrawerPositionType, animated: Bool, completion: (() -> Void)? = nil) {
         print("move")
         drawerView.move(to: to, animated: animated, completion: completion)
+    }
+
+    /// Adds the view managed by the controller as a child of the specified view controller.
+    /// - Parameters:
+    ///     - parent: A parent view controller object that displays FloatingPanelController's view. A container view controller object isn't applicable.
+    ///     - belowView: Insert the surface view managed by the controller below the specified view. By default, the surface view will be added to the end of the parent list of subviews.
+    ///     - animated: Pass true to animate the presentation; otherwise, pass false.
+    func addPanel(toParent parent: UIViewController, belowView: UIView? = nil, animated: Bool = false) {
+        guard self.parent == nil else {
+           // log.warning("Already added to a parent(\(parent))")
+            return
+        }
+
+        if let belowView = belowView {
+            parent.view.insertSubview(self.view, belowSubview: belowView)
+        } else {
+            parent.view.addSubview(self.view)
+        }
+
+        parent.addChild(self)
+
+        view.frame = parent.view.bounds // Needed for a correct safe area configuration
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.view.topAnchor.constraint(equalTo: parent.view.topAnchor, constant: 0.0),
+            self.view.leftAnchor.constraint(equalTo: parent.view.leftAnchor, constant: 0.0),
+            self.view.rightAnchor.constraint(equalTo: parent.view.rightAnchor, constant: 0.0),
+            self.view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor, constant: 0.0),
+            ])
+
+        show(animated: animated) { [weak self] in
+            guard let `self` = self else { return }
+            self.didMove(toParent: self)
+        }
+    }
+
+    private func setUpLayout() {
+        // preserve the current content offset
+        let contentOffset = scrollView?.contentOffset
+
+        drawerView.layoutAdapter.updateHeight()
+        drawerView.layoutAdapter.activateLayout(of: drawerView.state)
+
+        scrollView?.contentOffset = contentOffset ?? .zero
+    }
+
+
+
+    // MARK: - Container view controller interface
+
+    /// Shows the surface view at the initial position defined by the current layout
+    public func show(animated: Bool = false, completion: (() -> Void)? = nil) {
+        // Must apply the current layout here
+        reloadLayout(for: traitCollection)
+        setUpLayout()
+
+
+        // Must track the safeAreaInsets of `self.view` to update the layout.
+        // There are 2 reasons.
+        // 1. This or the parent VC doesn't call viewSafeAreaInsetsDidChange() on the bottom
+        // inset's update expectedly.
+        // 2. The safe area top inset can be variable on the large title navigation bar(iOS11+).
+        // That's why it needs the observation to keep `adjustedContentInsets` correct.
+        safeAreaInsetsObservation = self.observe(\DrawerContainerViewController.view.safeAreaInsets, options: [.initial, .new]) { [weak self] (vc, _) in
+            self?.update(safeAreaInsets: vc.view.safeAreaInsets)
+        }
+
+        move(to: drawerView.layoutAdapter.layout.initialPosition,
+             animated: animated,
+             completion: completion)
+    }
+
+    // セーフエリア含めてのレイアウト更新難しそう。。。
+    private func update(safeAreaInsets: UIEdgeInsets) {
+        guard
+            drawerView.layoutAdapter.safeAreaInsets != safeAreaInsets,
+            self.drawerView.isDecelerating == false
+            else { return }
+
+
+        drawerView.layoutAdapter.safeAreaInsets = safeAreaInsets
+
+        setUpLayout()
+
+        switch contentInsetAdjustmentBehavior {
+        case .always:
+            scrollView?.contentInset = adjustedContentInsets
+            scrollView?.scrollIndicatorInsets = adjustedContentInsets
+        default:
+            break
+        }
+    }
+
+
+}
+
+class DrawerPassThroughView: UIView {
+    public weak var eventForwardingView: UIView?
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        switch hitView {
+        case self:
+            return eventForwardingView?.hitTest(self.convert(point, to: eventForwardingView), with: event)
+        default:
+            return hitView
+        }
     }
 }

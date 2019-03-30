@@ -17,11 +17,16 @@ final class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMap()
 
         drawerContainerVC = DrawerContainerViewController()
+        drawerContainerVC.delegate = self
 
-        guard let searchViewController = UIStoryboard.init(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
+        // Initialize FloatingPanelController and add the view
+        drawerContainerVC.drawerView.surfaceView.backgroundColor = .clear
+        drawerContainerVC.drawerView.surfaceView.cornerRadius = 9.0
+        drawerContainerVC.drawerView.surfaceView.shadowHidden = false
+
+        guard let searchViewController = UIStoryboard(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
             return
         }
 
@@ -29,6 +34,19 @@ final class MapViewController: UIViewController {
 
         drawerContainerVC.set(contentViewController: searchVC)
         drawerContainerVC.track(scrollView: searchVC.tableView)
+
+        setupMap()
+
+        drawerContainerVC.addPanel(toParent: self, animated: true)
+
+        // Must be here
+        searchVC.searchBar.delegate = self
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //  Add FloatingPanel to a view with animation.
 
     }
 
@@ -55,10 +73,28 @@ extension MapViewController: DrawerContainerViewControllerDelegate {
     }
 
     func DrawerWillBeginDragging(_ vc: DrawerContainerViewController) {
-
+        if vc.position == .full {
+            searchVC.searchBar.showsCancelButton = false
+            searchVC.searchBar.resignFirstResponder()
+        }
     }
 
     func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType) {
+        if targetPosition != .full {
+            searchVC.hideHeader()
+        }
+
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: .allowUserInteraction,
+                       animations: {[weak self] in
+                        guard let self = self else { return }
+                        if targetPosition == .tip {
+                            self.searchVC.tableView.alpha = 0.0
+                        } else {
+                            self.searchVC.tableView.alpha = 1.0
+                        }
+        }, completion: nil)
     }
 }
 
@@ -68,5 +104,12 @@ extension MapViewController: UISearchBarDelegate {
         searchBar.showsCancelButton  = false
         searchVC.hideHeader()
         drawerContainerVC.move(to: .half, animated: true)
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        searchVC.showHeader()
+        searchVC.tableView.alpha = 1.0
+        drawerContainerVC.move(to: .full, animated: true)
     }
 }

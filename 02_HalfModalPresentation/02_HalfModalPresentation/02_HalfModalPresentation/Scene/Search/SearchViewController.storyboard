@@ -31,7 +31,7 @@
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yEV-oF-uxw">
                                             <rect key="frame" x="0.0" y="72" width="414" height="824"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <view key="tableHeaderView" contentMode="scaleToFill" id="49g-xF-hvC" userLabel="headerView">
+                                            <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="49g-xF-hvC" userLabel="headerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="115"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>

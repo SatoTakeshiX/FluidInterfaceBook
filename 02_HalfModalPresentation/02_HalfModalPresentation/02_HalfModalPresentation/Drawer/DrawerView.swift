@@ -122,22 +122,22 @@ final class DrawerView: NSObject {
         if animated {
             let animator: UIViewPropertyAnimator
             switch (from, to) {
-            case (.hidden, let to):
+            case (.hidden, _):
                 animator = behavior.addAnimator()
-            case (let from, .hidden):
+            case (_, .hidden):
                 animator = behavior.removeAnimator()
-            case (let from, let to):
+            case (_, _):
                 animator = behavior.moveAnimator()
             }
 
             animator.addAnimations { [weak self] in
-                guard let `self` = self else { return }
+                guard let self = self else { return }
 
                 self.state = to
                 self.updateLayout(to: to)
             }
             animator.addCompletion { [weak self] _ in
-                guard let `self` = self else { return }
+                guard let self = self else { return }
                 self.animator = nil
                 completion?()
             }
@@ -225,6 +225,8 @@ final class DrawerView: NSObject {
             }
         }
     }
+
+
 
 }
 

@@ -11,11 +11,13 @@ import UIKit
 final class SearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet private weak var visualEffectView: UIVisualEffectView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
     func showHeader() {
@@ -29,7 +31,8 @@ final class SearchViewController: UIViewController {
     func changeHeader(height: CGFloat) {
         tableView.beginUpdates()
         if let headerView = tableView.tableHeaderView  {
-            UIView.animate(withDuration: 0.25) {
+            UIView.animate(withDuration: 0.25) {[weak self] in
+                guard let self = self else { return }
                 var frame = headerView.frame
                 frame.size.height = height
                 self.tableView.tableHeaderView?.frame = frame

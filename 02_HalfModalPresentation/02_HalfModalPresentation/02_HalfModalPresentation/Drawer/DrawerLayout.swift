@@ -168,6 +168,13 @@ final class DrawerLayoutAdapter {
         return surfaceView.superview!.bounds.height
     }
 
+    var adjustedContentInsets: UIEdgeInsets {
+        return UIEdgeInsets(top: 0.0,
+                            left: 0.0,
+                            bottom: safeAreaInsets.bottom,
+                            right: 0.0)
+    }
+
     func positionY(for pos: DrawerPositionType) -> CGFloat {
         switch pos {
         case .full:
@@ -221,5 +228,78 @@ final class DrawerLayoutAdapter {
         } else {
             backgroundView.alpha = layout.backdropAlphaFor(position: target)
         }
+    }
+
+    func prepareLayout(in vc: UIViewController) {
+        self.vc = vc
+
+        // deactivateで消している。パフォーマンスあんまりよくないはず
+        NSLayoutConstraint.deactivate(fixedConstraints + fullConstraints + halfConstraints + tipConstraints + offConstraints)
+
+        surfaceView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Fixed constraints of surface and backdrop views
+        let surfaceConstraints = layout.prepareLayout(surfaceView: surfaceView, in: vc.view!)
+        let backdropConstraints = [
+            backgroundView.topAnchor.constraint(equalTo: vc.view.topAnchor, constant: 0.0),
+            backgroundView.leftAnchor.constraint(equalTo: vc.view.leftAnchor,constant: 0.0),
+            backgroundView.rightAnchor.constraint(equalTo: vc.view.rightAnchor, constant: 0.0),
+            backgroundView.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor, constant: 0.0),
+        ]
+
+        fixedConstraints = surfaceConstraints + backdropConstraints
+
+        // Flexible surface constraints for full, half, tip and off
+        let topAnchor: NSLayoutYAxisAnchor = {
+            return vc.view.safeAreaLayoutGuide.topAnchor
+        }()
+
+        fullConstraints = [
+            surfaceView.topAnchor.constraint(equalTo: topAnchor,
+                                             constant: fullInset),
+        ]
+
+
+        let bottomAnchor: NSLayoutYAxisAnchor = {
+            return vc.view.safeAreaLayoutGuide.bottomAnchor
+        }()
+
+        halfConstraints = [
+            surfaceView.topAnchor.constraint(equalTo: bottomAnchor,
+                                             constant: -halfInset),
+        ]
+        tipConstraints = [
+            surfaceView.topAnchor.constraint(equalTo: bottomAnchor,
+                                             constant: -tipInset),
+        ]
+
+        offConstraints = [
+            surfaceView.topAnchor.constraint(equalTo:vc.view.bottomAnchor,
+                                             constant: -hiddenInset),
+        ]
+    }
+
+    // The method is separated from prepareLayout(to:) for the rotation support
+    // It must be called in FloatingPanelController.traitCollectionDidChange(_:)
+    func updateHeight() {
+        guard let vc = vc else { return }
+
+        if let const = self.heightConstraint {
+            NSLayoutConstraint.deactivate([const])
+        }
+
+        let heightConstraint: NSLayoutConstraint
+
+
+        heightConstraint = surfaceView.heightAnchor.constraint(equalTo: vc.view.heightAnchor,
+                                                                   constant: -(safeAreaInsets.top + fullInset))
+
+
+        NSLayoutConstraint.activate([heightConstraint])
+        self.heightConstraint = heightConstraint
+
+        surfaceView.bottomOverflow = vc.view.bounds.height + layout.topInteractionBuffer
+
     }
 }
