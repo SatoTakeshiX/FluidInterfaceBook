@@ -93,23 +93,6 @@ final class DrawerLayout {
     }
 }
 
-//// 横のデフォルトレイアウト
-//final class DrawerDefaultLandscapeLayout: DrawerLayout {
-//    public init() { }
-//
-//    public var initialPosition: DrawerPositionType {
-//        return .tip
-//    }
-//
-//    public func insetFor(position: DrawerPositionType) -> CGFloat? {
-//        switch position {
-//        case .full: return 16.0
-//        case .tip: return 69.0
-//        default: return nil
-//        }
-//    }
-//}
-
 final class DrawerLayoutAdapter {
     // vcとドロワーと背景のviewを保持している。
     weak var vc: UIViewController!

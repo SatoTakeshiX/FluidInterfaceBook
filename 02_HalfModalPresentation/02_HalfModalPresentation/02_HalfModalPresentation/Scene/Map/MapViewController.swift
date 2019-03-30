@@ -18,7 +18,6 @@ final class MapViewController: UIViewController {
         setupMap()
 
         drawerContainerVC = DrawerContainerViewController()
-
         
     }
 

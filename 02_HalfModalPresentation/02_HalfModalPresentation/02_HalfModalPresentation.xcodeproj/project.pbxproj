@@ -19,6 +19,8 @@
 		304FD9F2224CFCC000C535D8 /* GrabberHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */; };
 		304FD9F4224D067F00C535D8 /* DrawerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */; };
 		3086AEC1224F0BB500F50AF4 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AEC0224F0BB500F50AF4 /* DrawerView.swift */; };
+		3086AEC7224F281500F50AF4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AEC5224F281500F50AF4 /* SearchViewController.swift */; };
+		3086AECA224F366B00F50AF4 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabberHandleView.swift; sourceTree = "<group>"; };
 		304FD9F3224D067F00C535D8 /* DrawerContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerContainerViewController.swift; sourceTree = "<group>"; };
 		3086AEC0224F0BB500F50AF4 /* DrawerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
+		3086AEC5224F281500F50AF4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +93,9 @@
 		3038FC0B2249B1FC00AFA145 /* 02_HalfModalPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				3086AEC2224F27CA00F50AF4 /* Scene */,
 				304FD9E2224C015800C535D8 /* Drawer */,
 				3038FC0C2249B1FC00AFA145 /* AppDelegate.swift */,
-				304FD9E0224B085B00C535D8 /* MapViewController.swift */,
-				3038FC102249B1FC00AFA145 /* Map.storyboard */,
 				3038FC132249B1FF00AFA145 /* Assets.xcassets */,
 				3038FC152249B1FF00AFA145 /* LaunchScreen.storyboard */,
 				3038FC182249B1FF00AFA145 /* Info.plist */,
@@ -120,6 +123,33 @@
 				304FD9F1224CFCC000C535D8 /* GrabberHandleView.swift */,
 			);
 			path = Drawer;
+			sourceTree = "<group>";
+		};
+		3086AEC2224F27CA00F50AF4 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				3086AEC4224F27EA00F50AF4 /* Search */,
+				3086AEC3224F27DF00F50AF4 /* Map */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		3086AEC3224F27DF00F50AF4 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				304FD9E0224B085B00C535D8 /* MapViewController.swift */,
+				3038FC102249B1FC00AFA145 /* Map.storyboard */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		3086AEC4224F27EA00F50AF4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3086AEC5224F281500F50AF4 /* SearchViewController.swift */,
+				3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +236,7 @@
 			files = (
 				3038FC172249B1FF00AFA145 /* LaunchScreen.storyboard in Resources */,
 				3038FC142249B1FF00AFA145 /* Assets.xcassets in Resources */,
+				3086AECA224F366B00F50AF4 /* SearchViewController.storyboard in Resources */,
 				3038FC122249B1FC00AFA145 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +258,7 @@
 				304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */,
 				304FD9EC224C541900C535D8 /* DrawerLayout.swift in Sources */,
 				3038FC0D2249B1FC00AFA145 /* AppDelegate.swift in Sources */,
+				3086AEC7224F281500F50AF4 /* SearchViewController.swift in Sources */,
 				3086AEC1224F0BB500F50AF4 /* DrawerView.swift in Sources */,
 				304FD9EE224C54DC00C535D8 /* DrawerBehavior.swift in Sources */,
 				304FD9F4224D067F00C535D8 /* DrawerContainerViewController.swift in Sources */,

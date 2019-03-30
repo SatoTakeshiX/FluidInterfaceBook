@@ -45,13 +45,9 @@ final class DrawerView: NSObject {
         self.layoutAdapter = DrawerLayoutAdapter(surfaceView: surfaceView,
                                                  backgroundView: backgroundView,
                                                  layout: layout)
-
-
-
         self.behavior = behavior
         self.panGestureRecognizer = DrawerPanGestureRecognizer()
         panGestureRecognizer.name = "DrawerSurface"
-
 
         super.init()
         self.panGestureRecognizer.drawerView = self
