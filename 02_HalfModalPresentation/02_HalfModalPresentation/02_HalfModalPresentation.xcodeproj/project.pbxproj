@@ -21,6 +21,7 @@
 		3086AEC1224F0BB500F50AF4 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AEC0224F0BB500F50AF4 /* DrawerView.swift */; };
 		3086AEC7224F281500F50AF4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AEC5224F281500F50AF4 /* SearchViewController.swift */; };
 		3086AECA224F366B00F50AF4 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */; };
+		3086AECD224F481A00F50AF4 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3086AECC224F481A00F50AF4 /* SearchCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		3086AEC0224F0BB500F50AF4 /* DrawerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
 		3086AEC5224F281500F50AF4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
+		3086AECC224F481A00F50AF4 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,10 +148,19 @@
 		3086AEC4224F27EA00F50AF4 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				3086AEC5224F281500F50AF4 /* SearchViewController.swift */,
+				3086AECB224F47C600F50AF4 /* View */,
 				3086AEC9224F366B00F50AF4 /* SearchViewController.storyboard */,
+				3086AEC5224F281500F50AF4 /* SearchViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		3086AECB224F47C600F50AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3086AECC224F481A00F50AF4 /* SearchCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				304FD9E1224B085B00C535D8 /* MapViewController.swift in Sources */,
+				3086AECD224F481A00F50AF4 /* SearchCell.swift in Sources */,
 				304FD9EC224C541900C535D8 /* DrawerLayout.swift in Sources */,
 				3038FC0D2249B1FC00AFA145 /* AppDelegate.swift in Sources */,
 				3086AEC7224F281500F50AF4 /* SearchViewController.swift in Sources */,
