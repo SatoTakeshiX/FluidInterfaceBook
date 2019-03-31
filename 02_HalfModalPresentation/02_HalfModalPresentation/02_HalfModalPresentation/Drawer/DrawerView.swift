@@ -94,8 +94,8 @@ final class DrawerView: NSObject {
         let nextY = layoutAdapter.positionY(for: next)
         let preY = layoutAdapter.positionY(for: pre)
 
-        let nextAlpha = layoutAdapter.layout.backdropAlphaFor(position: next)
-        let preAlpha = layoutAdapter.layout.backdropAlphaFor(position: pre)
+        let nextAlpha = layoutAdapter.layout.backgroundAlphaFor(position: next)
+        let preAlpha = layoutAdapter.layout.backgroundAlphaFor(position: pre)
 
         if preY == nextY {
             return preAlpha

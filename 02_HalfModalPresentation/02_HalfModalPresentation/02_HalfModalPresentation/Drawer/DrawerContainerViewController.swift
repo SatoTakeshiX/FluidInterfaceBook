@@ -10,10 +10,6 @@ import UIKit
 
 // Drawerの更新を通知する
 protocol DrawerContainerViewControllerDelegate: AnyObject {
-//    func DrawerDidChangePosition(_ vc: DrawerContainerViewController) // changed the settled position in the model layer
-//
-//    /// Asks the delegate if dragging should begin by the pan gesture recognizer.
-//    func DrawerShouldBeginDragging(_ vc: DrawerContainerViewController) -> Bool
 
     // MARK: ----
     func DrawerDidMove(_ vc: DrawerContainerViewController) // any surface frame changes in dragging
@@ -24,18 +20,6 @@ protocol DrawerContainerViewControllerDelegate: AnyObject {
     // MARK: --------
     // called on finger up if the user dragged. velocity is in points/second.
     func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType)
-//    func DrawerWillBeginDecelerating(_ vc: DrawerContainerViewController) // called on finger up as we are moving
-//    func DrawerDidEndDecelerating(_ vc: DrawerContainerViewController) // called when scroll view grinds to a halt
-//
-//    // called on start of dragging to remove its views from a parent view controller
-//    func DrawerDidEndDraggingToRemove(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint)
-//    // called when its views are removed from a parent view controller
-//    func DrawerDidEndRemove(_ vc: DrawerContainerViewController)
-//
-//    /// Asks the delegate if the other gesture recognizer should be allowed to recognize the gesture in parallel.
-//    ///
-//    /// By default, any tap and long gesture recognizers are allowed to recognize gestures simultaneously.
-//    func Drawer(_ vc: DrawerContainerViewController, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
 }
 
 final class DrawerContainerViewController: UIViewController {
@@ -63,7 +47,7 @@ final class DrawerContainerViewController: UIViewController {
         return drawerView.surfaceView
     }
 
-    /// Returns the backdrop view managed by the controller object.
+    /// Returns the background view managed by the controller object.
     var backgroundView: UIView! {
         return drawerView.backgroundView
     }
@@ -124,7 +108,7 @@ final class DrawerContainerViewController: UIViewController {
     override public func loadView() {
         assert(self.storyboard == nil, "Storyboard isn't supported")
 
-        let view = UIView()//DrawerPassThroughView()
+        let view = DrawerPassThroughView()
         view.backgroundColor = .clear
 
         backgroundView.frame = view.bounds
@@ -214,9 +198,8 @@ final class DrawerContainerViewController: UIViewController {
     ///     - parent: A parent view controller object that displays FloatingPanelController's view. A container view controller object isn't applicable.
     ///     - belowView: Insert the surface view managed by the controller below the specified view. By default, the surface view will be added to the end of the parent list of subviews.
     ///     - animated: Pass true to animate the presentation; otherwise, pass false.
-    func addPanel(toParent parent: UIViewController, belowView: UIView? = nil, animated: Bool = false) {
+    func addDrawer(toParent parent: UIViewController, belowView: UIView? = nil, animated: Bool = false) {
         guard self.parent == nil else {
-           // log.warning("Already added to a parent(\(parent))")
             return
         }
 
@@ -247,7 +230,7 @@ final class DrawerContainerViewController: UIViewController {
         // preserve the current content offset
         let contentOffset = scrollView?.contentOffset
 
-        drawerView.layoutAdapter.updateHeight()
+        drawerView.layoutAdapter.setupHeight()
         drawerView.layoutAdapter.activateLayout(of: drawerView.state)
 
         scrollView?.contentOffset = contentOffset ?? .zero

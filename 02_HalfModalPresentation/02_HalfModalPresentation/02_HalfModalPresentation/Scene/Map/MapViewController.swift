@@ -37,7 +37,7 @@ final class MapViewController: UIViewController {
 
         setupMap()
 
-        drawerContainerVC.addPanel(toParent: self, animated: true)
+        drawerContainerVC.addDrawer(toParent: self, animated: true)
 
         // Must be here
         searchVC.searchBar.delegate = self

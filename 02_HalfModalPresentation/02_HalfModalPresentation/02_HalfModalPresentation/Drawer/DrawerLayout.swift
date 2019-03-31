@@ -15,46 +15,6 @@ public enum DrawerPositionType: Int {
     case hidden //非表示
 }
 
-//// FloatingPanelLayoutをプロトコルで定義
-//protocol DrawerLayout {
-////    /// Returns the initial position of a floating panel.
-////    var initialPosition: DrawerPositionType { get }
-//
-//    /// Returns a set of FloatingPanelPosition objects to tell the applicable
-//    /// positions of the floating panel controller.
-//    ///
-//    /// By default, it returns all position except for `hidden` position. Because
-//    /// it's always supported by `FloatingPanelController` so you don't need to return it.
-////    var supportedPositions: Set<DrawerPositionType> { get }
-//
-//    /// Return the interaction buffer to the top from the top position. Default is 6.0.
-////    var topInteractionBuffer: CGFloat { get }
-//
-//    /// Return the interaction buffer to the bottom from the bottom position. Default is 6.0.
-////    var bottomInteractionBuffer: CGFloat { get }
-//
-//    /// Returns a CGFloat value to determine a Y coordinate of a floating panel for each position(full, half, tip and hidden).
-//    ///
-//    /// Its returning value indicates a different inset for each position.
-//    /// For full position, a top inset from a safe area in `FloatingPanelController.view`.
-//    /// For half or tip position, a bottom inset from the safe area.
-//    /// For hidden position, a bottom inset from `FloatingPanelController.view`.
-//    /// If a position isn't supported or the default value is used, return nil.
-////    func insetFor(position: DrawerPositionType) -> CGFloat?
-//
-//    /// Returns X-axis and width layout constraints of the surface view of a floating panel.
-//    /// You must not include any Y-axis and height layout constraints of the surface view
-//    /// because their constraints will be configured by the floating panel controller.
-//    /// By default, the width of a surface view fits a safe area.
-////    func prepareLayout(surfaceView: UIView, in view: UIView) -> [NSLayoutConstraint]
-//
-//    /// Returns a CGFloat value to determine the backdrop view's alpha for a position.
-//    ///
-//    /// Default is 0.3 at full position, otherwise 0.0.
-//    //func backdropAlphaFor(position: DrawerPositionType) -> CGFloat
-//}
-
-
 // 縦のデフォルトレイアウト　縦のみ対応
 final class DrawerLayout {
     init() {}
@@ -71,7 +31,7 @@ final class DrawerLayout {
         ]
     }
 
-    func backdropAlphaFor(position: DrawerPositionType) -> CGFloat {
+    func backgroundAlphaFor(position: DrawerPositionType) -> CGFloat {
         return position == .full ? 0.3 : 0.0
     }
 
@@ -79,7 +39,7 @@ final class DrawerLayout {
         return .half
     }
 
-    func insetFor(position: DrawerPositionType) -> CGFloat? {
+    func insetFor(position: DrawerPositionType) -> CGFloat {
         switch position {
         case .full:
             return 18.0
@@ -88,7 +48,7 @@ final class DrawerLayout {
         case .tip:
             return 69.0
         case .hidden:
-            return nil
+            return 0.0
         }
     }
 }
@@ -112,22 +72,18 @@ final class DrawerLayoutAdapter {
     private var offConstraints: [NSLayoutConstraint] = []
     private var interactiveTopConstraint: NSLayoutConstraint?
 
-    private var heightConstraint: NSLayoutConstraint?
-
     private var fullInset: CGFloat {
-        return layout.insetFor(position: .full) ?? 0.0
+        return layout.insetFor(position: .full)
     }
     private var halfInset: CGFloat {
-        return layout.insetFor(position: .half) ?? 0.0
+        return layout.insetFor(position: .half)
     }
     private var tipInset: CGFloat {
-        return layout.insetFor(position: .tip) ?? 0.0
+        return layout.insetFor(position: .tip)
     }
     private var hiddenInset: CGFloat {
-        return layout.insetFor(position: .hidden) ?? 0.0
+        return layout.insetFor(position: .hidden)
     }
-
-
 
     init(surfaceView: DrawerSurfaceView,
          backgroundView: UIView,
@@ -226,14 +182,14 @@ final class DrawerLayoutAdapter {
         if target == .hidden {
             backgroundView.alpha = 0.0
         } else {
-            backgroundView.alpha = layout.backdropAlphaFor(position: target)
+            backgroundView.alpha = layout.backgroundAlphaFor(position: target)
         }
     }
 
     func prepareLayout(in vc: UIViewController) {
         self.vc = vc
 
-        // deactivateで消している。パフォーマンスあんまりよくないはず
+        // 制約削除
         NSLayoutConstraint.deactivate(fixedConstraints + fullConstraints + halfConstraints + tipConstraints + offConstraints)
 
         surfaceView.translatesAutoresizingMaskIntoConstraints = false
@@ -282,22 +238,13 @@ final class DrawerLayoutAdapter {
 
     // The method is separated from prepareLayout(to:) for the rotation support
     // It must be called in FloatingPanelController.traitCollectionDidChange(_:)
-    func updateHeight() {
+    // よこむき対応のためのもの。今回はいらない？高さを出すために必要
+    func setupHeight() {
         guard let vc = vc else { return }
 
-        if let const = self.heightConstraint {
-            NSLayoutConstraint.deactivate([const])
-        }
-
-        let heightConstraint: NSLayoutConstraint
-
-
-        heightConstraint = surfaceView.heightAnchor.constraint(equalTo: vc.view.heightAnchor,
+        let heightConstraint = surfaceView.heightAnchor.constraint(equalTo: vc.view.heightAnchor,
                                                                    constant: -(safeAreaInsets.top + fullInset))
-
-
         NSLayoutConstraint.activate([heightConstraint])
-        self.heightConstraint = heightConstraint
 
         surfaceView.bottomOverflow = vc.view.bounds.height + layout.topInteractionBuffer
 
