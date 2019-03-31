@@ -63,7 +63,7 @@ final class DrawerContainerViewController: UIViewController {
     }
 
     /// The layout object managed by the controller
-    var layout: DrawerLayoutAdapter {
+    var layout: DrawerLayout {
         return drawerView.layoutAdapter
     }
 

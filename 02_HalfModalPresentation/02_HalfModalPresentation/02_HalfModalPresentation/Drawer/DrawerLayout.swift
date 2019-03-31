@@ -16,7 +16,7 @@ public enum DrawerPositionType: Int {
 }
 
 // 縦のデフォルトレイアウト　縦のみ対応
-final class DrawerLayoutAdapter {
+final class DrawerLayout {
     // vcとドロワーと背景のviewを保持している。
     weak var vc: UIViewController!
     private weak var surfaceView: DrawerSurfaceView!

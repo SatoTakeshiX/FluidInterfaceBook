@@ -13,7 +13,7 @@ final class DrawerView: NSObject {
     weak var drawerContainerVC: DrawerContainerViewController!
     let surfaceView: DrawerSurfaceView
     let backgroundView: UIView
-    var layoutAdapter: DrawerLayoutAdapter
+    var layoutAdapter: DrawerLayout
     var behavior: DrawerBehavior
 
     weak var scrollView: UIScrollView? {
@@ -66,7 +66,7 @@ final class DrawerView: NSObject {
         self.backgroundView.backgroundColor = .black
         self.backgroundView.alpha = 0.0
 
-        self.layoutAdapter = DrawerLayoutAdapter(surfaceView: surfaceView,
+        self.layoutAdapter = DrawerLayout(surfaceView: surfaceView,
                                                  backgroundView: backgroundView)
         self.behavior = behavior
         self.panGestureRecognizer = DrawerPanGestureRecognizer()
