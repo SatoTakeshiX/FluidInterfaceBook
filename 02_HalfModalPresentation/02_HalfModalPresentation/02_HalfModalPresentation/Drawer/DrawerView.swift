@@ -57,7 +57,7 @@ final class DrawerView: NSObject {
 
     //let panGestureRecognizer: Drawer
 
-    init(_ drawerContainerVC: DrawerContainerViewController, layout: DrawerLayout, behavior: DrawerBehavior) {
+    init(_ drawerContainerVC: DrawerContainerViewController, behavior: DrawerBehavior) {
         self.drawerContainerVC = drawerContainerVC
         self.surfaceView = DrawerSurfaceView()
         self.surfaceView.backgroundColor = .white
@@ -67,8 +67,7 @@ final class DrawerView: NSObject {
         self.backgroundView.alpha = 0.0
 
         self.layoutAdapter = DrawerLayoutAdapter(surfaceView: surfaceView,
-                                                 backgroundView: backgroundView,
-                                                 layout: layout)
+                                                 backgroundView: backgroundView)
         self.behavior = behavior
         self.panGestureRecognizer = DrawerPanGestureRecognizer()
         panGestureRecognizer.name = "DrawerSurface"
@@ -94,8 +93,8 @@ final class DrawerView: NSObject {
         let nextY = layoutAdapter.positionY(for: next)
         let preY = layoutAdapter.positionY(for: pre)
 
-        let nextAlpha = layoutAdapter.layout.backgroundAlphaFor(position: next)
-        let preAlpha = layoutAdapter.layout.backgroundAlphaFor(position: pre)
+        let nextAlpha = layoutAdapter.backgroundAlphaFor(position: next)
+        let preAlpha = layoutAdapter.backgroundAlphaFor(position: pre)
 
         if preY == nextY {
             return preAlpha

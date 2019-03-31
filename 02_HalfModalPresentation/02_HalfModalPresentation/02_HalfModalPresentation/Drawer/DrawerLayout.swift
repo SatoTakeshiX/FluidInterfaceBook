@@ -16,8 +16,16 @@ public enum DrawerPositionType: Int {
 }
 
 // 縦のデフォルトレイアウト　縦のみ対応
-final class DrawerLayout {
-    init() {}
+final class DrawerLayoutAdapter {
+    // vcとドロワーと背景のviewを保持している。
+    weak var vc: UIViewController!
+    private weak var surfaceView: DrawerSurfaceView!
+    private weak var backgroundView: UIView!
+    // var layout: DrawerLayout
+
+    var safeAreaInsets: UIEdgeInsets = .zero
+
+    private var initialConst: CGFloat = 0.0
 
     var topInteractionBuffer: CGFloat { return 6.0 }
     var bottomInteractionBuffer: CGFloat { return 6.0 }
@@ -51,18 +59,6 @@ final class DrawerLayout {
             return 0.0
         }
     }
-}
-
-final class DrawerLayoutAdapter {
-    // vcとドロワーと背景のviewを保持している。
-    weak var vc: UIViewController!
-    private weak var surfaceView: DrawerSurfaceView!
-    private weak var backgroundView: UIView!
-    var layout: DrawerLayout
-
-    var safeAreaInsets: UIEdgeInsets = .zero
-
-    private var initialConst: CGFloat = 0.0
 
     // 各状態によって制約をためている
     private var fixedConstraints: [NSLayoutConstraint] = []
@@ -73,30 +69,22 @@ final class DrawerLayoutAdapter {
     private var interactiveTopConstraint: NSLayoutConstraint?
 
     private var fullInset: CGFloat {
-        return layout.insetFor(position: .full)
+        return insetFor(position: .full)
     }
     private var halfInset: CGFloat {
-        return layout.insetFor(position: .half)
+        return insetFor(position: .half)
     }
     private var tipInset: CGFloat {
-        return layout.insetFor(position: .tip)
+        return insetFor(position: .tip)
     }
     private var hiddenInset: CGFloat {
-        return layout.insetFor(position: .hidden)
+        return insetFor(position: .hidden)
     }
 
     init(surfaceView: DrawerSurfaceView,
-         backgroundView: UIView,
-         layout: DrawerLayout) {
-        self.layout = layout
+         backgroundView: UIView) {
         self.surfaceView = surfaceView
         self.backgroundView = backgroundView
-    }
-
-    var supportedPositions: Set<DrawerPositionType> {
-        var supportedPositions = layout.supportedPositions
-        supportedPositions.remove(.hidden)
-        return supportedPositions
     }
 
     // Y position
@@ -162,7 +150,7 @@ final class DrawerLayoutAdapter {
         NSLayoutConstraint.activate(fixedConstraints)
 
         if supportedPositions.union([.hidden]).contains(state) == false {
-            state = layout.initialPosition
+            state = initialPosition
         }
 
         NSLayoutConstraint.deactivate(fullConstraints + halfConstraints + tipConstraints + offConstraints)
@@ -182,7 +170,7 @@ final class DrawerLayoutAdapter {
         if target == .hidden {
             backgroundView.alpha = 0.0
         } else {
-            backgroundView.alpha = layout.backgroundAlphaFor(position: target)
+            backgroundView.alpha = backgroundAlphaFor(position: target)
         }
     }
 
@@ -196,7 +184,7 @@ final class DrawerLayoutAdapter {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
         // Fixed constraints of surface and backdrop views
-        let surfaceConstraints = layout.prepareLayout(surfaceView: surfaceView, in: vc.view!)
+        let surfaceConstraints = prepareLayout(surfaceView: surfaceView, in: vc.view!)
         let backdropConstraints = [
             backgroundView.topAnchor.constraint(equalTo: vc.view.topAnchor, constant: 0.0),
             backgroundView.leftAnchor.constraint(equalTo: vc.view.leftAnchor,constant: 0.0),
@@ -246,7 +234,7 @@ final class DrawerLayoutAdapter {
                                                                    constant: -(safeAreaInsets.top + fullInset))
         NSLayoutConstraint.activate([heightConstraint])
 
-        surfaceView.bottomOverflow = vc.view.bounds.height + layout.topInteractionBuffer
+        surfaceView.bottomOverflow = vc.view.bounds.height + topInteractionBuffer
 
     }
 }

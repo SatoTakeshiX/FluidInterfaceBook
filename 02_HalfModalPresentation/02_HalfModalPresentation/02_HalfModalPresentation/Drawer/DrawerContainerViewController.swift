@@ -63,8 +63,8 @@ final class DrawerContainerViewController: UIViewController {
     }
 
     /// The layout object managed by the controller
-    var layout: DrawerLayout {
-        return drawerView.layoutAdapter.layout
+    var layout: DrawerLayoutAdapter {
+        return drawerView.layoutAdapter
     }
 
     /// The behavior object managed by the controller
@@ -93,14 +93,12 @@ final class DrawerContainerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.delegate = delegate
         drawerView = DrawerView(self,
-                                layout: DrawerLayout(),
                                 behavior: DrawerBehavior())
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         drawerView = DrawerView(self,
-                                layout: DrawerLayout(),
                                 behavior: DrawerBehavior())
     }
 
@@ -258,7 +256,7 @@ final class DrawerContainerViewController: UIViewController {
             self?.update(safeAreaInsets: vc.view.safeAreaInsets)
         }
 
-        move(to: drawerView.layoutAdapter.layout.initialPosition,
+        move(to: drawerView.layoutAdapter.initialPosition,
              animated: animated,
              completion: completion)
     }
