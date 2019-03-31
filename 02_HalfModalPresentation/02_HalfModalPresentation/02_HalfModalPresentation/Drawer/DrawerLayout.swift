@@ -219,6 +219,7 @@ final class DrawerLayout {
 
         let heightConstraint = surfaceView.heightAnchor.constraint(equalTo: vc.view.heightAnchor,
                                                                    constant: -(safeAreaInsets.top + fullInset))
+        print("sss:\(safeAreaInsets.top + fullInset)")
         NSLayoutConstraint.activate([heightConstraint])
 
         surfaceView.bottomOverflow = vc.view.bounds.height + topInteractionBuffer

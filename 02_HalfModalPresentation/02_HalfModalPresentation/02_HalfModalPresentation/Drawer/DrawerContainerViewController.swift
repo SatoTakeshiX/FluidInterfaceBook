@@ -244,16 +244,6 @@ final class DrawerContainerViewController: UIViewController {
         prepareLayout()
         setUpLayout()
 
-        // Must track the safeAreaInsets of `self.view` to update the layout.
-        // There are 2 reasons.
-        // 1. This or the parent VC doesn't call viewSafeAreaInsetsDidChange() on the bottom
-        // inset's update expectedly.
-        // 2. The safe area top inset can be variable on the large title navigation bar(iOS11+).
-        // That's why it needs the observation to keep `adjustedContentInsets` correct.
-        safeAreaInsetsObservation = self.observe(\DrawerContainerViewController.view.safeAreaInsets, options: [.initial, .new]) { [weak self] (vc, _) in
-            self?.update(safeAreaInsets: vc.view.safeAreaInsets)
-        }
-
         move(to: drawerView.layout.initialPosition,
              animated: animated,
              completion: completion)
