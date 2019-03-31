@@ -24,7 +24,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cjP-rc-pLm">
+                                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="cjP-rc-pLm">
                                             <rect key="frame" x="0.0" y="8" width="414" height="56"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </searchBar>
@@ -184,7 +184,7 @@
                                 <blurEffect style="extraLight"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Kgs-E9-4Jn" firstAttribute="top" secondItem="b1W-gd-syV" secondAttribute="top" id="MIN-lM-i7f"/>
                             <constraint firstItem="552-aq-ser" firstAttribute="trailing" secondItem="Kgs-E9-4Jn" secondAttribute="trailing" id="ak8-CY-0gZ"/>

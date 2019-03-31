@@ -18,6 +18,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        hideHeader()
     }
 
     func showHeader() {
@@ -48,7 +49,6 @@ extension SearchViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? SearchCell else {
             return UITableViewCell()
         }
