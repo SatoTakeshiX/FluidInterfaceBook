@@ -165,14 +165,6 @@ final class DrawerView: NSObject {
         scrollView.scrollIndicatorInsets = .zero
     }
 
-//    private func directionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
-//        return getPosition(at: currentY, with: translation, directional: true)
-//    }
-
-//    private func redirectionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
-//        return getPosition(at: currentY, with: translation, directional: false)
-//    }
-
     private func getPosition(at currentY: CGFloat, with translation: CGPoint, directional: Bool) -> DrawerPositionType {
         let supportedPositions: Set = layout.supportedPositions
         if supportedPositions.count == 1 {

@@ -148,8 +148,7 @@ final class DrawerContainerViewController: UIViewController {
         self.contentViewController = contentViewController
     }
 
-    private func reloadLayout(for traitCollection: UITraitCollection) {
-        //drawerView.layoutAdapter.layout = fetchLayout(for: traitCollection)
+    private func prepareLayout() {
         drawerView.layout.prepareLayout(in: self)
     }
 
@@ -242,9 +241,8 @@ final class DrawerContainerViewController: UIViewController {
     /// Shows the surface view at the initial position defined by the current layout
     public func show(animated: Bool = false, completion: (() -> Void)? = nil) {
         // Must apply the current layout here
-        reloadLayout(for: traitCollection)
+        prepareLayout()
         setUpLayout()
-
 
         // Must track the safeAreaInsets of `self.view` to update the layout.
         // There are 2 reasons.
