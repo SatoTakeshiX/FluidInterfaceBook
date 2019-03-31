@@ -106,8 +106,6 @@ final class DrawerContainerViewController: UIViewController {
 
     /// Creates the view that the controller manages.
     override public func loadView() {
-        assert(self.storyboard == nil, "Storyboard isn't supported")
-
         let view = DrawerPassThroughView()
         view.backgroundColor = .clear
 
@@ -122,6 +120,9 @@ final class DrawerContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        drawerView.surfaceView.backgroundColor = .clear
+        drawerView.surfaceView.cornerRadius = 9.0
+        drawerView.surfaceView.shadowHidden = false
     }
 
     /// Returns the y-coordinate of the point at the origin of the surface view

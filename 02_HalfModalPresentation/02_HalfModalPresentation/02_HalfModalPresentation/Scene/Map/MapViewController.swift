@@ -22,9 +22,7 @@ final class MapViewController: UIViewController {
         drawerContainerVC.delegate = self
 
         // Initialize FloatingPanelController and add the view
-        drawerContainerVC.drawerView.surfaceView.backgroundColor = .clear
-        drawerContainerVC.drawerView.surfaceView.cornerRadius = 9.0
-        drawerContainerVC.drawerView.surfaceView.shadowHidden = false
+
 
         guard let searchViewController = UIStoryboard(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
             return
