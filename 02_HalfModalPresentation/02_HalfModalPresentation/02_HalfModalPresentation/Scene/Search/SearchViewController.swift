@@ -18,6 +18,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.placeholder = "Search for a place or address"
         hideHeader()
     }
 

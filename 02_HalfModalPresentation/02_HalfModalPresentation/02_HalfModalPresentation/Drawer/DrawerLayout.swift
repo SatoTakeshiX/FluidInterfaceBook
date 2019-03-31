@@ -39,10 +39,7 @@ final class DrawerLayout {
         ]
     }
 
-    func backgroundAlphaFor(position: DrawerPositionType) -> CGFloat {
-        return position == .full ? 0.3 : 0.0
-    }
-
+    /// 初期配置
     var initialPosition: DrawerPositionType {
         return .half
     }
@@ -140,8 +137,6 @@ final class DrawerLayout {
 
         var state = state
 
-        setBackdropAlpha(of: state)
-
         // Must deactivate `interactiveTopConstraint` here
         if let interactiveTopConstraint = interactiveTopConstraint {
             NSLayoutConstraint.deactivate([interactiveTopConstraint])
@@ -166,14 +161,6 @@ final class DrawerLayout {
         }
     }
 
-    private func setBackdropAlpha(of target: DrawerPositionType) {
-        if target == .hidden {
-            backgroundView.alpha = 0.0
-        } else {
-            backgroundView.alpha = backgroundAlphaFor(position: target)
-        }
-    }
-
     func prepareLayout(in vc: UIViewController) {
         self.vc = vc
 
@@ -183,16 +170,16 @@ final class DrawerLayout {
         surfaceView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Fixed constraints of surface and backdrop views
+        // Fixed constraints of surface and background views
         let surfaceConstraints = prepareLayout(surfaceView: surfaceView, in: vc.view!)
-        let backdropConstraints = [
+        let backgroundConstraints = [
             backgroundView.topAnchor.constraint(equalTo: vc.view.topAnchor, constant: 0.0),
             backgroundView.leftAnchor.constraint(equalTo: vc.view.leftAnchor,constant: 0.0),
             backgroundView.rightAnchor.constraint(equalTo: vc.view.rightAnchor, constant: 0.0),
             backgroundView.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor, constant: 0.0),
         ]
 
-        fixedConstraints = surfaceConstraints + backdropConstraints
+        fixedConstraints = surfaceConstraints + backgroundConstraints
 
         // Flexible surface constraints for full, half, tip and off
         let topAnchor: NSLayoutYAxisAnchor = {

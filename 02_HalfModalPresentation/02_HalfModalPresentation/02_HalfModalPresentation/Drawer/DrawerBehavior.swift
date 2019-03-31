@@ -29,15 +29,7 @@ final class DrawerBehavior {
         return 0.5
     }
 
-    func addAnimator() -> UIViewPropertyAnimator {
-        return UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut)
-    }
-
-    func removeAnimator() -> UIViewPropertyAnimator {
-        return UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut)
-    }
-
-    func moveAnimator() -> UIViewPropertyAnimator {
+    func makeAnimator() -> UIViewPropertyAnimator {
         return UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut)
     }
 

@@ -13,7 +13,7 @@ final class DrawerView: NSObject {
     weak var drawerContainerVC: DrawerContainerViewController!
     let surfaceView: DrawerSurfaceView
     let backgroundView: UIView
-    var layoutAdapter: DrawerLayout
+    var layout: DrawerLayout
     var behavior: DrawerBehavior
 
     weak var scrollView: UIScrollView? {
@@ -29,7 +29,7 @@ final class DrawerView: NSObject {
     private(set) var state: DrawerPositionType = .hidden
 
     private var isBottomState: Bool {
-        let remains = layoutAdapter.supportedPositions.filter { $0.rawValue > state.rawValue }
+        let remains = layout.supportedPositions.filter { $0.rawValue > state.rawValue }
         return remains.count == 0
     }
 
@@ -42,7 +42,6 @@ final class DrawerView: NSObject {
     private var initialLocation: CGPoint = CGPoint(x: CGFloat.nan,
                                                    y: CGFloat.nan)
 
-
     var interactionInProgress: Bool = false
     var isDecelerating: Bool = false
 
@@ -52,8 +51,6 @@ final class DrawerView: NSObject {
     private var stopScrollDeceleration: Bool = false
     private var scrollBouncable = false
     private var scrollIndictorVisible = false
-
-
 
     //let panGestureRecognizer: Drawer
 
@@ -66,7 +63,7 @@ final class DrawerView: NSObject {
         self.backgroundView.backgroundColor = .black
         self.backgroundView.alpha = 0.0
 
-        self.layoutAdapter = DrawerLayout(surfaceView: surfaceView,
+        self.layout = DrawerLayout(surfaceView: surfaceView,
                                                  backgroundView: backgroundView)
         self.behavior = behavior
         self.panGestureRecognizer = DrawerPanGestureRecognizer()
@@ -82,25 +79,7 @@ final class DrawerView: NSObject {
     // MARK: - Layout update
 
     private func updateLayout(to target: DrawerPositionType) {
-        layoutAdapter.activateLayout(of: target)
-    }
-
-    private func getBackdropAlpha(with translation: CGPoint) -> CGFloat {
-        let currentY = surfaceView.frame.minY
-
-        let next = directionalPosition(at: currentY, with: translation)
-        let pre = redirectionalPosition(at: currentY, with: translation)
-        let nextY = layoutAdapter.positionY(for: next)
-        let preY = layoutAdapter.positionY(for: pre)
-
-        let nextAlpha = layoutAdapter.backgroundAlphaFor(position: next)
-        let preAlpha = layoutAdapter.backgroundAlphaFor(position: pre)
-
-        if preY == nextY {
-            return preAlpha
-        } else {
-            return preAlpha + max(min(1.0, 1.0 - (nextY - currentY) / (nextY - preY) ), 0.0) * (nextAlpha - preAlpha)
-        }
+        layout.activateLayout(of: target)
     }
 
     // MARK: - Gesture handling
@@ -119,15 +98,7 @@ final class DrawerView: NSObject {
         tearDownActiveInteraction()
 
         if animated {
-            let animator: UIViewPropertyAnimator
-            switch (from, to) {
-            case (.hidden, _):
-                animator = behavior.addAnimator()
-            case (_, .hidden):
-                animator = behavior.removeAnimator()
-            case (_, _):
-                animator = behavior.moveAnimator()
-            }
+            let animator: UIViewPropertyAnimator = behavior.makeAnimator()
 
             animator.addAnimations { [weak self] in
                 guard let self = self else { return }
@@ -176,7 +147,7 @@ final class DrawerView: NSObject {
 
     private func fitToBounds(scrollView: UIScrollView) {
 
-        surfaceView.frame.origin.y = layoutAdapter.topY - scrollView.contentOffset.y
+        surfaceView.frame.origin.y = layout.topY - scrollView.contentOffset.y
         scrollView.transform = CGAffineTransform.identity.translatedBy(x: 0.0,
                                                                        y: scrollView.contentOffset.y)
         scrollView.scrollIndicatorInsets = UIEdgeInsets(top: -scrollView.contentOffset.y,
@@ -194,16 +165,16 @@ final class DrawerView: NSObject {
         scrollView.scrollIndicatorInsets = .zero
     }
 
-    private func directionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
-        return getPosition(at: currentY, with: translation, directional: true)
-    }
+//    private func directionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
+//        return getPosition(at: currentY, with: translation, directional: true)
+//    }
 
-    private func redirectionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
-        return getPosition(at: currentY, with: translation, directional: false)
-    }
+//    private func redirectionalPosition(at currentY: CGFloat, with translation: CGPoint) -> DrawerPositionType {
+//        return getPosition(at: currentY, with: translation, directional: false)
+//    }
 
     private func getPosition(at currentY: CGFloat, with translation: CGPoint, directional: Bool) -> DrawerPositionType {
-        let supportedPositions: Set = layoutAdapter.supportedPositions
+        let supportedPositions: Set = layout.supportedPositions
         if supportedPositions.count == 1 {
             return state
         }
@@ -216,7 +187,7 @@ final class DrawerView: NSObject {
         case [.full, .tip]:
             return (isForwardYAxis == directional) ? .tip : .full
         default:
-            let middleY = layoutAdapter.middleY
+            let middleY = layout.middleY
             if currentY > middleY {
                 return (isForwardYAxis == directional) ? .tip : .half
             } else {

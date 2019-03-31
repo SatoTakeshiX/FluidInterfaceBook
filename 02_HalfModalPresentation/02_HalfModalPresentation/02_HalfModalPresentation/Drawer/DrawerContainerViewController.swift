@@ -64,7 +64,7 @@ final class DrawerContainerViewController: UIViewController {
 
     /// The layout object managed by the controller
     var layout: DrawerLayout {
-        return drawerView.layoutAdapter
+        return drawerView.layout
     }
 
     /// The behavior object managed by the controller
@@ -74,7 +74,7 @@ final class DrawerContainerViewController: UIViewController {
 
     /// The content insets of the tracking scroll view derived from this safe area
     var adjustedContentInsets: UIEdgeInsets {
-        return drawerView.layoutAdapter.adjustedContentInsets
+        return drawerView.layout.adjustedContentInsets
     }
 
     // ジェスチャー操作を管理するインスタンス
@@ -127,13 +127,13 @@ final class DrawerContainerViewController: UIViewController {
     public func originYOfSurface(for positionType: DrawerPositionType) -> CGFloat {
         switch positionType {
         case .full:
-            return drawerView.layoutAdapter.topY
+            return drawerView.layout.topY
         case .half:
-            return drawerView.layoutAdapter.middleY
+            return drawerView.layout.middleY
         case .tip:
-            return drawerView.layoutAdapter.bottomY
+            return drawerView.layout.bottomY
         case .hidden:
-            return drawerView.layoutAdapter.hiddenY
+            return drawerView.layout.hiddenY
         }
     }
 
@@ -150,7 +150,7 @@ final class DrawerContainerViewController: UIViewController {
 
     private func reloadLayout(for traitCollection: UITraitCollection) {
         //drawerView.layoutAdapter.layout = fetchLayout(for: traitCollection)
-        drawerView.layoutAdapter.prepareLayout(in: self)
+        drawerView.layout.prepareLayout(in: self)
     }
 
     // MARK: - Scroll view tracking
@@ -220,7 +220,7 @@ final class DrawerContainerViewController: UIViewController {
             ])
 
         show(animated: animated) { [weak self] in
-            guard let `self` = self else { return }
+            guard let self = self else { return }
             self.didMove(toParent: self)
         }
     }
@@ -229,8 +229,8 @@ final class DrawerContainerViewController: UIViewController {
         // preserve the current content offset
         let contentOffset = scrollView?.contentOffset
 
-        drawerView.layoutAdapter.setupHeight()
-        drawerView.layoutAdapter.activateLayout(of: drawerView.state)
+        drawerView.layout.setupHeight()
+        drawerView.layout.activateLayout(of: drawerView.state)
 
         scrollView?.contentOffset = contentOffset ?? .zero
     }
@@ -256,7 +256,7 @@ final class DrawerContainerViewController: UIViewController {
             self?.update(safeAreaInsets: vc.view.safeAreaInsets)
         }
 
-        move(to: drawerView.layoutAdapter.initialPosition,
+        move(to: drawerView.layout.initialPosition,
              animated: animated,
              completion: completion)
     }
@@ -264,12 +264,12 @@ final class DrawerContainerViewController: UIViewController {
     // セーフエリア含めてのレイアウト更新難しそう。。。
     private func update(safeAreaInsets: UIEdgeInsets) {
         guard
-            drawerView.layoutAdapter.safeAreaInsets != safeAreaInsets,
+            drawerView.layout.safeAreaInsets != safeAreaInsets,
             self.drawerView.isDecelerating == false
             else { return }
 
 
-        drawerView.layoutAdapter.safeAreaInsets = safeAreaInsets
+        drawerView.layout.safeAreaInsets = safeAreaInsets
 
         setUpLayout()
 

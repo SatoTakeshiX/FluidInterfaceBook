@@ -169,6 +169,10 @@
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
+                                            <connections>
+                                                <outlet property="dataSource" destination="bp3-6q-cP0" id="m3X-oN-FkM"/>
+                                                <outlet property="delegate" destination="bp3-6q-cP0" id="zSJ-6o-tUh"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                     <constraints>
