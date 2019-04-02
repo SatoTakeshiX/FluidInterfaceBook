@@ -20,6 +20,9 @@ final class SearchViewController: UIViewController {
         tableView.delegate = self
         searchBar.placeholder = "Search for a place or address"
         hideHeader()
+        let grabbleHandleView = GrabberHandleView()
+        view.addSubview(grabbleHandleView)
+        layoutGrabberHandle(grabberView: grabbleHandleView)
     }
 
     func showHeader() {
@@ -41,6 +44,15 @@ final class SearchViewController: UIViewController {
             }
         }
         tableView.endUpdates()
+    }
+
+    private func layoutGrabberHandle(grabberView: GrabberHandleView) {
+
+        grabberView.translatesAutoresizingMaskIntoConstraints = false
+        grabberView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
+        grabberView.heightAnchor.constraint(equalToConstant: grabberView.frame.height).isActive = true
+        grabberView.widthAnchor.constraint(equalToConstant: grabberView.frame.width).isActive = true
+        grabberView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0.0).isActive = true
     }
 }
 

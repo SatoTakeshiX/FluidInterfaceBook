@@ -16,7 +16,7 @@ protocol DrawerContainerViewControllerDelegate: AnyObject {
 
     // MARK: --------
     // called on start of dragging (may require some time and or distance to move)
-    func DrawerWillBeginDragging(_ vc: DrawerContainerViewController)
+    func drawerWillBeginDragging(_ vc: DrawerContainerViewController)
     // MARK: --------
     // called on finger up if the user dragged. velocity is in points/second.
     func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType)
@@ -160,12 +160,7 @@ final class DrawerContainerViewController: UIViewController {
     ///     - scrollView: Specify a scroll view to continuously and seamlessly work in concert with interactions of the surface view or nil to cancel it.
     /// - Attention:
     ///     The specified scroll view must be already assigned to the delegate property because the controller intermediates between the various delegate methods.
-    public func track(scrollView: UIScrollView?) {
-
-        guard let scrollView = scrollView else {
-            drawerView.scrollView = nil
-            return
-        }
+    public func track(scrollView: UIScrollView) {
 
         drawerView.scrollView = scrollView
         if scrollView.delegate !== drawerView {

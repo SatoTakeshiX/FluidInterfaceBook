@@ -21,7 +21,7 @@ final class DrawerBehavior {
         }
     }
 
-    func momentumProjectionRate(_ fpc: DrawerContainerViewController) -> CGFloat {
+    func momentumProjectionRate() -> CGFloat {
         return UIScrollView.DecelerationRate.normal.rawValue
     }
 

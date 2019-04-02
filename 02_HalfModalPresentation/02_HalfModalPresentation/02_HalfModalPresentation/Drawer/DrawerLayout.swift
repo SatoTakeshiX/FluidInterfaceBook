@@ -27,8 +27,8 @@ final class DrawerLayout {
 
     private var initialConst: CGFloat = 0.0
 
-    var topInteractionBuffer: CGFloat { return 6.0 }
     var bottomInteractionBuffer: CGFloat { return 6.0 }
+    var topInteractionBuffer: CGFloat { return 6.0 }
     var supportedPositions: Set<DrawerPositionType> {
         return Set([.full, .half, .tip])
     }
@@ -76,6 +76,11 @@ final class DrawerLayout {
     }
     private var hiddenInset: CGFloat {
         return insetFor(position: .hidden)
+    }
+
+    var bottomMaxY: CGFloat {
+        return surfaceView.superview!.bounds.height - (safeAreaInsets.bottom + hiddenInset)
+
     }
 
     init(surfaceView: DrawerSurfaceView,
@@ -224,5 +229,42 @@ final class DrawerLayout {
 
         surfaceView.bottomOverflow = vc.view.bounds.height + topInteractionBuffer
 
+    }
+
+    func startInteraction(at state: DrawerPositionType) {
+        NSLayoutConstraint.deactivate(fullConstraints + halfConstraints + tipConstraints + offConstraints)
+        guard let vc = vc else { return }
+        initialConst = surfaceView.frame.minY - safeAreaInsets.top
+        let interactiveTopConstraint = surfaceView.topAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.topAnchor,
+                                                                    constant: initialConst)
+
+        NSLayoutConstraint.activate([interactiveTopConstraint])
+        self.interactiveTopConstraint = interactiveTopConstraint
+    }
+
+    func updateInteractiveTopConstraint(diff: CGFloat, allowsTopBuffer: Bool) {
+        defer {
+            surfaceView.superview!.layoutIfNeeded() // MUST call here to update `surfaceView.frame`
+        }
+
+        let minY: CGFloat = {
+
+            var ret = fullInset
+
+            if allowsTopBuffer {
+                ret -= topInteractionBuffer
+            }
+            return max(ret, 0.0) // The top boundary is equal to the related topAnchor.
+        }()
+        let maxY: CGFloat = {
+
+            var ret = bottomY - safeAreaInsets.top
+
+            ret += bottomInteractionBuffer
+            return min(ret, bottomMaxY)
+        }()
+        let const = initialConst + diff
+
+        interactiveTopConstraint?.constant = max(minY, min(maxY, const))
     }
 }

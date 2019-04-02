@@ -21,25 +21,38 @@ final class MapViewController: UIViewController {
         drawerContainerVC = DrawerContainerViewController()
         drawerContainerVC.delegate = self
 
-        // Initialize FloatingPanelController and add the view
-
-
         guard let searchViewController = UIStoryboard(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
             return
         }
 
         searchVC = searchViewController
 
-        drawerContainerVC.set(contentViewController: searchVC)
-        drawerContainerVC.track(scrollView: searchVC.tableView)
+        //drawerContainerVC.set(contentViewController: searchVC)
+        //drawerContainerVC.track(scrollView: searchVC.tableView)
 
         setupMap()
 
-        drawerContainerVC.addDrawer(toParent: self, animated: true)
+        self.addChild(searchVC)
+        self.view.addSubview(searchVC.view)
+        searchVC.didMove(toParent: self)
+
+
+        setupLayout(subView: searchVC.view)
 
         // Must be here
         searchVC.searchBar.delegate = self
 
+    }
+
+    private func setupLayout(subView: UIView) {
+        // autolayoutで設定する
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        guard let distanceTop = distanceFromTop(position: .half) else { return }
+        subView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -distanceTop).isActive = true
+        subView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0).isActive = true
+        subView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0).isActive = true
+        subView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 0.0).isActive = true
+        view.layoutIfNeeded()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +71,15 @@ final class MapViewController: UIViewController {
         mapView.showsCompass = true
         mapView.showsUserLocation = true
     }
+
+    func distanceFromTop(position: DrawerPositionType) -> CGFloat? {
+        switch position {
+        case .full: return 18.0
+        case .half: return 262.0
+        case .tip: return 69.0
+        case .hidden: return nil
+        }
+    }
 }
 
 extension MapViewController: DrawerContainerViewControllerDelegate {
@@ -70,7 +92,7 @@ extension MapViewController: DrawerContainerViewControllerDelegate {
         }
     }
 
-    func DrawerWillBeginDragging(_ vc: DrawerContainerViewController) {
+    func drawerWillBeginDragging(_ vc: DrawerContainerViewController) {
         if vc.position == .full {
             searchVC.searchBar.showsCancelButton = false
             searchVC.searchBar.resignFirstResponder()
@@ -101,13 +123,13 @@ extension MapViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton  = false
         searchVC.hideHeader()
-        drawerContainerVC.move(to: .half, animated: true)
+        //drawerContainerVC.move(to: .half, animated: true)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         searchVC.showHeader()
         searchVC.tableView.alpha = 1.0
-        drawerContainerVC.move(to: .full, animated: true)
+        //drawerContainerVC.move(to: .full, animated: true)
     }
 }

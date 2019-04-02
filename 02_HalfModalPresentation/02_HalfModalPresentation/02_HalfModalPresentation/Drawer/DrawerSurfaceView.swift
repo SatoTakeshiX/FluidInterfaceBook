@@ -21,7 +21,7 @@ class DrawerSurfaceView: UIView {
 
     /// The height of the grabber bar area
     public static var topGrabberBarHeight: CGFloat {
-        return Default.grabberTopPadding * 2 + GrabberHandleView.Default.height // 17.0
+        return grabberTopPadding * 2 + GrabberHandleView.Default.height // 17.0
     }
 
     /// A root view of a content view controller
@@ -65,9 +65,9 @@ class DrawerSurfaceView: UIView {
     private var backgroundView: UIView!
     private var backgroundHeightConstraint: NSLayoutConstraint!
 
-    private struct Default {
-        public static let grabberTopPadding: CGFloat = 6.0
-    }
+
+    static let grabberTopPadding: CGFloat = 6.0
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,7 +103,7 @@ class DrawerSurfaceView: UIView {
 
         grabberHandle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            grabberHandle.topAnchor.constraint(equalTo: topAnchor, constant: Default.grabberTopPadding),
+            grabberHandle.topAnchor.constraint(equalTo: topAnchor, constant: DrawerSurfaceView.grabberTopPadding),
             grabberHandle.widthAnchor.constraint(equalToConstant: grabberHandle.frame.width),
             grabberHandle.heightAnchor.constraint(equalToConstant: grabberHandle.frame.height),
             grabberHandle.centerXAnchor.constraint(equalTo: centerXAnchor),
