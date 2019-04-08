@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 final class MapViewController: UIViewController {
-    private var drawerContainerVC: DrawerContainerViewController!
+    //private var drawerContainerVC: DrawerContainerViewController!
     private var searchVC: SearchViewController!
 
     @IBOutlet weak var mapView: MKMapView!
@@ -18,8 +18,8 @@ final class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        drawerContainerVC = DrawerContainerViewController()
-        drawerContainerVC.delegate = self
+//        drawerContainerVC = DrawerContainerViewController()
+//        drawerContainerVC.delegate = self
 
         guard let searchViewController = UIStoryboard(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
             return
@@ -36,18 +36,46 @@ final class MapViewController: UIViewController {
         self.view.addSubview(searchVC.view)
         searchVC.didMove(toParent: self)
 
-
         setupLayout(subView: searchVC.view)
 
-        // Must be here
+        //
         searchVC.searchBar.delegate = self
 
+
+        searchVC.tableView.panGestureRecognizer.addTarget(self, action: #selector(handle(panGesture:)))
+        searchVC.view.addGestureRecognizer(panGestureRecognizer)
+        //setupPanGesture(view: searchVC.view)
+
+    }
+
+    private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handle(panGesture:)))
+        return pan
+    }()
+
+    // 現在のハーフモーダルビューの状態。
+    private var currentMode: DrawerPositionType = .half
+
+
+    @objc private func handle(panGesture: UIPanGestureRecognizer) {
+        let velocity = panGesture.velocity(in: panGesture.view)
+        //panGesture.translation(in: view)
+        switch panGesture {
+        case searchVC.tableView.panGestureRecognizer:
+            let location = panGesture.location(in: panGesture.view)
+            
+            break
+        case panGestureRecognizer:
+            break
+        default:
+            break
+        }
     }
 
     private func setupLayout(subView: UIView) {
         // autolayoutで設定する
         subView.translatesAutoresizingMaskIntoConstraints = false
-        guard let distanceTop = distanceFromTop(position: .half) else { return }
+        guard let distanceTop = distanceFromTop(position: currentMode) else { return }
         subView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -distanceTop).isActive = true
         subView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0.0).isActive = true
         subView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0.0).isActive = true
@@ -77,44 +105,7 @@ final class MapViewController: UIViewController {
         case .full: return 18.0
         case .half: return 262.0
         case .tip: return 69.0
-        case .hidden: return nil
         }
-    }
-}
-
-extension MapViewController: DrawerContainerViewControllerDelegate {
-    func DrawerDidMove(_ drawerVC: DrawerContainerViewController) {
-        let y = drawerVC.drawerView.surfaceView.frame.origin.y
-        let tipY = drawerVC.originYOfSurface(for: .tip)
-        if y > tipY - 44.0 {
-            let progress = max(0.0, min((tipY  - y) / 44.0, 1.0))
-            self.searchVC?.tableView.alpha = progress
-        }
-    }
-
-    func drawerWillBeginDragging(_ vc: DrawerContainerViewController) {
-        if vc.position == .full {
-            searchVC.searchBar.showsCancelButton = false
-            searchVC.searchBar.resignFirstResponder()
-        }
-    }
-
-    func DrawerDidEndDragging(_ vc: DrawerContainerViewController, withVelocity velocity: CGPoint, targetPosition: DrawerPositionType) {
-        if targetPosition != .full {
-            searchVC.hideHeader()
-        }
-
-        UIView.animate(withDuration: 0.25,
-                       delay: 0.0,
-                       options: .allowUserInteraction,
-                       animations: {[weak self] in
-                        guard let self = self else { return }
-                        if targetPosition == .tip {
-                            self.searchVC.tableView.alpha = 0.0
-                        } else {
-                            self.searchVC.tableView.alpha = 1.0
-                        }
-        }, completion: nil)
     }
 }
 
@@ -123,13 +114,11 @@ extension MapViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton  = false
         searchVC.hideHeader()
-        //drawerContainerVC.move(to: .half, animated: true)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         searchVC.showHeader()
         searchVC.tableView.alpha = 1.0
-        //drawerContainerVC.move(to: .full, animated: true)
     }
 }
