@@ -14,25 +14,29 @@ final class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
 
     //MARK: Layout propaties
-    private let modalViewHeight: CGFloat = UIScreen.main.bounds.height - 64
+    private var modalViewHeight: CGFloat {
+        return view.frame.height - view.safeAreaInsets.top
+    }
     private var maxDistance: CGFloat {
-        return modalViewHeight - 60 - topPositionConstant
+        return modalViewHeight - fullPositionConstant
     }
-    private let topPositionConstant: CGFloat = 0.0
-    private var middlePositionConstant: CGFloat {
-        return maxDistance * 0.4
+    private var fullPositionConstant: CGFloat {
+        return view.safeAreaInsets.top
     }
-    private var bottomPositionConstant: CGFloat {
+    private var halfPositionConstant: CGFloat {
+        return maxDistance * 0.7
+    }
+    private var tipPositionConstant: CGFloat {
         return maxDistance
     }
-    private var middlePositionFractionValue: CGFloat {
-        return bottomToMiddleDistance / maxDistance
+    private var halfPositionFractionValue: CGFloat {
+        return tipToHalfDistance / maxDistance
     }
-    private var bottomToMiddleDistance: CGFloat {
-        return maxDistance - middlePositionConstant
+    private var tipToHalfDistance: CGFloat {
+        return maxDistance - halfPositionConstant
     }
-    private var middleToTopDistance: CGFloat {
-        return maxDistance - bottomToMiddleDistance
+    private var halfToFullDistance: CGFloat {
+        return maxDistance - tipToHalfDistance
     }
 
     //MARK: for animator
@@ -41,7 +45,15 @@ final class MapViewController: UIViewController {
 
     private var remainigToMiddleDistance: CGFloat = 0.0
     private var isRunningToMiddle = false
-    private var currentMode: DrawerPositionType = .half
+    private var currentMode: DrawerPositionType = .half {
+        didSet {
+            if currentMode == .full {
+                searchVC.showHeader()
+            } else {
+                searchVC.hideHeader()
+            }
+        }
+    }
 
     private lazy var panGestureRecognizer: ViewPanGestureRecognizer = {
         let pan = ViewPanGestureRecognizer(target: self, action: #selector(handle(panGesture:)))
@@ -66,29 +78,26 @@ final class MapViewController: UIViewController {
         setupModalLayout()
 
         searchVC.searchBar.delegate = self
-        searchVC.tableView.panGestureRecognizer.addTarget(self, action: #selector(handle(panGesture:)))
-        searchVC.searchBar.addGestureRecognizer(panGestureRecognizer)
+        //searchVC.tableView.panGestureRecognizer.addTarget(self, action: #selector(handle(panGesture:)))
+        //searchVC.searchBar.addGestureRecognizer(panGestureRecognizer)
+        searchVC.view.addGestureRecognizer(panGestureRecognizer)
     }
 
     //
     private func setupModalLayout() {
+
         // autolayoutで設定する
         let modalView = searchVC.view!
         modalView.translatesAutoresizingMaskIntoConstraints = false
 
-        modalViewBottomConstraint = modalView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottomToMiddleDistance)
+        modalViewBottomConstraint = modalView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: halfPositionConstant)
 
         modalView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         modalView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         modalViewBottomConstraint.isActive = true
         modalView.heightAnchor.constraint(equalToConstant: modalViewHeight).isActive = true
+
         view.layoutIfNeeded()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //  Add FloatingPanel to a view with animation.
-
     }
 
     private func setupMap() {
@@ -107,7 +116,6 @@ final class MapViewController: UIViewController {
         if panGesture == searchVC.tableView.panGestureRecognizer {
             //lockScrollView(scrollView: searchVC.tableView)
         }
-
 
         switch panGesture.state {
         case .began:
@@ -147,9 +155,9 @@ final class MapViewController: UIViewController {
                 // middleならbottomに変更する
                 currentMode = .tip
                 // 制約を変えて
-                modalViewBottomConstraint.constant = bottomPositionConstant
+                modalViewBottomConstraint.constant = tipPositionConstant
                 view.layoutIfNeeded()
-                modalAnimatorProgress = middlePositionFractionValue
+                modalAnimatorProgress = halfPositionFractionValue
             } else {
                 modalAnimatorProgress = 0.0
             }
@@ -164,11 +172,11 @@ final class MapViewController: UIViewController {
             let currentConstantPoint: CGFloat //制約の数値を計算
             switch currentMode {
             case .tip:
-                currentConstantPoint = bottomToMiddleDistance - remainigToMiddleDistance * (1 - modalAnimator.fractionComplete)
-                modalViewBottomConstraint.constant = bottomPositionConstant
+                currentConstantPoint = tipToHalfDistance - remainigToMiddleDistance * (1 - modalAnimator.fractionComplete)
+                modalViewBottomConstraint.constant = tipPositionConstant
             case .full:
-                currentConstantPoint = (middleToTopDistance - remainigToMiddleDistance) + remainigToMiddleDistance * modalAnimator.fractionComplete
-                modalViewBottomConstraint.constant = topPositionConstant
+                currentConstantPoint = (halfToFullDistance - remainigToMiddleDistance) + remainigToMiddleDistance * modalAnimator.fractionComplete
+                modalViewBottomConstraint.constant = fullPositionConstant
             case .half: fatalError()
             }
             // 進捗状態を作成
@@ -208,9 +216,9 @@ final class MapViewController: UIViewController {
             guard let self = self else { return }
             switch self.currentMode {
             case .tip:
-                self.modalViewBottomConstraint.constant = self.topPositionConstant
+                self.modalViewBottomConstraint.constant = self.fullPositionConstant
             case .full:
-                self.modalViewBottomConstraint.constant = self.bottomPositionConstant
+                self.modalViewBottomConstraint.constant = self.tipPositionConstant
             case .half: fatalError()
             }
             self.view.layoutIfNeeded()
@@ -220,18 +228,18 @@ final class MapViewController: UIViewController {
             switch self.currentMode {
             case .tip:
                 if position == .start {
-                    self.modalViewBottomConstraint.constant = self.bottomPositionConstant
+                    self.modalViewBottomConstraint.constant = self.tipPositionConstant
                     self.currentMode = .tip
                 } else if position == .end {
-                    self.modalViewBottomConstraint.constant = self.topPositionConstant
+                    self.modalViewBottomConstraint.constant = self.fullPositionConstant
                     self.currentMode = .full
                 }
             case .full:
                 if position == .start {
-                    self.modalViewBottomConstraint.constant = self.topPositionConstant
+                    self.modalViewBottomConstraint.constant = self.fullPositionConstant
                     self.currentMode = .full
                 } else if position == .end {
-                    self.modalViewBottomConstraint.constant = self.bottomPositionConstant
+                    self.modalViewBottomConstraint.constant = self.tipPositionConstant
                     self.currentMode = .tip
                 }
             case .half: fatalError()
@@ -256,10 +264,10 @@ final class MapViewController: UIViewController {
     private func continueInteractionAnimator(velocity: CGPoint) {
         // bottomとhullの場合に、同じ位置にいたかどうか
         let fractionComplete = modalAnimator.fractionComplete
-        if currentMode.isBeginningArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: middlePositionFractionValue) {
+        if currentMode.isBeginningArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: halfPositionFractionValue) {
             //beginning areaならはじめのインタラクションアニメーターを実行
             begginingAreaContinueInteractionAnimator(velocity: velocity)
-        } else if currentMode.isEndArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: middlePositionFractionValue) {
+        } else if currentMode.isEndArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: halfPositionFractionValue) {
             // bottomとhullの場合に、ミドルを飛び越して他の場所に行ったかどうか
             endAreaContinueInteractionAnimator(velocity: velocity)
         } else {
@@ -295,12 +303,12 @@ final class MapViewController: UIViewController {
 
     private func middleAreaContinueInteractionAnimator(velocity: CGPoint) {
         modalAnimator.pauseAnimation()
-        let toMiddleDistance = currentMode == .tip ? bottomToMiddleDistance : middleToTopDistance
+        let toMiddleDistance = currentMode == .tip ? tipToHalfDistance : halfToFullDistance
         remainigToMiddleDistance = toMiddleDistance - (maxDistance * modalAnimator.fractionComplete)
 
         stopModalAnimator()
         modalAnimator.addAnimations {
-            self.modalViewBottomConstraint.constant = self.middlePositionConstant
+            self.modalViewBottomConstraint.constant = self.halfPositionConstant
             self.view.layoutIfNeeded()
         }
         modalAnimator.addCompletion {[weak self] position in
@@ -309,7 +317,7 @@ final class MapViewController: UIViewController {
             switch position {
             case .end:
                 self.currentMode = .half
-                self.modalViewBottomConstraint.constant = self.middlePositionConstant
+                self.modalViewBottomConstraint.constant = self.halfPositionConstant
             case .start, .current: ()
             @unknown default:
                 ()
