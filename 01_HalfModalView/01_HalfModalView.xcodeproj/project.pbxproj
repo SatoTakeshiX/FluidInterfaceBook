@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		305224D3225B612C0098BE28 /* ViewPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224D2225B612C0098BE28 /* ViewPanGestureRecognizer.swift */; };
+		305224D5225B957A0098BE28 /* UISpringTimingParameters+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224D4225B957A0098BE28 /* UISpringTimingParameters+Ex.swift */; };
 		30613F3C225AE81000E99096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F3B225AE81000E99096 /* AppDelegate.swift */; };
 		30613F43225AE81900E99096 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30613F42225AE81900E99096 /* Assets.xcassets */; };
 		30613F46225AE81900E99096 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30613F44225AE81900E99096 /* LaunchScreen.storyboard */; };
@@ -31,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		305224D2225B612C0098BE28 /* ViewPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		305224D4225B957A0098BE28 /* UISpringTimingParameters+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISpringTimingParameters+Ex.swift"; sourceTree = "<group>"; };
 		30613F38225AE81000E99096 /* 01_HalfModalView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 01_HalfModalView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30613F3B225AE81000E99096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30613F42225AE81900E99096 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 			children = (
 				30613F6B225AE9EF00E99096 /* DrawerLayout.swift */,
 				30613F6D225AEA4000E99096 /* GrabberHandleView.swift */,
+				305224D2225B612C0098BE28 /* ViewPanGestureRecognizer.swift */,
+				305224D4225B957A0098BE28 /* UISpringTimingParameters+Ex.swift */,
 			);
 			path = Drawer;
 			sourceTree = "<group>";
@@ -255,7 +261,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				30613F6E225AEA4000E99096 /* GrabberHandleView.swift in Sources */,
+				305224D3225B612C0098BE28 /* ViewPanGestureRecognizer.swift in Sources */,
 				30613F65225AE8BD00E99096 /* SearchViewController.swift in Sources */,
+				305224D5225B957A0098BE28 /* UISpringTimingParameters+Ex.swift in Sources */,
 				30613F67225AE8BD00E99096 /* SearchCell.swift in Sources */,
 				30613F6C225AE9EF00E99096 /* DrawerLayout.swift in Sources */,
 				30613F68225AE8BD00E99096 /* MapViewController.swift in Sources */,
