@@ -9,15 +9,15 @@
 /* Begin PBXBuildFile section */
 		305224D3225B612C0098BE28 /* ViewPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224D2225B612C0098BE28 /* ViewPanGestureRecognizer.swift */; };
 		305224D5225B957A0098BE28 /* UISpringTimingParameters+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224D4225B957A0098BE28 /* UISpringTimingParameters+Ex.swift */; };
+		305224E0225CB2800098BE28 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224D8225CB2800098BE28 /* SearchViewController.swift */; };
+		305224E1225CB2800098BE28 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305224D9225CB2800098BE28 /* SearchViewController.storyboard */; };
+		305224E2225CB2800098BE28 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224DB225CB2800098BE28 /* SearchCell.swift */; };
+		305224E3225CB2800098BE28 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305224DD225CB2800098BE28 /* MapViewController.swift */; };
+		305224E4225CB2800098BE28 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305224DE225CB2800098BE28 /* Map.storyboard */; };
 		30613F3C225AE81000E99096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F3B225AE81000E99096 /* AppDelegate.swift */; };
 		30613F43225AE81900E99096 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30613F42225AE81900E99096 /* Assets.xcassets */; };
 		30613F46225AE81900E99096 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30613F44225AE81900E99096 /* LaunchScreen.storyboard */; };
 		30613F51225AE81900E99096 /* _1_HalfModalViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F50225AE81900E99096 /* _1_HalfModalViewTests.swift */; };
-		30613F65225AE8BD00E99096 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F5D225AE8BD00E99096 /* SearchViewController.swift */; };
-		30613F66225AE8BD00E99096 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30613F5E225AE8BD00E99096 /* SearchViewController.storyboard */; };
-		30613F67225AE8BD00E99096 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F60225AE8BD00E99096 /* SearchCell.swift */; };
-		30613F68225AE8BD00E99096 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F62225AE8BD00E99096 /* MapViewController.swift */; };
-		30613F69225AE8BD00E99096 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30613F63225AE8BD00E99096 /* Map.storyboard */; };
 		30613F6C225AE9EF00E99096 /* DrawerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F6B225AE9EF00E99096 /* DrawerLayout.swift */; };
 		30613F6E225AEA4000E99096 /* GrabberHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30613F6D225AEA4000E99096 /* GrabberHandleView.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +35,11 @@
 /* Begin PBXFileReference section */
 		305224D2225B612C0098BE28 /* ViewPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		305224D4225B957A0098BE28 /* UISpringTimingParameters+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISpringTimingParameters+Ex.swift"; sourceTree = "<group>"; };
+		305224D8225CB2800098BE28 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		305224D9225CB2800098BE28 /* SearchViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
+		305224DB225CB2800098BE28 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		305224DD225CB2800098BE28 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		305224DF225CB2800098BE28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		30613F38225AE81000E99096 /* 01_HalfModalView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 01_HalfModalView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30613F3B225AE81000E99096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30613F42225AE81900E99096 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,11 +48,6 @@
 		30613F4C225AE81900E99096 /* 01_HalfModalViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 01_HalfModalViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30613F50225AE81900E99096 /* _1_HalfModalViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _1_HalfModalViewTests.swift; sourceTree = "<group>"; };
 		30613F52225AE81900E99096 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30613F5D225AE8BD00E99096 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		30613F5E225AE8BD00E99096 /* SearchViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
-		30613F60225AE8BD00E99096 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
-		30613F62225AE8BD00E99096 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		30613F64225AE8BD00E99096 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		30613F6B225AE9EF00E99096 /* DrawerLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawerLayout.swift; path = ../../../02_HalfModalPresentation/02_HalfModalPresentation/02_HalfModalPresentation/Drawer/DrawerLayout.swift; sourceTree = "<group>"; };
 		30613F6D225AEA4000E99096 /* GrabberHandleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrabberHandleView.swift; path = ../../../02_HalfModalPresentation/02_HalfModalPresentation/02_HalfModalPresentation/Drawer/GrabberHandleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +70,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		305224D6225CB2800098BE28 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				305224D7225CB2800098BE28 /* Search */,
+				305224DC225CB2800098BE28 /* Map */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		305224D7225CB2800098BE28 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				305224D8225CB2800098BE28 /* SearchViewController.swift */,
+				305224D9225CB2800098BE28 /* SearchViewController.storyboard */,
+				305224DA225CB2800098BE28 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		305224DA225CB2800098BE28 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				305224DB225CB2800098BE28 /* SearchCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		305224DC225CB2800098BE28 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				305224DD225CB2800098BE28 /* MapViewController.swift */,
+				305224DE225CB2800098BE28 /* Map.storyboard */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		30613F2F225AE81000E99096 = {
 			isa = PBXGroup;
 			children = (
@@ -91,8 +127,8 @@
 		30613F3A225AE81000E99096 /* 01_HalfModalView */ = {
 			isa = PBXGroup;
 			children = (
+				305224D6225CB2800098BE28 /* Scene */,
 				30613F6A225AE9D100E99096 /* Drawer */,
-				30613F5B225AE8BD00E99096 /* Scene */,
 				30613F3B225AE81000E99096 /* AppDelegate.swift */,
 				30613F42225AE81900E99096 /* Assets.xcassets */,
 				30613F44225AE81900E99096 /* LaunchScreen.storyboard */,
@@ -108,43 +144,6 @@
 				30613F52225AE81900E99096 /* Info.plist */,
 			);
 			path = 01_HalfModalViewTests;
-			sourceTree = "<group>";
-		};
-		30613F5B225AE8BD00E99096 /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-				30613F5C225AE8BD00E99096 /* Search */,
-				30613F61225AE8BD00E99096 /* Map */,
-			);
-			name = Scene;
-			path = ../../02_HalfModalPresentation/02_HalfModalPresentation/02_HalfModalPresentation/Scene;
-			sourceTree = "<group>";
-		};
-		30613F5C225AE8BD00E99096 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				30613F5D225AE8BD00E99096 /* SearchViewController.swift */,
-				30613F5E225AE8BD00E99096 /* SearchViewController.storyboard */,
-				30613F5F225AE8BD00E99096 /* View */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		30613F5F225AE8BD00E99096 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				30613F60225AE8BD00E99096 /* SearchCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		30613F61225AE8BD00E99096 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				30613F62225AE8BD00E99096 /* MapViewController.swift */,
-				30613F63225AE8BD00E99096 /* Map.storyboard */,
-			);
-			path = Map;
 			sourceTree = "<group>";
 		};
 		30613F6A225AE9D100E99096 /* Drawer */ = {
@@ -241,8 +240,8 @@
 			files = (
 				30613F46225AE81900E99096 /* LaunchScreen.storyboard in Resources */,
 				30613F43225AE81900E99096 /* Assets.xcassets in Resources */,
-				30613F69225AE8BD00E99096 /* Map.storyboard in Resources */,
-				30613F66225AE8BD00E99096 /* SearchViewController.storyboard in Resources */,
+				305224E1225CB2800098BE28 /* SearchViewController.storyboard in Resources */,
+				305224E4225CB2800098BE28 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,14 +259,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				305224E0225CB2800098BE28 /* SearchViewController.swift in Sources */,
 				30613F6E225AEA4000E99096 /* GrabberHandleView.swift in Sources */,
 				305224D3225B612C0098BE28 /* ViewPanGestureRecognizer.swift in Sources */,
-				30613F65225AE8BD00E99096 /* SearchViewController.swift in Sources */,
+				305224E2225CB2800098BE28 /* SearchCell.swift in Sources */,
 				305224D5225B957A0098BE28 /* UISpringTimingParameters+Ex.swift in Sources */,
-				30613F67225AE8BD00E99096 /* SearchCell.swift in Sources */,
 				30613F6C225AE9EF00E99096 /* DrawerLayout.swift in Sources */,
-				30613F68225AE8BD00E99096 /* MapViewController.swift in Sources */,
 				30613F3C225AE81000E99096 /* AppDelegate.swift in Sources */,
+				305224E3225CB2800098BE28 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,20 +289,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		305224DE225CB2800098BE28 /* Map.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				305224DF225CB2800098BE28 /* Base */,
+			);
+			name = Map.storyboard;
+			sourceTree = "<group>";
+		};
 		30613F44225AE81900E99096 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				30613F45225AE81900E99096 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		30613F63225AE8BD00E99096 /* Map.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				30613F64225AE8BD00E99096 /* Base */,
-			);
-			name = Map.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
