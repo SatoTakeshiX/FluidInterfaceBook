@@ -317,8 +317,10 @@ final class MapViewController: UIViewController {
         let remainingFraction = 1 - modalAnimator.fractionComplete
         let remainingDistance = maxDistance * remainingFraction
         let continueAnimatorParams = calculateContinueAnimatorParams(remainingDistance: remainingDistance, velocity: velocity)
-        modalAnimator.continueAnimation(withTimingParameters: continueAnimatorParams.timingParameters,
-                                        durationFactor: continueAnimatorParams.durationFactor)
+        let timingParameters = continueAnimatorParams.timingParameters
+        let durationFactor = continueAnimatorParams.durationFactor
+        modalAnimator.continueAnimation(withTimingParameters: timingParameters,
+                                        durationFactor: durationFactor)
     }
 
     private func halfAreaContinueInteractionAnimator(velocity: CGPoint) {
