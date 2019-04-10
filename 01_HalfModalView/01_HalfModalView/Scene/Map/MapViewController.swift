@@ -47,8 +47,8 @@ final class MapViewController: UIViewController {
         }
     }
 
-    private var remainigToMiddleDistance: CGFloat = 0.0
-    private var isRunningToMiddle = false
+    private var remainigToHalfDistance: CGFloat = 0.0
+    private var isRunningToHalf = false
     private var currentMode: DrawerPositionType = .half {
         didSet {
             if currentMode == .full {
@@ -60,7 +60,9 @@ final class MapViewController: UIViewController {
     }
 
     private lazy var panGestureRecognizer: ViewPanGestureRecognizer = {
-        let pan = ViewPanGestureRecognizer(target: self, action: #selector(handle(panGesture:)))
+        let pan =
+            ViewPanGestureRecognizer(target: self,
+                                     action: #selector(handle(panGesture:)))
         return pan
     }()
 
@@ -69,9 +71,10 @@ final class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let searchViewController = UIStoryboard(name: "SearchViewController", bundle: nil).instantiateInitialViewController() as? SearchViewController else {
-            return
-        }
+        guard let searchViewController =
+            UIStoryboard(name: "SearchViewController", bundle: nil)
+                .instantiateInitialViewController() as? SearchViewController
+            else { return }
         searchVC = searchViewController
         setupMap()
 
@@ -92,12 +95,19 @@ final class MapViewController: UIViewController {
         let modalView = searchVC.view!
         modalView.translatesAutoresizingMaskIntoConstraints = false
 
-        modalViewBottomConstraint = modalView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: halfPositionConstant)
+        modalViewBottomConstraint =
+            modalView
+                .bottomAnchor
+                .constraint(equalTo: view.bottomAnchor,
+                            constant: halfPositionConstant)
 
-        modalView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        modalView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        modalView.leadingAnchor
+            .constraint(equalTo: view.leadingAnchor).isActive = true
+        modalView.trailingAnchor
+            .constraint(equalTo: view.trailingAnchor).isActive = true
         modalViewBottomConstraint.isActive = true
-        modalView.heightAnchor.constraint(equalToConstant: modalViewHeight).isActive = true
+        modalView.heightAnchor
+            .constraint(equalToConstant: modalViewHeight).isActive = true
 
         view.layoutIfNeeded()
     }
@@ -120,26 +130,23 @@ final class MapViewController: UIViewController {
             beganInteractionAnimator()
             activeAnimator()
         case .changed:
-            // パンジェスチャーが動いている
-            // どのぐらい動いたのかをつくる
+            // パンジェスチャーがどのぐらい動いたのか
             let translation = panGesture.translation(in: searchVC.view)
-            // 今の位置はどこのポジションか？
-            // 下にいくときのみfraction completeが更新される
+            // 現状のハーフモーダルビューの状態を確認
+            // animatorの進捗をジェスチャーによって変更
             switch currentMode {
             case .tip:
-                // animatorのパーセンテージを計算。
-                modalAnimator.fractionComplete = -translation.y / maxDistance + modalAnimatorProgress
+                modalAnimator.fractionComplete =
+                    -translation.y / maxDistance + modalAnimatorProgress
             case .full:
-                modalAnimator.fractionComplete = translation.y / maxDistance + modalAnimatorProgress
+                modalAnimator.fractionComplete =
+                    translation.y / maxDistance + modalAnimatorProgress
             case .half: fatalError()
             }
         case .ended:
-            // velocityをつくる
+            // ジェスチャーの速度から終了アニメーションを実行
             let velocity = panGesture.velocity(in: searchVC.view)
-
             continueInteractionAnimator(velocity: velocity)
-
-
         default:
             ()
         }
@@ -150,7 +157,7 @@ final class MapViewController: UIViewController {
         if !modalAnimator.isRunning {
             // animatorが実行中ではない
             if currentMode == .half {
-                // middleならbottomに変更する
+                // halfならtipに変更する
                 currentMode = .tip
                 // 制約を変えて
                 modalViewBottomConstraint.constant = tipPositionConstant
@@ -161,19 +168,19 @@ final class MapViewController: UIViewController {
             }
             // animatorを作る。プロパティを更新
             generateAnimator()
-        } else if isRunningToMiddle {
+        } else if isRunningToHalf {
 
-            // animatorがisRunning中でrunning to middleがtrue ->どういう状態？
-            //　topか、bottomだけどmiddleに向かっているってことか
+            // animatorがisRunning中でrunning to halfがtrue ->どういう状態？
+            //　fullか、tipだけどhalfに向かっているってことか
             modalAnimator.pauseAnimation()
-            isRunningToMiddle.toggle()
+            isRunningToHalf.toggle()
             let currentConstantPoint: CGFloat //制約の数値を計算
             switch currentMode {
             case .tip:
-                currentConstantPoint = tipToHalfDistance - remainigToMiddleDistance * (1 - modalAnimator.fractionComplete)
+                currentConstantPoint = tipToHalfDistance - remainigToHalfDistance * (1 - modalAnimator.fractionComplete)
                 modalViewBottomConstraint.constant = tipPositionConstant
             case .full:
-                currentConstantPoint = (halfToFullDistance - remainigToMiddleDistance) + remainigToMiddleDistance * modalAnimator.fractionComplete
+                currentConstantPoint = (halfToFullDistance - remainigToHalfDistance) + remainigToHalfDistance * modalAnimator.fractionComplete
                 modalViewBottomConstraint.constant = fullPositionConstant
             case .half: fatalError()
             }
@@ -264,16 +271,16 @@ final class MapViewController: UIViewController {
 
     /// パンジェスチャーの終わりに呼ばれる
     private func continueInteractionAnimator(velocity: CGPoint) {
-        // bottomとhullの場合に、同じ位置にいたかどうか
+        // tipとhullの場合に、同じ位置にいたかどうか
         let fractionComplete = modalAnimator.fractionComplete
-        if currentMode.isBeginningArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: halfPositionFractionValue) {
+        if currentMode.isBeginningArea(fractionPoint: fractionComplete, velocity: velocity, halfAreaBorderPoint: halfPositionFractionValue) {
             //beginning areaならはじめのインタラクションアニメーターを実行
             begginingAreaContinueInteractionAnimator(velocity: velocity)
-        } else if currentMode.isEndArea(fractionPoint: fractionComplete, velocity: velocity, middleAreaBorderPoint: halfPositionFractionValue) {
-            // bottomとhullの場合に、ミドルを飛び越して他の場所に行ったかどうか
+        } else if currentMode.isEndArea(fractionPoint: fractionComplete, velocity: velocity, halfAreaBorderPoint: halfPositionFractionValue) {
+            // tipとhullの場合に、ミドルを飛び越して他の場所に行ったかどうか
             endAreaContinueInteractionAnimator(velocity: velocity)
         } else {
-            middleAreaContinueInteractionAnimator(velocity: velocity)
+            halfAreaContinueInteractionAnimator(velocity: velocity)
         }
     }
 
@@ -303,10 +310,10 @@ final class MapViewController: UIViewController {
         continueAnimator(parameters: continueAnimatorParams.timingParameters, durationFactor: continueAnimatorParams.durationFactor)
     }
 
-    private func middleAreaContinueInteractionAnimator(velocity: CGPoint) {
+    private func halfAreaContinueInteractionAnimator(velocity: CGPoint) {
         modalAnimator.pauseAnimation()
-        let toMiddleDistance = currentMode == .tip ? tipToHalfDistance : halfToFullDistance
-        remainigToMiddleDistance = toMiddleDistance - (maxDistance * modalAnimator.fractionComplete)
+        let toHalfDistance = currentMode == .tip ? tipToHalfDistance : halfToFullDistance
+        remainigToHalfDistance = toHalfDistance - (maxDistance * modalAnimator.fractionComplete)
 
         stopModalAnimator()
         modalAnimator.addAnimations {
@@ -315,7 +322,7 @@ final class MapViewController: UIViewController {
         }
         modalAnimator.addCompletion {[weak self] position in
             guard let self = self else { return }
-            self.isRunningToMiddle = false
+            self.isRunningToHalf = false
             switch position {
             case .end:
                 self.currentMode = .half
@@ -326,10 +333,10 @@ final class MapViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }
-        isRunningToMiddle = true
+        isRunningToHalf = true
 
         activeAnimator()
-        let continueAnimatorParams = calculateContinueAnimatorParams(remainingDistance: remainigToMiddleDistance, velocity: velocity)
+        let continueAnimatorParams = calculateContinueAnimatorParams(remainingDistance: remainigToHalfDistance, velocity: velocity)
         continueAnimator(parameters: continueAnimatorParams.timingParameters, durationFactor: continueAnimatorParams.durationFactor)
     }
 

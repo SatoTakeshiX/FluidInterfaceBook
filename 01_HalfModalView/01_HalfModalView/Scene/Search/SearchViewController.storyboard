@@ -13,7 +13,7 @@
         <!--Search View Controller-->
         <scene sceneID="VYo-n8-K2W">
             <objects>
-                <viewController id="bp3-6q-cP0" customClass="SearchViewController" customModule="_2_HalfModalPresentation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bp3-6q-cP0" customClass="SearchViewController" customModule="_1_HalfModalView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b1W-gd-syV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,7 +121,7 @@
                                                 </constraints>
                                             </view>
                                             <prototypes>
-                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="0PF-Ak-0Ir" customClass="SearchCell" customModule="_2_HalfModalPresentation" customModuleProvider="target">
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="0PF-Ak-0Ir" customClass="SearchCell" customModule="_1_HalfModalView" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="143" width="414" height="80"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0PF-Ak-0Ir" id="oKP-Lg-PF7">
