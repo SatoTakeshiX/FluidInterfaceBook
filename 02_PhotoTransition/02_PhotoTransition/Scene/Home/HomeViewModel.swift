@@ -23,7 +23,7 @@ protocol HomeViewModelType {
 
 final class HomeViewModel: NSObject, HomeViewModelInputs, HomeViewModelOutputs, HomeViewModelType {
     private let identifier = "cell"
-    let source: [CellType] = [.smoothTransition, .fluidTransition]
+    let source: [CellType] = [.smoothTransition]
 
     var inputs: HomeViewModelInputs { return self }
     var outputs: HomeViewModelOutputs { return self }
@@ -37,10 +37,8 @@ final class HomeViewModel: NSObject, HomeViewModelInputs, HomeViewModelOutputs, 
         let type = source[indexPath.row]
         switch type {
         case .smoothTransition:
-            guard let viewController = UIStoryboard(name: "SmoothTransitionViewController", bundle: nil).instantiateInitialViewController() as? SmoothTransitionViewController else { return }//SmoothTransitionViewController()
+            guard let viewController = UIStoryboard(name: "SmoothTransitionViewController", bundle: nil).instantiateInitialViewController() as? SmoothTransitionViewController else { return }
             show?(viewController)
-        case .fluidTransition:
-            show?(UIViewController())
         }
     }
 }
@@ -65,5 +63,4 @@ extension HomeViewModel: UITableViewDataSource {
 
 enum CellType: String {
     case smoothTransition = "Smooth Transition"
-    case fluidTransition = "Fluid Transition"
 }

@@ -8,56 +8,42 @@
 
 /* Begin PBXBuildFile section */
 		3015F85022450DB00015D04F /* TransitionDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015F84F22450DB00015D04F /* TransitionDatasource.swift */; };
+		30457749225E4DDE00BA3E19 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C833223DEA2800F469AC /* HomeViewModel.swift */; };
+		305224E5225E4C330098BE28 /* SmoothTransitionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */; };
 		30E1C813223DE85200F469AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C812223DE85200F469AC /* AppDelegate.swift */; };
 		30E1C815223DE85200F469AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C814223DE85200F469AC /* HomeViewController.swift */; };
 		30E1C818223DE85200F469AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C816223DE85200F469AC /* Main.storyboard */; };
 		30E1C81A223DE85900F469AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C819223DE85900F469AC /* Assets.xcassets */; };
 		30E1C81D223DE85900F469AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C81B223DE85900F469AC /* LaunchScreen.storyboard */; };
-		30E1C828223DE85900F469AC /* _1_PhotoTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C827223DE85900F469AC /* _1_PhotoTransitionTests.swift */; };
-		30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C833223DEA2800F469AC /* HomeViewModel.swift */; };
 		30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C837223DFFE000F469AC /* TransitionAnimator.swift */; };
 		30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */; };
 		30E1C83F223E4D6E00F469AC /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C83E223E4D6E00F469AC /* TransitionController.swift */; };
 		30E1C841223E8A0F00F469AC /* SmoothTransitionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C840223E8A0F00F469AC /* SmoothTransitionViewController.storyboard */; };
 		30E1C843223E8EC500F469AC /* SmoothTransitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C842223E8EC500F469AC /* SmoothTransitionViewModel.swift */; };
 		30E1C845223E908C00F469AC /* SmoothTrasitionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C844223E908C00F469AC /* SmoothTrasitionCollectionViewCell.swift */; };
-		30E1C84B223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */; };
 		30E1C84C223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E1C84A223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib */; };
 		30E1C84F223ED20000F469AC /* SmoothTransitionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E1C84E223ED20000F469AC /* SmoothTransitionDetailViewModel.swift */; };
 		30EB186322430595006AD70F /* GestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB186222430595006AD70F /* GestureManager.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		30E1C824223DE85900F469AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 30E1C807223DE85200F469AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 30E1C80E223DE85200F469AC;
-			remoteInfo = 01_PhotoTransition;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		3015F84F22450DB00015D04F /* TransitionDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDatasource.swift; sourceTree = "<group>"; };
-		30E1C80F223DE85200F469AC /* 01_PhotoTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 01_PhotoTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30E1C80F223DE85200F469AC /* 02_PhotoTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 02_PhotoTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30E1C812223DE85200F469AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30E1C814223DE85200F469AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		30E1C817223DE85200F469AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30E1C819223DE85900F469AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30E1C81C223DE85900F469AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30E1C81E223DE85900F469AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30E1C823223DE85900F469AC /* 01_PhotoTransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 01_PhotoTransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		30E1C827223DE85900F469AC /* _1_PhotoTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _1_PhotoTransitionTests.swift; sourceTree = "<group>"; };
-		30E1C829223DE85900F469AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30E1C833223DEA2800F469AC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		30E1C833223DEA2800F469AC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		30E1C837223DFFE000F469AC /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		30E1C83A223E387800F469AC /* SmoothTransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionViewController.swift; sourceTree = "<group>"; };
 		30E1C83E223E4D6E00F469AC /* TransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionController.swift; sourceTree = "<group>"; };
 		30E1C840223E8A0F00F469AC /* SmoothTransitionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SmoothTransitionViewController.storyboard; sourceTree = "<group>"; };
 		30E1C842223E8EC500F469AC /* SmoothTransitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionViewModel.swift; sourceTree = "<group>"; };
 		30E1C844223E908C00F469AC /* SmoothTrasitionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTrasitionCollectionViewCell.swift; sourceTree = "<group>"; };
-		30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SmoothTransitionDetailViewController.swift; path = 01_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.swift; sourceTree = SOURCE_ROOT; };
-		30E1C84A223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SmoothTransitionDetailViewController.xib; path = 01_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.xib; sourceTree = SOURCE_ROOT; };
+		30E1C849223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SmoothTransitionDetailViewController.swift; path = 02_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		30E1C84A223ED0AE00F469AC /* SmoothTransitionDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SmoothTransitionDetailViewController.xib; path = 02_PhotoTransition/Scene/SmoothTransitionDetail/SmoothTransitionDetailViewController.xib; sourceTree = SOURCE_ROOT; };
 		30E1C84E223ED20000F469AC /* SmoothTransitionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothTransitionDetailViewModel.swift; sourceTree = "<group>"; };
 		30EB186222430595006AD70F /* GestureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,21 +56,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		30E1C820223DE85900F469AC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		30E1C806223DE85200F469AC = {
 			isa = PBXGroup;
 			children = (
-				30E1C811223DE85200F469AC /* 01_PhotoTransition */,
-				30E1C826223DE85900F469AC /* 01_PhotoTransitionTests */,
+				30E1C811223DE85200F469AC /* 02_PhotoTransition */,
 				30E1C810223DE85200F469AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,13 +70,12 @@
 		30E1C810223DE85200F469AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30E1C80F223DE85200F469AC /* 01_PhotoTransition.app */,
-				30E1C823223DE85900F469AC /* 01_PhotoTransitionTests.xctest */,
+				30E1C80F223DE85200F469AC /* 02_PhotoTransition.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		30E1C811223DE85200F469AC /* 01_PhotoTransition */ = {
+		30E1C811223DE85200F469AC /* 02_PhotoTransition */ = {
 			isa = PBXGroup;
 			children = (
 				30E1C835223DFCE100F469AC /* Transition */,
@@ -108,16 +85,7 @@
 				30E1C81B223DE85900F469AC /* LaunchScreen.storyboard */,
 				30E1C81E223DE85900F469AC /* Info.plist */,
 			);
-			path = 01_PhotoTransition;
-			sourceTree = "<group>";
-		};
-		30E1C826223DE85900F469AC /* 01_PhotoTransitionTests */ = {
-			isa = PBXGroup;
-			children = (
-				30E1C827223DE85900F469AC /* _1_PhotoTransitionTests.swift */,
-				30E1C829223DE85900F469AC /* Info.plist */,
-			);
-			path = 01_PhotoTransitionTests;
+			path = 02_PhotoTransition;
 			sourceTree = "<group>";
 		};
 		30E1C832223DE9F500F469AC /* Home */ = {
@@ -183,9 +151,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		30E1C80E223DE85200F469AC /* 01_PhotoTransition */ = {
+		30E1C80E223DE85200F469AC /* 02_PhotoTransition */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30E1C82C223DE85900F469AC /* Build configuration list for PBXNativeTarget "01_PhotoTransition" */;
+			buildConfigurationList = 30E1C82C223DE85900F469AC /* Build configuration list for PBXNativeTarget "02_PhotoTransition" */;
 			buildPhases = (
 				30E1C80B223DE85200F469AC /* Sources */,
 				30E1C80C223DE85200F469AC /* Frameworks */,
@@ -195,28 +163,10 @@
 			);
 			dependencies = (
 			);
-			name = 01_PhotoTransition;
-			productName = 01_PhotoTransition;
-			productReference = 30E1C80F223DE85200F469AC /* 01_PhotoTransition.app */;
+			name = 02_PhotoTransition;
+			productName = 02_PhotoTransition;
+			productReference = 30E1C80F223DE85200F469AC /* 02_PhotoTransition.app */;
 			productType = "com.apple.product-type.application";
-		};
-		30E1C822223DE85900F469AC /* 01_PhotoTransitionTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 30E1C82F223DE85900F469AC /* Build configuration list for PBXNativeTarget "01_PhotoTransitionTests" */;
-			buildPhases = (
-				30E1C81F223DE85900F469AC /* Sources */,
-				30E1C820223DE85900F469AC /* Frameworks */,
-				30E1C821223DE85900F469AC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				30E1C825223DE85900F469AC /* PBXTargetDependency */,
-			);
-			name = 01_PhotoTransitionTests;
-			productName = 01_PhotoTransitionTests;
-			productReference = 30E1C823223DE85900F469AC /* 01_PhotoTransitionTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -231,13 +181,9 @@
 					30E1C80E223DE85200F469AC = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					30E1C822223DE85900F469AC = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 30E1C80E223DE85200F469AC;
-					};
 				};
 			};
-			buildConfigurationList = 30E1C80A223DE85200F469AC /* Build configuration list for PBXProject "01_PhotoTransition" */;
+			buildConfigurationList = 30E1C80A223DE85200F469AC /* Build configuration list for PBXProject "02_PhotoTransition" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -250,8 +196,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				30E1C80E223DE85200F469AC /* 01_PhotoTransition */,
-				30E1C822223DE85900F469AC /* 01_PhotoTransitionTests */,
+				30E1C80E223DE85200F469AC /* 02_PhotoTransition */,
 			);
 		};
 /* End PBXProject section */
@@ -269,13 +214,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		30E1C821223DE85900F469AC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -287,10 +225,10 @@
 				30E1C845223E908C00F469AC /* SmoothTrasitionCollectionViewCell.swift in Sources */,
 				30E1C83F223E4D6E00F469AC /* TransitionController.swift in Sources */,
 				30E1C815223DE85200F469AC /* HomeViewController.swift in Sources */,
+				305224E5225E4C330098BE28 /* SmoothTransitionDetailViewController.swift in Sources */,
 				30E1C838223DFFE000F469AC /* TransitionAnimator.swift in Sources */,
-				30E1C84B223ED0AE00F469AC /* SmoothTransitionDetailViewController.swift in Sources */,
-				30E1C834223DEA2800F469AC /* HomeViewModel.swift in Sources */,
 				3015F85022450DB00015D04F /* TransitionDatasource.swift in Sources */,
+				30457749225E4DDE00BA3E19 /* HomeViewModel.swift in Sources */,
 				30EB186322430595006AD70F /* GestureManager.swift in Sources */,
 				30E1C843223E8EC500F469AC /* SmoothTransitionViewModel.swift in Sources */,
 				30E1C83C223E387800F469AC /* SmoothTransitionViewController.swift in Sources */,
@@ -298,23 +236,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		30E1C81F223DE85900F469AC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				30E1C828223DE85900F469AC /* _1_PhotoTransitionTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		30E1C825223DE85900F469AC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 30E1C80E223DE85200F469AC /* 01_PhotoTransition */;
-			targetProxy = 30E1C824223DE85900F469AC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		30E1C816223DE85200F469AC /* Main.storyboard */ = {
@@ -458,12 +380,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WNEUDLL4LF;
-				INFOPLIST_FILE = 01_PhotoTransition/Info.plist;
+				INFOPLIST_FILE = 02_PhotoTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-1-PhotoTransition";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-PhotoTransition";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -476,64 +398,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WNEUDLL4LF;
-				INFOPLIST_FILE = 01_PhotoTransition/Info.plist;
+				INFOPLIST_FILE = 02_PhotoTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-1-PhotoTransition";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-2-PhotoTransition";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		30E1C830223DE85900F469AC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WNEUDLL4LF;
-				INFOPLIST_FILE = 01_PhotoTransitionTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-1-PhotoTransitionTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/01_PhotoTransition.app/01_PhotoTransition";
-			};
-			name = Debug;
-		};
-		30E1C831223DE85900F469AC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WNEUDLL4LF;
-				INFOPLIST_FILE = 01_PhotoTransitionTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.personal-factory.-1-PhotoTransitionTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/01_PhotoTransition.app/01_PhotoTransition";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		30E1C80A223DE85200F469AC /* Build configuration list for PBXProject "01_PhotoTransition" */ = {
+		30E1C80A223DE85200F469AC /* Build configuration list for PBXProject "02_PhotoTransition" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30E1C82A223DE85900F469AC /* Debug */,
@@ -542,20 +422,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30E1C82C223DE85900F469AC /* Build configuration list for PBXNativeTarget "01_PhotoTransition" */ = {
+		30E1C82C223DE85900F469AC /* Build configuration list for PBXNativeTarget "02_PhotoTransition" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30E1C82D223DE85900F469AC /* Debug */,
 				30E1C82E223DE85900F469AC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		30E1C82F223DE85900F469AC /* Build configuration list for PBXNativeTarget "01_PhotoTransitionTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				30E1C830223DE85900F469AC /* Debug */,
-				30E1C831223DE85900F469AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
