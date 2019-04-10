@@ -41,7 +41,11 @@ final class MapViewController: UIViewController {
 
     //MARK: for animator
     private var modalAnimator = UIViewPropertyAnimator()
-    private var modalAnimatorProgress: CGFloat = 0.0
+    private var modalAnimatorProgress: CGFloat = 0.0 {
+        didSet {
+            print("modal progress \(modalAnimatorProgress)")
+        }
+    }
 
     private var remainigToMiddleDistance: CGFloat = 0.0
     private var isRunningToMiddle = false
@@ -78,8 +82,6 @@ final class MapViewController: UIViewController {
         setupModalLayout()
 
         searchVC.searchBar.delegate = self
-        //searchVC.tableView.panGestureRecognizer.addTarget(self, action: #selector(handle(panGesture:)))
-        //searchVC.searchBar.addGestureRecognizer(panGestureRecognizer)
         searchVC.view.addGestureRecognizer(panGestureRecognizer)
     }
 
@@ -113,10 +115,6 @@ final class MapViewController: UIViewController {
 
     @objc private func handle(panGesture: UIPanGestureRecognizer) {
 
-        if panGesture == searchVC.tableView.panGestureRecognizer {
-            //lockScrollView(scrollView: searchVC.tableView)
-        }
-
         switch panGesture.state {
         case .began:
             beganInteractionAnimator()
@@ -126,11 +124,11 @@ final class MapViewController: UIViewController {
             // どのぐらい動いたのかをつくる
             let translation = panGesture.translation(in: searchVC.view)
             // 今の位置はどこのポジションか？
+            // 下にいくときのみfraction completeが更新される
             switch currentMode {
             case .tip:
                 // animatorのパーセンテージを計算。
                 modalAnimator.fractionComplete = -translation.y / maxDistance + modalAnimatorProgress
-
             case .full:
                 modalAnimator.fractionComplete = translation.y / maxDistance + modalAnimatorProgress
             case .half: fatalError()
@@ -213,11 +211,14 @@ final class MapViewController: UIViewController {
 
     private func generateModalAnimator(duration: TimeInterval) -> UIViewPropertyAnimator {
         let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0) {[weak self] in
+            // アニメーションが始まったら最初に呼ばれるクロージャー
             guard let self = self else { return }
             switch self.currentMode {
             case .tip:
+                // tipの場合最終的にいくであろうfullの制約を入れる
                 self.modalViewBottomConstraint.constant = self.fullPositionConstant
             case .full:
+                // fullの場合も端っこに行く
                 self.modalViewBottomConstraint.constant = self.tipPositionConstant
             case .half: fatalError()
             }
@@ -225,12 +226,13 @@ final class MapViewController: UIViewController {
         }
         animator.addCompletion {[weak self] position in
             guard let self = self else { return }
+            // アニメーションが終わったときに呼ばれる
             switch self.currentMode {
             case .tip:
-                if position == .start {
+                if position == .start {//tipの状態でtipのままにとどまった
                     self.modalViewBottomConstraint.constant = self.tipPositionConstant
                     self.currentMode = .tip
-                } else if position == .end {
+                } else if position == .end {//tipの状態でfullになった
                     self.modalViewBottomConstraint.constant = self.fullPositionConstant
                     self.currentMode = .full
                 }
