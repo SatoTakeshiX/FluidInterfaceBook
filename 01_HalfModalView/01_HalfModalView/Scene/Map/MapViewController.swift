@@ -155,13 +155,14 @@ final class MapViewController: UIViewController {
     private func beganInteractionAnimator() {
 
         if !modalAnimator.isRunning {
-            // animatorが実行中ではない
+            // animatorが実行中ではない(ポーズ状態）
             if currentMode == .half {
                 // halfならtipに変更する
                 currentMode = .tip
-                // 制約を変えて
+                // 制約をリセット
                 modalViewBottomConstraint.constant = tipPositionConstant
                 view.layoutIfNeeded()
+                // 進捗状態もリセット
                 modalAnimatorProgress = halfPositionFractionValue
             } else {
                 modalAnimatorProgress = 0.0
@@ -169,7 +170,6 @@ final class MapViewController: UIViewController {
             // animatorを作る。プロパティを更新
             generateAnimator()
         } else if isRunningToHalf {
-
             // animatorがisRunning中でrunning to halfがtrue ->どういう状態？
             //　fullか、tipだけどhalfに向かっているってことか
             modalAnimator.pauseAnimation()
@@ -225,10 +225,11 @@ final class MapViewController: UIViewController {
                 // tipの場合最終的にいくであろうfullの制約を入れる
                 self.modalViewBottomConstraint.constant = self.fullPositionConstant
             case .full:
-                // fullの場合も端っこに行く
+                // fullの場合も最終的に起こりうるtipのポジションの制約を入れる
                 self.modalViewBottomConstraint.constant = self.tipPositionConstant
             case .half: fatalError()
             }
+            //制約を変更したので必要
             self.view.layoutIfNeeded()
         }
         animator.addCompletion {[weak self] position in
@@ -236,23 +237,32 @@ final class MapViewController: UIViewController {
             // アニメーションが終わったときに呼ばれる
             switch self.currentMode {
             case .tip:
-                if position == .start {//tipの状態でtipのままにとどまった
-                    self.modalViewBottomConstraint.constant = self.tipPositionConstant
+                if position == .start {
+                    //tipの状態で開始し、tipのままにとどまった
+                    self.modalViewBottomConstraint
+                        .constant = self.tipPositionConstant
                     self.currentMode = .tip
-                } else if position == .end {//tipの状態でfullになった
-                    self.modalViewBottomConstraint.constant = self.fullPositionConstant
+                } else if position == .end {
+                    //tipの状態で開始し、fullになった
+                    self.modalViewBottomConstraint
+                        .constant = self.fullPositionConstant
                     self.currentMode = .full
                 }
             case .full:
                 if position == .start {
-                    self.modalViewBottomConstraint.constant = self.fullPositionConstant
+                    //fullの状態で開始し、fullのままとどまった
+                    self.modalViewBottomConstraint
+                        .constant = self.fullPositionConstant
                     self.currentMode = .full
                 } else if position == .end {
-                    self.modalViewBottomConstraint.constant = self.tipPositionConstant
+                    //fullの状態で開始し、tipになった
+                    self.modalViewBottomConstraint
+                        .constant = self.tipPositionConstant
                     self.currentMode = .tip
                 }
             case .half: fatalError()
             }
+            //制約を変更したので必要
             self.view.layoutIfNeeded()
         }
         return animator
@@ -307,7 +317,8 @@ final class MapViewController: UIViewController {
         let remainingFraction = 1 - modalAnimator.fractionComplete
         let remainingDistance = maxDistance * remainingFraction
         let continueAnimatorParams = calculateContinueAnimatorParams(remainingDistance: remainingDistance, velocity: velocity)
-        continueAnimator(parameters: continueAnimatorParams.timingParameters, durationFactor: continueAnimatorParams.durationFactor)
+        modalAnimator.continueAnimation(withTimingParameters: continueAnimatorParams.timingParameters,
+                                        durationFactor: continueAnimatorParams.durationFactor)
     }
 
     private func halfAreaContinueInteractionAnimator(velocity: CGPoint) {
