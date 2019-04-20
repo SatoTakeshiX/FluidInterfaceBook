@@ -1,3 +1,8 @@
+<p align="left">
+    <a href="LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
+    </a>
+</p>
 # FluidInterfaceBook
 
 地図アプリでよく見るハーフモーダルを解説した「[ハーフモーダルで理解するFluid Interface](https://personal-factory.booth.pm/items/1316137)」のサンプルコードです。
@@ -79,3 +84,7 @@ Apple純正の地図アプリのマップやGoogleのGoogle Mapsでよく見か�
 * A.4 UINavigationControllerDelegate の代入
 * A.5 UIIntaractiveTransition
 * A.6 まとめ
+
+# ライセンス
+このサンプルコードはMITライセンスもと公開いたします。詳しくはLICENSEファイルをご確認ください。
+
