@@ -8,7 +8,6 @@
 
 import UIKit
 
-// こいつの責務ってなんだろう。デリゲートまで担う？それとも？？pangestureを担うだけ？
 // controllerからコメントアウトで機能が停止する感じが良い
 // pangestureを扱うもので良さそう。
 // deleateをtransitioncONTROLLERに任せよう。ここはpangesutyreを呼ぶだけ
@@ -74,7 +73,7 @@ final class GestureManager: NSObject {
             let velocity = panGesture.velocity(in: data.fromViewController.view)
             // velocityCheck?
             var velocityCheck : Bool = false
-            //建かよこか
+            //縦かよこか
             if UIDevice.current.orientation.isLandscape {// よこなら
                 //
                 velocityCheck = velocity.x < 0 || newCenter.x < anchorPoint.x

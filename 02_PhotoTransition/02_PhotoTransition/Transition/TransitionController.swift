@@ -24,32 +24,6 @@ final class TransitionController: NSObject {
     }
 }
 
-extension TransitionController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.fromDelegate = fromDelegate
-        animator.toDelegate = toDelegate
-        return animator
-    }
-
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let tmp = fromDelegate
-        animator.fromDelegate = toDelegate
-        animator.toDelegate = tmp
-        return animator
-    }
-
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-
-        guard let animator = animator as? TransitionAnimator else { return nil }
-        if !gestureManager.allowInteraction {
-            return nil
-        }
-
-        self.animator = animator
-        return gestureManager
-    }
-}
-
 extension TransitionController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
@@ -63,11 +37,13 @@ extension TransitionController: UINavigationControllerDelegate {
             let tmp = fromDelegate
             animator.fromDelegate = toDelegate
             animator.toDelegate = tmp
+        @unknown default: ()
         }
         return self.animator
     }
 
-    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func navigationController(_ navigationController: UINavigationController,
+        interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 
         if gestureManager.allowInteraction {
             if let animation = animationController as? TransitionAnimator {

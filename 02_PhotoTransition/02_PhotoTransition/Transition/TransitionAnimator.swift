@@ -42,7 +42,6 @@ final class TransitionAnimator: NSObject {
         let containerView = transitionContext.containerView
 
         guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
-            //let fromVC = transitionContext.viewController(forKey: .from),
             let fromImageView = fromDelegate?.imageViewOfTransitioning(),
             let toImageView = toDelegate?.imageViewOfTransitioning(),
             let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning()
@@ -64,7 +63,6 @@ final class TransitionAnimator: NSObject {
 
         // TODO: !を使ったので後でアンラップする
         let finishImageRect = makeZoomInFrame(image: fromImageView.image!, forView: toVC.scrollView)
-
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -110,7 +108,7 @@ final class TransitionAnimator: NSObject {
         containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
         fromImageView.isHidden = true
 
-        let finalTransitionSize = makeDissmissToImageRect(to: toVC, from: fromVC, toImageFrame: toImageViewFrame)// toImageViewFrame // 酒井さんアドバイス。遷移するときにframeを保持して次のVCにわたす。戻るときにそのフレームを使う。
+        let finalTransitionSize = makeDissmissToImageRect(to: toVC, from: fromVC, toImageFrame: toImageViewFrame)// toImageViewFrame
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -119,7 +117,6 @@ final class TransitionAnimator: NSObject {
                         guard let self = self else { return }
                         fromVC.view.alpha = 0
                         self.transitionImageView?.frame = finalTransitionSize
-                        //toVC.tabBarController?.tabBar.alpha = 1
         }, completion: {[weak self] completed in
             guard let self = self else { return }
             self.transitionImageView!.removeFromSuperview()

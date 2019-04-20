@@ -61,6 +61,7 @@ SmoothTransitionDetailViewModelType {
                 .didPanGesture(with: gestureRecognizer,
                                animator: transitionController.animator)
             break
+        @unknown default: ()
         }
     }
 
