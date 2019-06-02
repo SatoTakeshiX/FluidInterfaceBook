@@ -44,10 +44,12 @@ final class TransitionAnimator: NSObject {
         guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
             let fromImageView = fromDelegate?.imageViewOfTransitioning(),
             let toImageView = toDelegate?.imageViewOfTransitioning(),
-            let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning()
+            let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(),
+            let fromVC = transitionContext.viewController(forKey: .from) as? SmoothTransitionViewController
             else {
                 return
         }
+
 
         fromDelegate?.transitionWillStart(in: self)
         toDelegate?.transitionWillStart(in: self)
@@ -56,7 +58,12 @@ final class TransitionAnimator: NSObject {
         toImageView.isHidden = true
         containerView.addSubview(toVC.view)
 
-        transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: fromReferenceImageViewFrame)
+        guard let selectedCell = fromVC.selectedCell else { return }
+
+        let selectedCellRect = selectedCell.convert(selectedCell.bounds, to: fromVC.view)
+        print(selectedCellRect)
+
+        transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: selectedCellRect)
         containerView.addSubview(transitionImageView!)
 
         fromImageView.isHidden = true

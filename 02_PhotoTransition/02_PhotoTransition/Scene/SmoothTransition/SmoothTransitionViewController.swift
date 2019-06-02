@@ -12,6 +12,8 @@ class SmoothTransitionViewController: UIViewController {
 
     private let viewModel = SmoothTransitionViewModel()
     @IBOutlet weak var collectionView: UICollectionView!
+
+    var selectedCell: UICollectionViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +42,18 @@ extension SmoothTransitionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         collectionView.deselectItem(at: indexPath, animated: true)
+        selectedCell = collectionView.cellForItem(at: indexPath)
         viewModel.inputs.didSelectCell(at: indexPath)
     }
 }
 
 extension SmoothTransitionViewController: TransitionAnimatorDelegate {
     func transitionWillStart(in zoomAnimator: TransitionAnimator) {
+
+        guard let selectedCell = selectedCell, let superForCell = selectedCell.superview else { return }
+
+        let selectedCellRect = selectedCell.convert(selectedCell.bounds, to: view)
+        print(selectedCellRect)
 
     }
 
