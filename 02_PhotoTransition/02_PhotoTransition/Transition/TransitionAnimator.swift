@@ -15,6 +15,21 @@ protocol TransitionAnimatorDelegate: AnyObject {
     func imageViewFrameOfTransitioning() -> CGRect?
 }
 
+final class ZoomTransitionForPresent: NSObject, ZoomTransitionAnimatable {
+    func makeTargetRectForNextView() -> CGRect {
+        return CGRect()
+    }
+
+    func convertRreviousRect(from baseView: UIView, target rect: CGRect, to convertView: UIView) -> CGRect {
+        let rect = baseView.convert(rect, to: convertView)
+        return rect
+    }
+
+    func transition() {
+
+    }
+}
+
 final class TransitionAnimator: NSObject {
 
     enum TransitionType {
@@ -44,22 +59,25 @@ final class TransitionAnimator: NSObject {
         guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
             let fromImageView = fromDelegate?.imageViewOfTransitioning(),
             let toImageView = toDelegate?.imageViewOfTransitioning(),
-            let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(),
+            //let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(),
             let fromVC = transitionContext.viewController(forKey: .from) as? SmoothTransitionViewController
             else {
                 return
         }
 
 
+        // delegateでとって来てほしいなrect
         fromDelegate?.transitionWillStart(in: self)
         toDelegate?.transitionWillStart(in: self)
 
+        // viewの設定
         toVC.view.alpha = 0
         toImageView.isHidden = true
         containerView.addSubview(toVC.view)
 
         guard let selectedCell = fromVC.selectedCell else { return }
 
+        // TODO: rectを計算するものを切り出してテストを追加する
         let selectedCellRect = selectedCell.convert(selectedCell.bounds, to: fromVC.view)
 
         transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: selectedCellRect)
