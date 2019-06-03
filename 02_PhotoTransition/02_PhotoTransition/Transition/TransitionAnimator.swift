@@ -61,7 +61,6 @@ final class TransitionAnimator: NSObject {
         guard let selectedCell = fromVC.selectedCell else { return }
 
         let selectedCellRect = selectedCell.convert(selectedCell.bounds, to: fromVC.view)
-        print(selectedCellRect)
 
         transitionImageView = makeImageViewIfNeeded(origin: transitionImageView, image: fromImageView.image, frame: selectedCellRect)
         containerView.addSubview(transitionImageView!)

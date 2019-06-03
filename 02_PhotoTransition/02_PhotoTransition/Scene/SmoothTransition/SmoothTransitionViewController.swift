@@ -49,12 +49,6 @@ extension SmoothTransitionViewController: UICollectionViewDelegate {
 
 extension SmoothTransitionViewController: TransitionAnimatorDelegate {
     func transitionWillStart(in zoomAnimator: TransitionAnimator) {
-
-        guard let selectedCell = selectedCell, let superForCell = selectedCell.superview else { return }
-
-        let selectedCellRect = selectedCell.convert(selectedCell.bounds, to: view)
-        print(selectedCellRect)
-
     }
 
     func transitionDidEnd(in zoomAnimator: TransitionAnimator) {
