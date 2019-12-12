@@ -58,13 +58,11 @@ final class TransitionAnimator: NSObject {
         guard let toVC = transitionContext.viewController(forKey: .to) as? SmoothTransitionDetailViewController,
             let fromImageView = fromDelegate?.imageViewOfTransitioning(),
             let toImageView = toDelegate?.imageViewOfTransitioning(),
-            //let fromReferenceImageViewFrame = self.fromDelegate?.imageViewFrameOfTransitioning(),
             let fromVC = transitionContext.viewController(forKey: .from) as? SmoothTransitionViewController
             else {
                 return
         }
 
-        // delegateでとって来てほしいなrect
         fromDelegate?.transitionWillStart(in: self)
         toDelegate?.transitionWillStart(in: self)
 
@@ -186,11 +184,7 @@ final class TransitionAnimator: NSObject {
     }
 
     private func makeZoomInFrame(image: UIImage, forView view: UIView) -> CGRect {
-        let imageRect = AVMakeRect(aspectRatio: image.size, insideRect: view.bounds)
-
-        let newRect = CGRect(x: imageRect.minX, y: imageRect.minY + 26 , width: imageRect.width, height: imageRect.height)
-
-        return newRect
+        return AVMakeRect(aspectRatio: image.size, insideRect: view.bounds)
     }
 }
 
