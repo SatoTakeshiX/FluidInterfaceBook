@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol TransitionAnimatorDelegate: AnyObject {
     func transitionWillStart(in zoomAnimator: TransitionAnimator)
@@ -25,9 +26,7 @@ final class ZoomTransitionForPresent: NSObject, ZoomTransitionAnimatable {
         return rect
     }
 
-    func transition() {
-
-    }
+    func transition() {}
 }
 
 final class TransitionAnimator: NSObject {
@@ -65,7 +64,6 @@ final class TransitionAnimator: NSObject {
                 return
         }
 
-
         // delegateでとって来てほしいなrect
         fromDelegate?.transitionWillStart(in: self)
         toDelegate?.transitionWillStart(in: self)
@@ -86,7 +84,8 @@ final class TransitionAnimator: NSObject {
         fromImageView.isHidden = true
 
         // TODO: !を使ったので後でアンラップする
-        let finishImageRect = makeZoomInFrame(image: fromImageView.image!, forView: toVC.scrollView)
+        var finishImageRect = makeZoomInFrame(image: fromImageView.image!, forView: toVC.view)
+        finishImageRect = containerView.convert(finishImageRect, to: toVC.navigationController?.view!)
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
                        delay: 0,
@@ -97,7 +96,6 @@ final class TransitionAnimator: NSObject {
                         guard let self = self else { return }
                         self.transitionImageView?.frame = finishImageRect
                         toVC.view.alpha = 1.0
-                        //fromVC.tabBarController?.tabBar.alpha = 0
         }, completion: {[weak self] completed in
             guard let self = self else { return }
             self.finishTransition(transitionContext: transitionContext, to: toImageView, fromImageView: fromImageView)
@@ -188,20 +186,11 @@ final class TransitionAnimator: NSObject {
     }
 
     private func makeZoomInFrame(image: UIImage, forView view: UIView) -> CGRect {
+        let imageRect = AVMakeRect(aspectRatio: image.size, insideRect: view.bounds)
 
-        let viewRatio = view.frame.size.width / view.frame.size.height
-        let imageRatio = image.size.width / image.size.height
-        let touchesSides = (imageRatio > viewRatio)
+        let newRect = CGRect(x: imageRect.minX, y: imageRect.minY + 26 , width: imageRect.width, height: imageRect.height)
 
-        if touchesSides {
-            let height = view.frame.width / imageRatio
-            let yPoint = view.frame.minY + (view.frame.height - height) / 2
-            return CGRect(x: 0, y: yPoint + 22, width: view.frame.width, height: height)
-        } else {
-            let width = view.frame.height * imageRatio
-            let xPoint = view.frame.minX + (view.frame.width - width) / 2
-            return CGRect(x: xPoint, y: 0, width: width, height: view.frame.height)
-        }
+        return newRect
     }
 }
 
