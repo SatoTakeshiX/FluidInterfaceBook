@@ -8,9 +8,6 @@
 
 import UIKit
 
-// controllerからコメントアウトで機能が停止する感じが良い
-// pangestureを扱うもので良さそう。
-// deleateをtransitioncONTROLLERに任せよう。ここはpangesutyreを呼ぶだけ
 final class GestureManager: NSObject {
     var transitionContext: UIViewControllerContextTransitioning?
     var animator: TransitionAnimator?
@@ -60,7 +57,6 @@ final class GestureManager: NSObject {
 
         let newCenter = CGPoint(x: anchorPoint.x + translatedPoint.x, y: anchorPoint.y + translatedPoint.y - data.transitioningImageView.frame.height * (1 - scale) / 2.0)
         data.transitioningImageView.center = newCenter
-
         data.toImageView.isHidden = true
 
         // contectのupdateInteractiveTransitionをしてすると、遷移途中を表せる
@@ -127,8 +123,6 @@ final class GestureManager: NSObject {
             }, completion: {[weak self] completed in
                 guard let self = self else { return }
                 data.transitioningImageView.removeFromSuperview()
-                data.toImageView.isHidden = false
-                data.fromImageView.isHidden = false
                 data.toImageView.isHidden = false
                 data.fromImageView.isHidden = false
 

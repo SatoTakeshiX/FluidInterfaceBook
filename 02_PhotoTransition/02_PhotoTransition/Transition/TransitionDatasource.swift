@@ -33,13 +33,13 @@ struct TransitionDatasource {
         guard let toImageViewFrame = animator.toDelegate?.imageViewFrameOfTransitioning() else {
             return nil
         }
-        self.toImageViewFrame = toImageViewFrame
 
         guard let fromViewController = context.viewController(forKey: .from) else {
             return nil
         }
         self.fromViewController = fromViewController
 
+        self.toImageViewFrame = TransitionDatasource.makeDissmissToImageRect(to: toViewController, from: fromViewController, toImageFrame: toImageViewFrame)
         guard let fromImageView = animator.fromDelegate?.imageViewOfTransitioning() else {
             return nil
         }
@@ -61,4 +61,11 @@ struct TransitionDatasource {
         }
     }
 
+    private static func makeDissmissToImageRect(to toViewController: UIViewController, from fromViewController: UIViewController, toImageFrame: CGRect) -> CGRect {
+        guard let subView = toViewController.view.subviews.first else {
+            return CGRect()
+        }
+        let rect = fromViewController.view.convert(toImageFrame, from: subView)
+        return rect
+    }
 }

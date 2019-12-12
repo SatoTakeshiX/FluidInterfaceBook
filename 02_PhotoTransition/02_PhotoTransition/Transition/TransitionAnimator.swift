@@ -143,19 +143,14 @@ final class TransitionAnimator: NSObject {
             toImageView.isHidden = false
             fromImageView.isHidden = false
             self.finishTransition(transitionContext: transitionContext, to: toImageView, fromImageView: fromImageView)
-            self.toDelegate?.transitionDidEnd(in: self)
-            self.fromDelegate?.transitionDidEnd(in: self)
         })
     }
 
     private func makeDissmissToImageRect(to toViewController: UIViewController, from fromViewController: UIViewController, toImageFrame: CGRect) -> CGRect {
         guard let subView = toViewController.view.subviews.first else {
             return CGRect()
-
         }
-
         let rect = fromViewController.view.convert(toImageFrame, from: subView)
-
         return rect
     }
 

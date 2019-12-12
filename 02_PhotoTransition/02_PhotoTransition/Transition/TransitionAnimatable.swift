@@ -12,8 +12,6 @@ protocol ZoomTransitionAnimatable {
     func transition()
     func convertRreviousRect(from baseView: UIView, target rect: CGRect, to convertView: UIView) -> CGRect
     func makeTargetRectForNextView() -> CGRect
-
-
     var animationDuration: TimeInterval { get }
 }
 
