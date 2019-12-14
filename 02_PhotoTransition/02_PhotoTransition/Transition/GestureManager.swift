@@ -133,6 +133,7 @@ final class GestureManager: NSObject {
                 animator.toDelegate?.transitionDidEnd(in: animator)
                 animator.fromDelegate?.transitionDidEnd(in: animator)
                 self.transitionContext = nil
+                data.transitioningImageView.image = nil
             })
         default:
             break

@@ -156,7 +156,7 @@ final class TransitionAnimator: NSObject {
 
     private func makeImageViewIfNeeded(origin imageView: UIImageView?, image: UIImage?, frame: CGRect) -> UIImageView {
 
-        if let imageView = imageView {
+        if let imageView = imageView, let _ = imageView.image {
             return imageView
         } else {
             let newImageView = UIImageView(image: image)
